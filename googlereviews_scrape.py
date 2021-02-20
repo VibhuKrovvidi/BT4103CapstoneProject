@@ -99,7 +99,9 @@ def scrape(myurl1):
 if __name__ == '__main__':
 	myurl1 = "https://www.google.com/maps/place/Cinnamon+College/@1.3067015,103.7713382,17z/data=!4m7!3m6!1s0x31da1af5169c1e05:0xbf1136a704621ca3!8m2!3d1.3067015!4d103.7735269!9m1!1b1"
 	myurl2 = "https://www.google.com/maps/place/CMPB/@1.280195,103.815126,17z/data=!4m7!3m6!1s0x31da1bd0af54732f:0x9c274decbab4e599!8m2!3d1.280195!4d103.815126!9m1!1b1"
-	scrape(myurl2);
+	mydf = scrape(myurl2);
+
+	mydf.to_csv('googlereviews.csv')
 
 
 
