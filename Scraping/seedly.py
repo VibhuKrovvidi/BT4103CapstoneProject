@@ -58,7 +58,7 @@ def for_each_page(driver,l,d,p,r):
             #print('printing split')
             #print(para)
             if any(ele in para.lower() for ele in test):
-                print(True)
+                #print(True)
                 keep.append(para)
         keep = " ".join(keep)    
         #filter the review
