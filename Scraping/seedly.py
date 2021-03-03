@@ -46,11 +46,22 @@ def for_each_page(driver,l,d,p,r):
     #get list of reviews
     list_of_reviews = driver.find_elements_by_xpath('//div[@class = "sc-1x4gszy-0 ktoiFN"]')
     num_of_reviews = len(list_of_reviews)
+    test = ['customer', 'friendly', 'service','agents','person']
     #print('done getting')
     #loop through list of review
     for re in list_of_reviews:
         #print('loop')
         review = re.find_element_by_xpath(".//div[contains(@class, 'sc-1rz2iis-1 enauUK')]").text
+        review = review.split('\n')
+        keep = []
+        for para in review:
+            #print('printing split')
+            #print(para)
+            if any(ele in para.lower() for ele in test):
+                #print(True)
+                keep.append(para)
+        keep = " ".join(keep)    
+        #filter the review
         #check if review exists
         if review in r:
             #print('oh no')
@@ -67,24 +78,25 @@ def for_each_page(driver,l,d,p,r):
             l.append(level)
             d.append(date)
             p.append(purchased)
-            r.append(review)
+            r.append(keep)
             #print('added')
 
 #load the website
 brands = ['circles-life', 'myrepublic-mobile','giga', 'gomo', 'redone', 'tpg-mobile', 'grid-mobile', 'm1', 'starhub','vivifi']
+#brands = ['vivifi']
 driver = webdriver.Chrome()
 for b in brands:
-    print(b)
+    #print(b)
     driver.get('https://seedly.sg/reviews/sim-only-mobile-plans/' + b)
     time.sleep(2)
 
     #for cust service filter
-    cust_filter = driver.find_element_by_xpath(".//p[@class= 'u2q3h3-14 bAGVyn']")
-    try:
-        cust_filter.click()
-    except ElementClickInterceptedException:
-        driver.execute_script("arguments[0].click();", cust_filter)
-    time.sleep(2)
+    #cust_filter = driver.find_element_by_xpath(".//p[@class= 'u2q3h3-14 bAGVyn']")
+    #try:
+    #    cust_filter.click()
+    #except ElementClickInterceptedException:
+    #    driver.execute_script("arguments[0].click();", cust_filter)
+    #time.sleep(2)
 
     #get total number of pages
     pages = driver.find_elements_by_xpath("//a[@class='page-link']")
@@ -122,5 +134,5 @@ driver.close()
 
 data = pd.DataFrame(list(zip(l,d,p,r)), columns = ['level','date','purchased','review'])
 #print(data)
-data.to_csv('seedly all.csv', index = False)
+data.to_csv('vivifi.csv', index = False)
 
