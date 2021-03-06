@@ -54,13 +54,20 @@ def for_each_page(driver,l,d,p,r):
         review = re.find_element_by_xpath(".//div[contains(@class, 'sc-1rz2iis-1 enauUK')]").text
         review = review.split('\n')
         keep = []
-        for para in review:
+        i = 0
+        while i < len(review):
+        #for para in review:
             #print('printing split')
             #print(para)
-            if any(ele in para.lower() for ele in test):
+            if any(ele in review[i].lower() for ele in test):
                 #print(True)
-                keep.append(para)
-        keep = " ".join(keep)    
+                keep.append(review[i])
+            if review[i-1] == '[Customer Service]' and review[i] not in keep:
+                keep.append(review[i])
+            i += 1
+        keep = " ".join(keep)
+        if keep == "":
+            continue
         #filter the review
         #check if review exists
         if review in r:
@@ -83,7 +90,7 @@ def for_each_page(driver,l,d,p,r):
 
 #load the website
 brands = ['circles-life', 'myrepublic-mobile','giga', 'gomo', 'redone', 'tpg-mobile', 'grid-mobile', 'm1', 'starhub','vivifi']
-#brands = ['vivifi']
+#brands = ['grid-mobile']
 driver = webdriver.Chrome()
 for b in brands:
     #print(b)
@@ -134,5 +141,5 @@ driver.close()
 
 data = pd.DataFrame(list(zip(l,d,p,r)), columns = ['level','date','purchased','review'])
 #print(data)
-data.to_csv('vivifi.csv', index = False)
+data.to_csv('seedly all.csv', index = False)
 
