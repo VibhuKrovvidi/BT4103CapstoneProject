@@ -82,7 +82,7 @@ while flag:
         next_button = driver.find_element_by_class_name("prevnext")
     
 data = pd.DataFrame(list(zip(post_title,post_username,post_message,reply_to)), columns = ['post_title','post_username', 'post', 'reply to'])
-data.to_excel("hwz_loop_output.xlsx")
+data.to_csv("hwz_loop_output.csv")
 driver.close()
 
 
