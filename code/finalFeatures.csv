@@ -1,0 +1,177 @@
+,index,Avg_sent,Descriptors,Freq
+0,staff,0.875,"professional ,unfriendly ,doing ,keep ,unfriendly ,doing ,keep ,rude ,impatient ,rude ,expect ,sikit ,nsf ,ok ,meh ,nice ,friendly ,rude",11
+1,people,0.8849557522123894,"professional ,recommended ,there ,suggest ,here ,threatens ,threatens ,threatens ,kind ,ask ,many ,give ,go ,kept",10
+2,medical,0.9171597633136095,"checkup ,checkupdont ,screening ,conditions ,officer ,specialistletter ,conditions ,officer ,specialistletter ,conditions ,officer ,specialistletter ,check ,check ,check",10
+3,bad,0.8759124087591241,"reviews ,its ,not ,that ,canteenb ,real ,canteenb ,real ,very ,troopers ,very ,attitude ,very ,troopers ,very ,attitude ,service ,service",8
+4,reviews,0.8787878787878788,"other ,suggest ,nsf ,bad ,what ,negative ,negative ,give ,negative",6
+5,place,0.9032258064516129,"clean ,experience ,waste ,check",6
+6,time,0.875,"long ,takes ,long ,takes ,travel ,travel",5
+7,nsf,0.8918918918918919,"reviews ,staff ,cookhouse ,need ,cool",4
+8,overall,0.9117647058823529,"experience ,waste ,experience ,had",4
+9,experience,0.881578947368421,"place ,overall ,fine ,good ,overall ,great ,definitely ,memorable ,good ,had",4
+10,rude,0.8918918918918919,"staff ,extremely ,very ,guards ,staff",4
+11,service,0.84375,"lousy ,dk ,ask ,public ,bad ,bad",4
+12,really,0.8611111111111112,"clean ,care ,have ,care ,have ,bored",4
+13,complete,0.8888888888888888,"rest ,waste ,waste",3
+14,unfriendly,0.9090909090909091,"staff ,tone",3
+15,extremely,0.875,"long ,rude ,poor",3
+16,person,0.9,"last ,care",3
+17,waste,0.8979591836734694,"place ,complete ,overall ,complete ,waiting ,more",3
+18,professional,0.8846153846153846,"very ,people ,staff ,medic",3
+19,negative,0.92,"reviews ,reviews ,reviews",3
+20,good,0.9318181818181818,"experience ,officerattitude ,not ,experience",3
+21,check,0.875,"medical ,up ,medical ,place ,medical ,up",3
+22,guards,0.875,"doing ,ask ,rude",2
+23,hard,0.8461538461538461,"so ,get ,very",2
+24,inaccessible,0.9166666666666666,"highly ,need",2
+25,real,0.8888888888888888,"edgy ,bad",2
+26,long,0.9142857142857143,"extremely ,time ,undesirably ,times",2
+27,even,0.9375,"conditioning ,go",2
+28,public,1.0,service,2
+29,personal,0.9629629629629629,"experienceeveryone ,opinion",2
+30,help,0.8571428571428571,"me ,ask",2
+31,cookhouse,1.0,nsf,2
+32,great,0.9285714285714286,"experience ,trip ,ultimately",2
+33,tone,0.92,"changing ,unfriendly ,use",2
+34,friendly,1.0,staff,2
+35,cmpb,1.0,recommend,2
+36,son,0.85,"sent ,got ,sent ,got",2
+38,patience,1.0,understand,2
+39,others,1.0,saying,2
+40,well,0.9,"fare ,kept",2
+41,ask,0.8852459016393442,"guards ,question ,help ,people ,service ,question ,say ,taiji",2
+42,nice,0.8888888888888888,"rest ,though ,staff ,pretty",2
+43,question,0.875,"ask ,ignore ,ask",2
+44,ok,0.868421052631579,"so ,staff ,typical ,so ,staff ,typical",2
+46,checkup,1.0,medical,2
+47,kind,0.9130434782608695,"patient ,recommended ,respectful ,very ,people",2
+48,hours,0.9,"more ,take",2
+49,day,0.9166666666666666,"other ,worst",2
+50,else,1.0,anywhere,2
+51,rest,0.9285714285714286,"complete ,nice",2
+52,meagre,1.0,pay,1
+53,memorable,1.0,experience,1
+54,sessions,0.9259259259259259,"few ,counselling ,screening",1
+57,adequately,1.0,friendlylike,1
+59,pay,1.0,meagre,1
+60,ultimately,1.0,great,1
+61,use,0.875,"he ,tone",1
+62,many,0.9,"so ,people",1
+63,cool,1.0,nsf,1
+64,gold,1.0,star,1
+65,star,1.0,gold,1
+66,definitely,1.0,experience,1
+67,varies,0.9090909090909091,"perhaps ,it",1
+68,trip,1.0,great,1
+69,dk,1.0,service,1
+70,constantly,1.0,greeted,1
+71,clean,0.9230769230769231,"place ,really",1
+72,bully,1.0,me,1
+73,meh,1.0,staff,1
+74,pretty,1.0,nice,1
+75,lousy,1.0,service,1
+76,also,1.0,say,1
+77,bored,0.95,"really ,conditioning",1
+78,taiji,0.875,"not ,ask",1
+79,anywhere,0.9444444444444444,"friendlylike ,else",1
+80,share,0.9,"i ,opinion",1
+81,quick,1.0,opinion,1
+82,opinion,0.9090909090909091,"quick ,personal ,share",1
+83,perhaps,1.0,varies,1
+84,smooth,0.9375,"very ,respectful",1
+85,cold,1.0,conditioning,1
+86,medic,1.0,professional,1
+87,thing,0.9393939393939394,"everyday ,troublesome ,discussing",1
+91,money,1.0,own,1
+92,need,1.0,inaccessible,1
+93,far,0.875,"so ,away",1
+94,away,1.0,far,1
+95,security,1.0,troopers,1
+96,troopers,0.8947368421052632,"bad ,security ,have",1
+97,attitude,0.8888888888888888,"bad ,have",1
+98,unbelievably,1.0,rude,1
+99,interestingly,1.0,enough,1
+100,enough,0.9545454545454546,"interestingly ,removed",1
+101,sheat,1.0,treated,1
+102,dirty,1.0,pigs,1
+104,troublesome,0.9090909090909091,"most ,thing",1
+105,air,1.0,conditioning,1
+106,everyday,1.0,thing,1
+107,accessible,1.0,not,1
+108,poor,0.9615384615384616,"extremely ,customerservice",1
+110,worst,1.0,day,1
+111,respectful,0.9166666666666666,"kind ,smooth",1
+112,edgy,0.9166666666666666,"real ,ziyuan",1
+113,ziyuan,0.9166666666666666,"edgy ,writer",1
+114,novel,1.0,writer,1
+115,writer,0.8888888888888888,"ziyuan ,you ,novel",1
+116,highly,1.0,inaccessible,1
+117,patient,0.9,"very ,kind",1
+118,get,0.9090909090909091,"hard ,there",1
+119,mrt,1.0,stations,1
+120,stations,0.875,"not ,mrt",1
+121,book,1.0,get,1
+122,fine,1.0,experience,1
+123,choice,1.0,have,1
+124,tip,1.0,just,1
+125,woman,1.0,is,1
+127,talks,1.0,she,1
+128,always,1.0,removes,1
+129,mask,1.0,removes,1
+130,expressions,1.0,show,1
+131,screening,0.9375,"medical ,station",1
+132,station,1.0,screening,1
+133,walk,1.0,just,1
+134,serious,1.0,impatient,1
+135,impatient,0.8947368421052632,"staff ,not ,serious",1
+136,undesirably,1.0,long,1
+137,times,0.9166666666666666,"long ,waiting ,recommend",1
+139,sent,0.8888888888888888,"just ,son",1
+141,keeps,0.8888888888888888,"who ,vac ,changing",1
+142,atrocious,1.0,absolutely,1
+144,absolutely,1.0,atrocious,1
+145,doctors,1.0,line,1
+146,line,1.0,doctors,1
+147,last,1.0,person,1
+149,realise,0.8823529411764706,"only ,that ,youre",1
+150,end,0.9473684210526315,"dontbother ,waiting",1
+152,helpful,0.875,"very ,is",1
+153,initiative,1.0,take,1
+155,scan,0.8333333333333334,"i ,the",1
+157,job,1.0,doing,1
+158,stuff,0.8823529411764706,"more ,do ,suppose",1
+159,suppose,0.8695652173913043,"which ,they ,not ,stuff",1
+161,guard,1.0,give,1
+162,fair,1.0,which,1
+163,tio,1.0,vocationmo,1
+165,hand,1.0,other,1
+166,probably,1.0,this,1
+167,visit,1.0,contrary,1
+168,contrary,1.0,visit,1
+169,sure,1.0,make,1
+170,conditions,0.9166666666666666,"medical ,declare ,severe",1
+171,severe,1.0,conditions,1
+172,officer,1.0,medical,1
+173,fare,0.8888888888888888,"you ,well",1
+175,back,1.0,come,1
+176,late,1.0,go,1
+177,ignore,0.9285714285714286,"they ,question",1
+179,switch,1.0,vocationmo,1
+180,typical,1.0,ok,1
+181,clear,1.0,instructions,1
+182,sikit,0.9166666666666666,"maybe ,staff",1
+183,instructions,0.9090909090909091,"clear ,give",1
+184,alight,1.0,got,1
+185,drive,0.9090909090909091,"we ,further",1
+186,train,1.0,army,1
+187,army,1.0,train,1
+188,inconvenient,0.9333333333333333,"most ,locations",1
+189,locations,0.9444444444444444,"inconvenient ,seen",1
+190,ever,1.0,seen,1
+191,terrible,1.0,directions,1
+192,directions,0.9285714285714286,"terrible ,seen",1
+193,whole,1.0,process,1
+194,process,0.9230769230769231,"whole ,expect",1
+195,take,0.9444444444444444,"hours ,recommended",1
+197,maybe,1.0,sikit,1
+198,pigs,0.9333333333333333,"dirty ,training",1
