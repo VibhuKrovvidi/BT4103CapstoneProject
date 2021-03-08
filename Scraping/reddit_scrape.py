@@ -4,6 +4,7 @@ import requests
 import time
 import math
 import sys
+import string
 
 reddit = praw.Reddit(client_id='kQoyoJ9Ag4JxTQ', client_secret='fPR3EGxAsC4ERoPHW4HNfxaMsle5Nw', user_agent='nsscraper')
 subreddit_name = 'NationalServiceSG'
@@ -42,12 +43,15 @@ def submissions_pushshift_praw(subreddit, start=None, end=None, limit=100, extra
     retrieved_data = requests.get(search_link)
     returned_submissions = retrieved_data.json()['data']
     
+    i = 0
     # Iterate over the returned submissions to convert them to PRAW submission objects.
     for submission in returned_submissions:
         
+        progress(i, len(returned_submissions), status='Collecting posts')
         # Take the ID, fetch the PRAW submission object, and append to our list
         praw_submission = reddit.submission(id=submission['id'])
         matching_praw_submissions.append(praw_submission)
+        i += 1
      
     # Return all PRAW submissions that were obtained.
     return matching_praw_submissions
@@ -62,11 +66,14 @@ def progress(count, total, status=''):
     sys.stdout.flush()  # As suggested by Rom Ruben (see: http://stackoverflow.com/questions/3173320/text-progress-bar-in-the-console/27871113#comment50529068_27871113)
 
 # Get posts beginning from February 1 2021
-extracted_posts = submissions_pushshift_praw(subreddit_name, start=1612108800, limit=1000) # Replaced: sub = reddit.subreddit(subreddit_name).new(limit=100)
+extracted_posts = submissions_pushshift_praw(subreddit_name, start=1612108800, limit=2000) # Replaced: sub = reddit.subreddit(subreddit_name).new(limit=100)
 
 posts = []
 for p in extracted_posts:
-    posts.append([p.title, p.score, p.id, p.subreddit, p.url, p.num_comments, p.selftext, p.link_flair_template_id, p.link_flair_text, p.created])
+    try:
+        posts.append([p.title, p.score, p.id, p.subreddit, p.url, p.num_comments, p.selftext, p.link_flair_template_id, p.link_flair_text, p.created])
+    except AttributeError:
+        posts.append([p.title, p.score, p.id, p.subreddit, p.url, p.num_comments, p.selftext, "None", "None", p.created])
 
 posts = pd.DataFrame(posts, columns=['title', 'score', 'id', 'subreddit', 'url', 'num_comments', 'body', 'flair_id', 'flair', 'created'])
 print("Posts:")
@@ -87,6 +94,22 @@ all_comments = pd.DataFrame(all_comments, columns=['score', 'id', 'subreddit', '
 print("Comments:")
 print(all_comments)
 
-# Write output to csv
+# Preprocess data
+posts.loc[(posts.body == "[removed]"), "body"] = ""
+posts.loc[(posts.body == "[deleted]"), "body"] = ""
+all_comments.loc[(all_comments.body == "[removed]"), "body"] = "" 
+all_comments = all_comments.filter(items = ["body"]).rename(columns = {"body": "content"})
+
 posts.to_csv('C:/Users/TzeMin/Documents/capstone/BT4103CapstoneProject/ScrapedOutput/nationalservicesg_posts.csv', index=False)
 all_comments.to_csv('C:/Users/TzeMin/Documents/capstone/BT4103CapstoneProject/ScrapedOutput/nationalservicesg_comments.csv', index=False)
+
+lastDigit = posts["title"].str.strip().str[-1]
+mask = (~lastDigit.isin(list(string.punctuation)))
+need_fullstop = posts[mask]
+posts.loc[mask, "title"] = need_fullstop["title"] + "."
+posts["content"] = posts["title"] + " " + posts["body"]
+posts = posts.filter(items = ["content"])
+
+# Combine the two datasets into one
+textdata = posts.append(all_comments, ignore_index = True)
+textdata.to_csv('C:/Users/TzeMin/Documents/capstone/BT4103CapstoneProject/ScrapedOutput/nationalservicesg_combineddata.csv', index=False)
