@@ -1,0 +1,58 @@
+,index,Avg_sent,Descriptors,Freq
+0,staff,0.8809523809523809,"professional ,unfriendly ,keep ,rude ,impatient ,rude ,nsf ,ok ,nice ,friendly ,rude",11
+1,people,0.8777777777777778,"professional ,there ,suggest ,here ,threatens ,threatens ,kind ,help ,many ,give ,go ,kept",10
+2,medical,0.9080459770114943,"checkup ,checkup ,screening ,conditions ,officer ,specialistletter ,check ,check ,check",10
+3,bad,0.8787878787878788,"reviews ,not ,that ,canteenb ,real ,canteenb ,real ,very ,troopers ,very ,attitude ,very ,troopers ,very ,attitude ,service ,service",8
+4,place,0.88,"clean ,fine ,waste ,check",7
+5,rude,0.896551724137931,"staff ,extremely ,staff ,guards ,very ,staff ,unbelievably",6
+6,time,0.8888888888888888,"long ,takes ,travel ,travel",5
+7,reviews,0.8909090909090909,"other ,suggest ,nsf ,negative ,negative ,give ,negative",5
+8,service,0.85,"dk ,public ,bad ,bad",5
+9,nsf,0.8846153846153846,"reviews ,staff ,need ,cool",4
+10,overall,0.8928571428571429,"fine ,waste ,experience ,had",4
+11,experience,0.8852459016393442,"good ,overall ,great ,definitely ,memorable ,good ,had ,there",4
+12,really,0.8611111111111112,"clean ,care ,have ,care ,have ,bored",4
+13,complete,0.8888888888888888,"rest ,waste ,waste",3
+14,professional,0.8846153846153846,"very ,people ,staff ,medic",3
+15,person,0.9230769230769231,"last ,realise",3
+16,extremely,0.875,"long ,rude ,poor",3
+17,unfriendly,0.9090909090909091,"staff ,tone",3
+18,ask,0.9047619047619048,"question ,question ,taiji ,question ,taiji",3
+19,negative,0.92,"reviews ,reviews ,reviews",3
+20,check,0.875,"medical ,up ,medical ,place ,medical ,up",3
+21,checkup,0.9375,"medical ,medical",3
+22,waste,0.9,"place ,complete ,overall ,complete ,more",3
+23,good,0.9318181818181818,"experience ,officerattitude ,not ,experience",3
+24,well,0.9,"fare ,kept",2
+25,public,1.0,service,2
+26,hard,0.875,"so ,very",2
+27,inaccessible,0.9166666666666666,"highly ,need",2
+28,long,0.9142857142857143,"extremely ,time ,undesirably ,times",2
+29,real,0.8888888888888888,"edgy ,bad",2
+30,even,0.8888888888888888,"bored ,go",2
+31,question,0.875,"ask ,ignore ,ask",2
+32,personal,0.9629629629629629,"experienceeveryone ,opinion",2
+33,help,0.8571428571428571,"me ,dk ,people",2
+34,guards,0.9090909090909091,"doing ,rude",2
+35,great,0.9285714285714286,"experience ,trip ,ultimately",2
+36,tone,0.92,"changing ,unfriendly ,use",2
+37,nice,0.8888888888888888,"rest ,though ,staff ,pretty",2
+38,cmpb,1.0,recommend,2
+41,inconvenient,0.92,"most ,locations ,location",2
+42,others,1.0,saying,2
+43,friendly,1.0,staff,2
+46,day,0.9166666666666666,"other ,worst",2
+47,kind,0.9166666666666666,"respectful ,very ,people",2
+48,rest,0.9285714285714286,"complete ,nice",2
+49,hours,0.9,"more ,take",2
+50,else,1.0,anywhere,2
+93,need,1.0,inaccessible,1
+96,security,1.0,troopers,1
+98,attitude,0.8888888888888888,"bad ,have",1
+119,get,1.0,there,1
+125,give,0.9473684210526315,"guard ,instructions",1
+129,screening,0.9375,"medical ,station",1
+170,visit,1.0,contrary,1
+174,officer,1.0,medical,1
+191,expect,1.0,process,1
+194,take,1.0,hours,1
