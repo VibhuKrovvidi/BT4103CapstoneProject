@@ -14,8 +14,8 @@ reply_to = []
 driver = webdriver.Chrome()
 #for each page:
 #load the forum
-driver.get('https://forums.hardwarezone.com.sg/national-service-knowledge-base-162/after-40-years-old-still-need-go-back-reservist-5111453.html')
-time.sleep(2)
+driver.get('https://forums.hardwarezone.com.sg/national-service-knowledge-base-162/saf-ippt-ipt-rt-questions-4220677-380.html')
+time.sleep(3)
 
 #title of forum
 forum_title = driver.find_element_by_class_name('header-gray').text
@@ -24,6 +24,12 @@ print('forum title = ' + forum_title)
 next_text = "Next ›"
 flag = True
 next_button = driver.find_element_by_class_name("prevnext")
+buttons = driver.find_elements_by_class_name("prevnext")
+for b in buttons:
+    if b.text == next_text:
+        next_button = b
+
+
 
 while flag:
     #get list of all posts
@@ -65,6 +71,7 @@ while flag:
             post_title.append(forum_title)
 
     if next_button.text == next_text:
+        print('clicking next')
         next_button.click()
     else:
         flag = False
@@ -82,7 +89,7 @@ while flag:
         next_button = driver.find_element_by_class_name("prevnext")
     
 data = pd.DataFrame(list(zip(post_title,post_username,post_message,reply_to)), columns = ['post_title','post_username', 'post', 'reply to'])
-data.to_csv("hwz_loop_output.csv")
+data.to_csv("hwz_Post_title_output.csv")
 driver.close()
 
 
