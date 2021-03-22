@@ -18,6 +18,7 @@ import requests
 import math
 import sys
 import string
+from datetime import datetime
 
 # Imports the Google Cloud client library
 from google.auth import compute_engine
@@ -45,6 +46,7 @@ class DSTA_Scraper:
 		self.client = datastore.Client.from_service_account_json('sa.json')
 
 	def get_google_reviews(self, url, location = "CMPB"):
+
 		driver = webdriver.Chrome()
 		driver.get(url);
 
@@ -80,15 +82,21 @@ class DSTA_Scraper:
 		time.sleep(2)
 		driver.quit()
 		
-		kind = "google_reviews"
+		# datetime object containing current date and time
+		now = datetime.now()
+		dt_string = str(now.strftime("%d/%m/%Y %H:%M:%S"))
 
+		kind = "google_reviews"
+		idx = 1;
 		for c in range(0, len(content)):
 			name = location + "_reviewnumber_" + str(c+1)
 			task_key = self.client.key(kind, name)
 			task = datastore.Entity(key=task_key)
 			task['content'] = content[c]
+			task.update({"id" : str(c+1)})
+			task.update({"date_time" : dt_string})
 			self.client.put(task)
-			break; # To be removed in deployment
+			idx = idx+1;
 
 			print('Saved {}: {}'.format(task.key.name, task['content']))
 		print("Google Review for " + location + " have been scraped and stored");
@@ -184,6 +192,9 @@ class DSTA_Scraper:
 		
 		kind = "hardwarezone_posts"
 		for c in range(0, len(post_message)):
+			# datetime object containing current date and time
+			now = datetime.now()
+			dt_string = str(now.strftime("%d/%m/%Y %H:%M:%S"))
 			if post_message[c] == "":
 				continue;
 			else:
@@ -191,6 +202,7 @@ class DSTA_Scraper:
 				task_key = self.client.key(kind, name)
 				task = datastore.Entity(key=task_key)
 				task['content'] = comments[c]
+				task.update({"date_time" : dt_string})
 				self.client.put(task)
 				print('Saved {}: {}'.format(task.key.name, task['content']))
 				break; # To be removed in deployment
@@ -304,6 +316,8 @@ class DSTA_Scraper:
 		#print(posts)
 		
 		for c in range(0, len(posts)):
+			now = datetime.now()
+			dt_string = str(now.strftime("%d/%m/%Y %H:%M:%S"))
 			if posts[c] == "":
 				continue;
 			else:
@@ -311,12 +325,15 @@ class DSTA_Scraper:
 				task_key = self.client.key(kind, name)
 				task = datastore.Entity(key=task_key)
 				task['content'] = posts[c]
+				task.update({"date_time" : dt_string})
 				self.client.put(task)
 				print('Saved {}: {}'.format(task.key.name, task['content']))
 				break; # To be removed in deployment
 
 		kind = "reddit_comments"
 		for c in range(0, len(comments)):
+			now = datetime.now()
+			dt_string = str(now.strftime("%d/%m/%Y %H:%M:%S"))
 			if comments[c] == "":
 				continue;
 			else:
@@ -324,17 +341,13 @@ class DSTA_Scraper:
 				task_key = self.client.key(kind, name)
 				task = datastore.Entity(key=task_key)
 				task['content'] = comments[c]
+				task.update({"date_time" : dt_string})
 				self.client.put(task)
 				print('Saved {}: {}'.format(task.key.name, task['content']))
 				break; # To be removed in deployment
 		
 			
 		print("Reddit Data for " + subreddit_name + " have been scraped and stored");
-
-
-
-	def get_seedly(self):
-		pass;
 
 #########################################
 
@@ -352,7 +365,7 @@ def main():
 	#scraper.get_google_reviews("https://www.google.com/maps/place/CMPB/@1.280195,103.815126,17z/data=!4m7!3m6!1s0x31da1bd0af54732f:0x9c274decbab4e599!8m2!3d1.280195!4d103.815126!9m1!1b1", "CMPB")
 
 	# Test harewarezone
-	scraper.get_harwarezone();
+	# scraper.get_harwarezone();
 	# Test reddit
 	#scraper.get_reddit();
 	"""
