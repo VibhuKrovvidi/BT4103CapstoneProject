@@ -205,7 +205,7 @@ class DSTA_Scraper:
 				task.update({"date_time" : dt_string})
 				self.client.put(task)
 				print('Saved {}: {}'.format(task.key.name, task['content']))
-				break; # To be removed in deployment
+
 		
 			
 		print("Reddit Data for " + subreddit_name + " have been scraped and stored");
@@ -328,7 +328,7 @@ class DSTA_Scraper:
 				task.update({"date_time" : dt_string})
 				self.client.put(task)
 				print('Saved {}: {}'.format(task.key.name, task['content']))
-				break; # To be removed in deployment
+
 
 		kind = "reddit_comments"
 		for c in range(0, len(comments)):
@@ -344,7 +344,7 @@ class DSTA_Scraper:
 				task.update({"date_time" : dt_string})
 				self.client.put(task)
 				print('Saved {}: {}'.format(task.key.name, task['content']))
-				break; # To be removed in deployment
+
 		
 			
 		print("Reddit Data for " + subreddit_name + " have been scraped and stored");
@@ -381,6 +381,7 @@ def main():
 
 if __name__ == '__main__':
 	main()
+	print("Completed all processes. Will exit code now")
 
 # Initialise remote driver
 
