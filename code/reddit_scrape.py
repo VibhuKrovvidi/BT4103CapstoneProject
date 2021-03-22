@@ -65,8 +65,9 @@ def progress(count, total, status=''):
     sys.stdout.write('[%s] %s%s ...%s\r' % (bar, percents, '%', status))
     sys.stdout.flush()  # As suggested by Rom Ruben (see: http://stackoverflow.com/questions/3173320/text-progress-bar-in-the-console/27871113#comment50529068_27871113)
 
-# Get posts beginning from February 1 2021
-extracted_posts = submissions_pushshift_praw(subreddit_name, start=1612108800, limit=2000) # Replaced: sub = reddit.subreddit(subreddit_name).new(limit=100)
+# Get posts beginning from Mon Jan 01 2018 00:00:00 GMT+0800 (Singapore Standard Time)
+extracted_posts = submissions_pushshift_praw(subreddit_name, start=1514736000, limit=50000) 
+# Replaced: sub = reddit.subreddit(subreddit_name).new(limit=100)
 
 posts = []
 for p in extracted_posts:
