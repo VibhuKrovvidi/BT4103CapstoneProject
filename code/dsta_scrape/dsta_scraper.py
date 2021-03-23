@@ -1,3 +1,4 @@
+# DSTA Scraper
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -111,7 +112,10 @@ class DSTA_Scraper:
 		print("Google Review for " + location + " have been scraped and stored");
 
 
-	def get_harwarezone(self, forum="nsknowledge"):
+	def get_harwarezone(self, 
+		url = 'https://forums.hardwarezone.com.sg/national-service-knowledge-base-162/saf-ippt-ipt-rt-questions-4220677-380.html', 
+		forum="nsknowledge", 
+		limit=30):
 		
 		post_title = []
 		post_username = []
@@ -139,8 +143,10 @@ class DSTA_Scraper:
 				next_button = b
 
 
-
+		idx = 0;
 		while flag:
+			if idx >= limit:
+				break;
 			#get list of all posts
 			print('getting posts')
 			posts = driver.find_elements_by_class_name('alt1')
@@ -281,11 +287,11 @@ class DSTA_Scraper:
 		sys.stdout.flush()  # As suggested by Rom Ruben (see: http://stackoverflow.com/questions/3173320/text-progress-bar-in-the-console/27871113#comment50529068_27871113)
 
 
-	def get_reddit(self, subreddit_name = "NationalServiceSG"):
+	def get_reddit(self, subreddit_name = "NationalServiceSG", start_date=1612108800, limit_amt=2000):
 		reddit = praw.Reddit(client_id='kQoyoJ9Ag4JxTQ', client_secret='fPR3EGxAsC4ERoPHW4HNfxaMsle5Nw', user_agent='nsscraper')
 		
 		# Get posts beginning from February 1 2021
-		extracted_posts = self.submissions_pushshift_praw(subreddit = subreddit_name, start=1612108800, limit=2000, reddit = reddit)
+		extracted_posts = self.submissions_pushshift_praw(subreddit = subreddit_name, start = start_date, limit=limit_amt, reddit = reddit)
 
 		posts = []
 		for p in extracted_posts:
@@ -379,23 +385,19 @@ def main():
 	# scraper.get_harwarezone();
 	# Test reddit
 	#scraper.get_reddit();
-	"""
+	
 	# Initialise list of greview_urls
-	greview_urls = [] # Store a tupple. Eg: ("google.com", "CMPB")
-	hzone_urls = []
-	reddit_urls = []
+	greview_urls = [] # Store a tuple. Eg: ("google.com", "CMPB")
+	hzone_urls = [] # Store tuple (url, forumname, limit)
+	reddit_urls = [] # Store tuple (subredditname, start_date, limit)
 	seedly_urls = []
 
-	for i in greview_urls:
-		get_google_reviews(i[0], i[1]);
-	"""
+	# for i in greview_urls:
+	# 	get_google_reviews(i[0], i[1]);
+	
 
 if __name__ == '__main__':
 	main()
 	print("Completed all processes. Will exit code now")
 
-# Initialise remote driver
-
-
-#driver.get(url)
 
