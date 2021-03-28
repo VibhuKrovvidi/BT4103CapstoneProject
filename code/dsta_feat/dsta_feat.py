@@ -221,13 +221,18 @@ class DSTA_Feature():
 
 	def run_feat_extraction(self):
 		rdr = pd.read_csv('../../output/scraped-ns/cmpb.csv')
+		fdr = pd.read_csv("../../output/corpus.csv")
 
 		a = dict()
 		b = dict()
-		a, b = self.do_extraction(rdr, a, b)
+		a, b = self.do_extraction(fdr, a, b)
 		fin, desc = self.get_sentiment(a, b)
 		print(fin)
 		print(desc)
+
+		fin.to_csv("fin.csv")
+		desc.to_csv("desc.csv")
+
 		print("Code completed")
 
 def main():
