@@ -186,11 +186,14 @@ class DSTA_Feature():
 			print("Calculating Sentiment for: ", f);
 			print(feat_sent[f].split(" ,"))
 			ssum = 0;
+			length = 0;
 			for g in feat_sent[f].split(" ,"):
+				length += 1;
 				if g in singlish.keys():
 					ssum += singlish[g]
 				else:
 					try:
+
 						doc = self.nlp(g);
 
 						for i in doc.sentences:
@@ -201,8 +204,8 @@ class DSTA_Feature():
 								desc_df = desc_df.append(pd.DataFrame(new_row, columns=dcolumns))
 					except:
 						pass;
-
-			sentiment_score[f] = ssum / len(feat_sent[f])
+			sentiment_score[f] = ssum / length;
+			
 
 		adf = pd.DataFrame.from_dict(feat_count, orient='index', columns=['Freq'])
 		adf.sort_values(by="Freq", ascending=False, inplace = True)
@@ -221,17 +224,14 @@ class DSTA_Feature():
 
 	def run_feat_extraction(self):
 		rdr = pd.read_csv('../../output/scraped-ns/cmpb.csv')
-		fdr = pd.read_csv("../../output/corpus.csv")
+		# fdr = pd.read_csv("../../output/corpus.csv")
 
 		a = dict()
 		b = dict()
-		a, b = self.do_extraction(fdr, a, b)
+		a, b = self.do_extraction(rdr, a, b)
 		fin, desc = self.get_sentiment(a, b)
 		print(fin)
 		print(desc)
-
-		fin.to_csv("fin.csv")
-		desc.to_csv("desc.csv")
 
 		print("Code completed")
 

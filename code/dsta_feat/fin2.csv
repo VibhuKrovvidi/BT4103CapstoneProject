@@ -1,0 +1,90 @@
+,Avg_sent,Descriptors,Freq
+staff,1.1111111111111112,"professional ,keep ,keep ,rude ,impatient ,expect ,ok ,nice ,friendly",11
+people,1.0,"recommended ,suggest ,threatens ,threatens ,threatens ,ask ,give ,go ,kept",10
+bad,1.0,"its ,canteenb ,canteenb",8
+reviews,0.5555555555555555,"suggest ,what ,give",6
+place,1.25,"clean ,experience ,waste ,check",6
+time,1.0,"takes ,takes ,travel ,travel",5
+rude,1.0,staff,4
+experience,1.0,"place ,had",4
+nsf,1.5,"need ,cool",4
+professional,1.0,"staff ,medic",3
+person,2.0,care,3
+waste,1.0,"place ,waiting ,more",3
+complete,1.0,rest,3
+good,1.0,officerattitude,3
+check,1.0,place,3
+help,1.5,"me ,ask",2
+cmpb,2.0,recommend,2
+guards,1.0,"doing ,ask",2
+son,1.0,"sent ,got ,sent ,got",2
+great,1.0,trip,2
+friendly,1.0,staff,2
+tone,1.0,"changing ,use",2
+nice,1.0,"rest ,staff",2
+patience,1.0,understand,2
+question,1.0,"ask ,ask",2
+hours,0.3333333333333333,take,2
+ask,1.0,"guards ,question ,help ,people ,question ,taiji",2
+others,1.0,saying,2
+rest,2.0,"complete ,nice",2
+u,1.0,"have ,have",2
+ok,1.0,"staff ,staff",2
+kind,2.0,recommended,2
+specialistletter,1.0,get,1
+fare,1.6,you,1
+conditions,1.0,declare,1
+medic,2.0,professional,1
+ignore,1.0,they,1
+trip,2.0,great,1
+bully,2.0,me,1
+taiji,1.0,ask,1
+money,1.0,own,1
+canteenb,0.0,bad,1
+whats,1.0,discussing,1
+thing,1.0,discussing,1
+writer,1.3,"ziyuan ,you",1
+ziyuan,1.0,writer,1
+cool,1.0,nsf,1
+use,1.0,"he ,tone",1
+officerattitude,2.0,good,1
+inconvenientlocation,1.0,answer,1
+sessions,1.0,screening,1
+vocationmo,0.8333333333333334,tio,1
+varies,1.0,it,1
+opinion,2.0,share,1
+share,1.0,"i ,opinion",1
+probably,1.0,this,1
+sent,1.0,son,1
+tio,1.0,vocationmo,1
+take,1.0,hours,1
+clean,1.0,place,1
+stickerpass,0.3333333333333333,take,1
+mei,1.0,stood,1
+scan,1.0,"i ,the",1
+dontbother,1.0,end,1
+end,1.0,dontbother,1
+realise,1.0,"that ,youre",1
+youre,1.0,realise,1
+fair,1.0,which,1
+choice,1.0,have,1
+helpful,0.5,is,1
+initiative,0.3333333333333333,take,1
+job,1.0,doing,1
+stuff,1.0,do,1
+suppose,1.0,"which ,they",1
+woman,0.5,is,1
+keeps,1.0,who,1
+talks,1.0,she,1
+mask,1.0,removes,1
+expressions,1.0,show,1
+impatient,1.0,staff,1
+times,2.0,recommend,1
+guard,0.0,give,1
+instructions,0.0,give,1
+drive,1.0,we,1
+train,1.0,army,1
+army,1.0,train,1
+directions,1.0,seen,1
+process,1.0,expect,1
+attitude,1.0,have,1
