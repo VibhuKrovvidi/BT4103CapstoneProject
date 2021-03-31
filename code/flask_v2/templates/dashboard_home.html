@@ -2,14 +2,13 @@
 <html>
 <head>
   <meta charset="utf-8" />
-  <title>{{ title }}</title>
   <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js'></script>
 </head>
 
 <div>
-    <h1>{{ title }}</h1>
+    <h1>Sentiment Time series</h1>
 
-    <canvas id="chart" width="600" height="400"></canvas>
+    <canvas id="line chart" width="600" height="400"></canvas>
     <script>
 
         // line chart data
@@ -47,12 +46,12 @@
         Chart.defaults.global.scaleFontSize = 16;
 
         // get line chart canvas
-        var mychart = document.getElementById("chart").getContext("2d");
+        var mylinechart = document.getElementById("line chart").getContext("2d");
 
         steps = 10
         max = {{ max }}
         // draw line chart
-        var LineChartDemo = new Chart(mychart).Line(barData, {
+        var LineChartDemo = new Chart(mylinechart).Line(barData, {
         scaleOverride: true,
         scaleSteps: steps,
         scaleStepWidth: Math.ceil(max / steps),
@@ -69,8 +68,8 @@
 
 
 <div>
-    <h1>{{ title }}</h1>
-    <canvas id="chart" width="600" height="400"></canvas>
+    <h1>Sources</h1>
+    <canvas id="pie chart" width="600" height="400"></canvas>
     <script>
       var pieData = [
         {% for item, label, colors in set %}
@@ -83,19 +82,19 @@
       ];
 
       // get pie chart canvas
-      var mychart = document.getElementById("chart").getContext("2d");
+      var mypiechart = document.getElementById("pie chart").getContext("2d");
       steps = 10
       max = {{ max }}
 
       // draw pie chart
-      new Chart(document.getElementById("chart").getContext("2d")).Pie(pieData);
+      new Chart(document.getElementById("pie chart").getContext("2d")).Pie(pieData);
 
     </script>
 </div>
 
 <div>
-    <h1>{{ title }}</h1>
-    <canvas id="chart" width="600" height="400"></canvas>
+    <h1>Positive</h1>
+    <canvas id="bar chart" width="600" height="400"></canvas>
     <script>
     // bar chart data
     var barData = {
@@ -119,13 +118,61 @@
     }
 
     // get bar chart canvas
-    var mychart = document.getElementById("chart").getContext("2d");
+    var mybarchart = document.getElementById("bar chart").getContext("2d");
 
         steps = 10
         max = {{max}}
 
     // draw bar chart
-    new Chart(mychart).Bar(barData, {
+    new Chart(mybarchart).Bar(barData, {
+        scaleOverride: true,
+        scaleSteps: steps,
+        scaleStepWidth: Math.ceil(max / steps),
+        scaleStartValue: 0,
+        scaleShowVerticalLines: true,
+        scaleShowGridLines : true,
+        barShowStroke : true,
+        scaleShowLabels: true
+        }
+    );
+
+    </script>
+
+</div>
+
+<div>
+    <h1>Negative</h1>
+    <canvas id=" neg bar chart" width="600" height="400"></canvas>
+    <script>
+    // bar chart data
+    var barData = {
+        labels : [
+        {% for item in labels %}
+            "{{ item }}",
+        {% endfor %}
+    ],
+
+        datasets : [{
+        fillColor: "rgba(151,187,205,0.2)",
+        strokeColor: "rgba(151,187,205,1)",
+        pointColor: "rgba(151,187,205,1)",
+        data : [
+            {% for item in values %}
+                "{{ item }}",
+            {% endfor %}
+        ]
+        }
+        ]
+    }
+
+    // get bar chart canvas
+    var mynbarchart = document.getElementById("neg bar chart").getContext("2d");
+
+        steps = 10
+        max = {{max}}
+
+    // draw bar chart
+    new Chart(mynbarchart).Bar(barData, {
         scaleOverride: true,
         scaleSteps: steps,
         scaleStepWidth: Math.ceil(max / steps),

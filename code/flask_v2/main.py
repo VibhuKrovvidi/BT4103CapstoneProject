@@ -63,9 +63,9 @@ colors = [
 
 @app.route('/dashboard')
 def dashboard():
-    line_labels=labels
-    line_values=values
-    return render_template('dashboard_home.html', title='Monthly Price in USD', max=17000, labels=line_labels, values=line_values)
+    graph_labels=labels
+    graph_values=values
+    return render_template('dashboard_home.html', max=17000, labels=graph_labels, values=graph_values, set=zip(values, labels, colors))
 
 
 if __name__ == '__main__':
