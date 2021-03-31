@@ -1,0 +1,24 @@
+{"label": "TRAINING", "pattern": [{"ORTH": "vocational"}, {"ORTH": "training"}]}
+{"label": "TRAINING", "pattern": [{"LOWER": "bmt"}]}
+{"label": "TRAINING", "pattern": [{"LOWER": "ippt"}]}
+{"label": "TRAINING", "pattern": [{"LOWER": "rt"}]}
+{"label": "TRAINING", "pattern": [{"LOWER": "session"}]}
+{"label": "TRAINING", "pattern": [{"LOWER": "ict"}]}
+{"label": "MEDICAL", "pattern": [{"LOWER": "medical"}]}
+{"label": "MEDICAL", "pattern": [{"LOWER": "checkup"}]}
+{"label": "MEDICAL", "pattern": [{"LOWER": "health"}]}
+{"label": "MEDICAL", "pattern": [{"LOWER": "screening"}]}
+{"label": "MEDICAL", "pattern": [{"LOWER": "mo"}]}
+{"label": "MEDICAL", "pattern": [{"LOWER": "hsp"}]}
+{"label": "MEDICAL", "pattern": [{"LOWER": "specialist"}]}
+
+{"label": "LOCATION", "pattern": [{"LOWER": "fcc"}]}
+{"label": "LOCATION", "pattern": [{"LOWER": "cmpb"}]}
+{"label": "LOCATION", "pattern": [{"LOWER": "camp"}]}
+{"label": "LOCATION", "pattern": [{"LOWER": {"IN": ["khatib", "kranji", "nee soon", "mandai hill"]}}, {"LOWER": "camp"}]}
+{"label": "LOCATION", "pattern": [{"POS": "PROPN"}, {"LOWER": "camp"}]}
+
+{"label": "PORTAL", "pattern": [{"LOWER": "booking"}]}
+{"label": "PORTAL", "pattern": [{"LOWER": {"IN": ["portal", "learnet"]}}]}
+{"label": "SERVICE", "pattern": [{"LOWER": "service"}]}
+{"label": "SERVICE", "pattern": [{"LOWER": "assist"}]}
