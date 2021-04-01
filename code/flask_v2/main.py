@@ -67,6 +67,9 @@ def dashboard():
     graph_values=values
     return render_template('dashboard_home.html', max=17000, labels=graph_labels, values=graph_values, set=zip(values, labels, colors))
 
+@app.route('/postbreakdown')
+def post_breakdown():
+    return "Post Breakdown is still being built"
 
 if __name__ == '__main__':
     app.run(debug=False)

@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "base2.html" %}
 
 {% block content %}
 {{ super() }}
@@ -7,10 +7,10 @@
   <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js'></script>
 </head>
 
-<div>
+<div class="ts">
     <h1>Sentiment Time series</h1>
 
-    <canvas id="line_chart" width="600" height="400"></canvas>
+    <canvas id="line_chart" width="400" height="400"></canvas>
     <script>
         // line chart data
         var barData = {
@@ -68,9 +68,9 @@
 </div>
 
 
-<div>
+<div class="piec">
     <h1>Sources</h1>
-    <canvas id="pie_chart" width="600" height="400"></canvas>
+    <canvas id="pie_chart" width="400" height="400"></canvas>
     <script>
       var pieData = [
         {% for item, label, colors in set %}
@@ -93,9 +93,9 @@
     </script>
 </div>
 
-<div>
+<div class="barp">
     <h1>Positive</h1>
-    <canvas id="bar_chart" width="600" height="400"></canvas>
+    <canvas id="bar_chart" width="400" height="400"></canvas>
     <script>
     // bar chart data
     var barData = {
@@ -141,9 +141,9 @@
 
 </div>
 
-<div>
+<div class="barn">
     <h1>Negative</h1>
-    <canvas id="neg_bar_chart" width="600" height="400"></canvas>
+    <canvas id="neg_bar_chart" width="400" height="400"></canvas>
     <script>
     // bar chart data
     var barData = {
@@ -185,6 +185,40 @@
         }
     );
     </script>
+    <style>
+        .ts {
+             height:500px;
+            width:500px;
+outline: solid 1px black;
+            float: left;
+            padding: 80px;
+        }
+
+        .piec {
+            height:500px;
+            width:500px;
+outline: solid 1px black;
+            float: right;
+            padding: 80px;
+        }
+
+        .barp {
+            height:500px;
+            width:500px;
+outline: solid 1px black;
+            float: left;
+            padding: 80px;
+        }
+
+        .barn {
+            height:500px;
+            width:500px;
+outline: solid 1px black;
+            float:right;
+            padding: 80px;
+                }
+
+    </style>
 </div>
 
 {% endblock %}
