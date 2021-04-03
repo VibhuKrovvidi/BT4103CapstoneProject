@@ -35,16 +35,6 @@ class DSTA_Scraper:
 		self.chrome_prefs = {}
 		self.chrome_options.experimental_options["prefs"] = self.chrome_prefs
 		self.chrome_prefs["profile.default_content_settings"] = {"images": 2}
-		#self.driver = webdriver.Chrome(options=chrome_options)
-
-		"""
-		webdriver.Remote(
-			command_executor='http://selenium-hub:4444/wd/hub',
-			desired_capabilities=getattr(DesiredCapabilities, "FIREFOX")
-		)
-		RemoteConnection.set_timeout(36000)
-		"""
-
 
 	def initializeGDS(self):
 		global credentials
@@ -95,6 +85,12 @@ class DSTA_Scraper:
 		# datetime object containing current date and time
 		now = datetime.now()
 		dt_string = str(now.strftime("%d/%m/%Y %H:%M:%S"))
+
+		# Get last updated post
+		query = client.query(kind="google_reviews")
+		query.order = ["-id"]
+		querylist = list(query.fetch())
+		print(querylist[0])
 
 		kind = "google_reviews"
 		idx = 1;
@@ -225,7 +221,7 @@ class DSTA_Scraper:
 
 		
 			
-		print("Reddit Data for " + subreddit_name + " have been scraped and stored");
+		print("Hardwarezone Data for " + forum + " have been scraped and stored");
 
 
 
@@ -399,5 +395,3 @@ def main():
 if __name__ == '__main__':
 	main()
 	print("Completed all processes. Will exit code now")
-
-
