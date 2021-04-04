@@ -20,7 +20,7 @@ import requests
 import math
 import sys
 import string
-from datetime import datetime
+from datetime import datetime, date
 import firebase_admin
 import pyrebase
 import json
@@ -143,6 +143,7 @@ class DSTA_Service_Delivery():
 					});
 				print("Pushed ", pushref)
 				idcount += 1;
+			self.session_data.append(i); # Append to session's scraped data
 
 	def get_harwarezone(self, 
 		url = 'https://forums.hardwarezone.com.sg/national-service-knowledge-base-162/saf-ippt-ipt-rt-questions-4220677-380.html', 
@@ -282,6 +283,7 @@ class DSTA_Service_Delivery():
 					});
 				print("Pushed ", pushref)
 				idcount += 1;
+			self.session_data.append(i)
 		
 			
 		print("Hardwarezone Data for " + forum + " have been scraped and stored");
@@ -427,6 +429,7 @@ class DSTA_Service_Delivery():
 					});
 				print("Pushed ", pushref)
 				idcount += 1;
+			self.session_data.append(i)
 		
 		# Push to Firebase
 		rdc_ref = self.db.collection(u'reddit_comments')
@@ -470,7 +473,8 @@ class DSTA_Service_Delivery():
 					'content' : content
 					});
 				print("Pushed ", pushref)
-				idcount += 1;	
+				idcount += 1;
+			self.session_data.append(i)	
 			
 		print("Reddit Data for " + subreddit_name + " have been scraped and stored");
 
@@ -714,7 +718,9 @@ class DSTA_Service_Delivery():
 		
 		final_sent = avg_sent.merge(adf, left_index=True, right_index=True)
 		final_sent.sort_values(by="Freq", ascending=False, inplace=True)
+		print(final_sent.columns)
 		return final_sent, desc_df;
+
 
 	def run_feat_extraction(self, df, content_str="Content"):
 		# rdr = pd.read_csv('../../output/scraped-ns/cmpb.csv')
@@ -724,10 +730,25 @@ class DSTA_Service_Delivery():
 		b = dict()
 		a, b = self.do_extraction(df, a, b, content_str)
 		fin, desc = self.get_sentiment(a, b)
-		print(fin)
-		print(desc)
+		# print(fin)
+		# print(desc)
 
 		print("Code completed")
+
+		fin.reset_index(inplace=True)
+		# print(fin)
+		# fin.drop("Unnamed: 0", axis= 1, inplace=True)
+		fin.columns = ["Feature", "Avg_sent", "Descriptors", "Freq"]
+		rec_fin = fin.to_dict('records')
+		today = str(date.today())
+		collection_name = "feat_sent" + today
+		feat_ref = self.db.collection(collection_name)
+
+		for i in rec_fin:
+			feat_ref.document(i["Feature"]).set(i)
+			print("Pushed processed data for :", i["Feature"])
+
+
 
 
 
@@ -735,9 +756,6 @@ def main():
 	print("Starting DSTA Web Scraper")
 	scraper = DSTA_Service_Delivery()
 	scraper.initialiseDB()
-	data = scraper.get_all_data()
-	data = pd.DataFrame(data, columns=["Content"])
-	scraper.run_feat_extraction(data)
 
 	# Test greview
 	# scraper.get_google_reviews("https://www.google.com/maps/place/CMPB/@1.280195,103.815126,17z/data=!4m7!3m6!1s0x31da1bd0af54732f:0x9c274decbab4e599!8m2!3d1.280195!4d103.815126!9m1!1b1", "CMPB")
@@ -751,7 +769,14 @@ def main():
 	greview_urls = [] # Store a tuple. Eg: ("google.com", "CMPB")
 	hzone_urls = [] # Store tuple (url, forumname, limit)
 	reddit_urls = [] # Store tuple (subredditname, start_date, limit)
-	seedly_urls = []
+
+
+	# Run processing code:
+
+	data = scraper.get_all_data()
+	data = pd.DataFrame(data, columns=["Content"])
+	scraper.run_feat_extraction(data)	
+
 
 	
 	
