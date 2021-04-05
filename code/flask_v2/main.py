@@ -38,35 +38,42 @@ def login():
         password = form.password.data
         try:
             user = auth.sign_in_with_email_and_password(email, password)
-            return redirect('/dashboard')
+            return redirect('/holding')
         except:
             return "Invalid Credentials. Please try again"
 
     return render_template('login.html', title='Sign In', form=form)
 
-##### READ FROM ANOTHER FILE
-labels = [
-    'JAN', 'FEB', 'MAR', 'APR',
-    'MAY', 'JUN', 'JUL', 'AUG',
-    'SEP', 'OCT', 'NOV', 'DEC'
-]
 
-values = [
-    967.67, 1190.89, 1079.75, 1349.19,
-    2328.91, 2504.28, 2873.83, 4764.87,
-    4349.29, 6458.30, 9907, 16297
-]
 
-colors = [
-    "#F7464A", "#46BFBD", "#FDB45C", "#FEDCBA",
-    "#ABCDEF", "#DDDDDD", "#ABCABC", "#4169E1",
-    "#C71585", "#FF4500", "#FEDCBA", "#46BFBD"]
-
+@app.route('/holding')
+def holding():
+    if isinstance(auth.current_user, dict):
+        return render_template('holding.html', title="Holding")
+    else:
+        return redirect('/')
 
 
 @app.route('/dashboard')
 def dashboard():
     if isinstance(auth.current_user, dict):
+        ##### READ FROM ANOTHER FILE
+        labels = [
+            'JAN', 'FEB', 'MAR', 'APR',
+            'MAY', 'JUN', 'JUL', 'AUG',
+            'SEP', 'OCT', 'NOV', 'DEC'
+        ]
+
+        values = [
+            967.67, 1190.89, 1079.75, 1349.19,
+            2328.91, 2504.28, 2873.83, 4764.87,
+            4349.29, 6458.30, 9907, 16297
+        ]
+
+        colors = [
+            "#F7464A", "#46BFBD", "#FDB45C", "#FEDCBA",
+            "#ABCDEF", "#DDDDDD", "#ABCABC", "#4169E1",
+            "#C71585", "#FF4500", "#FEDCBA", "#46BFBD"]
         graph_labels=labels
         graph_values=values
         return render_template('dashboard_home.html', max=17000, labels=graph_labels, values=graph_values, set=zip(values, labels, colors))
@@ -82,7 +89,12 @@ def post_breakdown():
         return redirect('/')
 
 
-
+@app.route('/runscript')
+def runscript():
+    if isinstance(auth.current_user, dict):
+        return render_template("runscript.html")
+    else:
+        return redirect('/')
 
 
 logger.add("app/static/job.log", format="{time} - {message}")
