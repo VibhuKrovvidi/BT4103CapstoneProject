@@ -10,6 +10,8 @@ import time
 import random
 import datetime
 from loguru import logger
+import testclass
+from testclass import TestClass;
 
 # from flask_login import LoginManager
 
@@ -92,6 +94,8 @@ def post_breakdown():
 @app.route('/runscript')
 def runscript():
     if isinstance(auth.current_user, dict):
+        
+
         return render_template("runscript.html")
     else:
         return redirect('/')
@@ -100,16 +104,28 @@ def runscript():
 logger.add("app/static/job.log", format="{time} - {message}")
 
 def flask_logger():
+    flag=True;
     """creates logging information"""
+    
     with open("app/static/job.log") as log_info:
-        for i in range(25):
-            logger.info(f"iteration #{i}")
+        while flag:
+            logger.info(f"")
             data = log_info.read()
             yield data.encode()
-            time.sleep(1)
+            time.sleep(5)
         # Create empty job.log, old logging will be deleted
         open("app/static/job.log", 'w').close()
 
+def loginfo(details):
+    open("app/static/job.log", 'w').close()
+    if isinstance(details, str):
+        logger.info(details)
+    else:
+        try:
+            logger.info(str(details))
+        except:
+            logger.info("Attempted to log non-string. Was unable to do so.")
+    
 
 @app.route("/log_stream", methods=["GET"])
 def stream():
