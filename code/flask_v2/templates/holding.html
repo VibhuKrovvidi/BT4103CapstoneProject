@@ -1,0 +1,47 @@
+{% extends "base2.html" %}
+{% block content %}
+{{ super() }}
+<head>
+	<title>Select Task</title>
+</head>
+<div class="mainbody">
+	<button class="dash" id="godash">
+		Go to dash
+	</button>
+	<button class="runscr" id="gorun" >
+		Run Script
+	</button>
+
+</div>
+<style>
+.dash {
+	width: 45%;
+	height: 80%;
+	float: left;
+	padding: 16px;
+	background-color: red;
+}
+
+.runscr {
+	width: 45%;
+	height: 80%;
+	float: right;
+	padding: 16px;
+	background-color: blue;
+}
+</style>
+
+<script>
+	document.getElementById("godash").onclick = function () {
+	    location.href = "/dashboard";
+	};
+
+	document.getElementById("gorun").onclick = function () {
+	    location.href = "/runscript";
+	};
+
+
+
+</script>
+
+{% endblock %}

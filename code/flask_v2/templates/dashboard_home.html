@@ -1,17 +1,17 @@
-<!DOCTYPE html>
-<html>
+{% extends "base2.html" %}
+
+{% block content %}
+{{ super() }}
 <head>
   <meta charset="utf-8" />
-  <title>{{ title }}</title>
   <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js'></script>
 </head>
 
-<div>
-    <h1>{{ title }}</h1>
+<div class="ts">
+    <h1>Sentiment Time series</h1>
 
-    <canvas id="chart" width="600" height="400"></canvas>
+    <canvas id="line_chart" width="400" height="400"></canvas>
     <script>
-
         // line chart data
         var barData = {
         labels : [
@@ -47,12 +47,12 @@
         Chart.defaults.global.scaleFontSize = 16;
 
         // get line chart canvas
-        var mychart = document.getElementById("chart").getContext("2d");
+        var mylinechart = document.getElementById("line_chart").getContext("2d");
 
         steps = 10
         max = {{ max }}
         // draw line chart
-        var LineChartDemo = new Chart(mychart).Line(barData, {
+        var LineChartDemo = new Chart(mylinechart).Line(barData, {
         scaleOverride: true,
         scaleSteps: steps,
         scaleStepWidth: Math.ceil(max / steps),
@@ -68,9 +68,9 @@
 </div>
 
 
-<div>
-    <h1>{{ title }}</h1>
-    <canvas id="chart" width="600" height="400"></canvas>
+<div class="piec">
+    <h1>Sources</h1>
+    <canvas id="pie_chart" width="400" height="400"></canvas>
     <script>
       var pieData = [
         {% for item, label, colors in set %}
@@ -83,19 +83,19 @@
       ];
 
       // get pie chart canvas
-      var mychart = document.getElementById("chart").getContext("2d");
+      var mypiechart = document.getElementById("pie_chart").getContext("2d");
       steps = 10
       max = {{ max }}
 
       // draw pie chart
-      new Chart(document.getElementById("chart").getContext("2d")).Pie(pieData);
+      new Chart(document.getElementById("pie_chart").getContext("2d")).Pie(pieData);
 
     </script>
 </div>
 
-<div>
-    <h1>{{ title }}</h1>
-    <canvas id="chart" width="600" height="400"></canvas>
+<div class="barp">
+    <h1>Positive</h1>
+    <canvas id="bar_chart" width="400" height="400"></canvas>
     <script>
     // bar chart data
     var barData = {
@@ -119,13 +119,13 @@
     }
 
     // get bar chart canvas
-    var mychart = document.getElementById("chart").getContext("2d");
+    var mybarchart = document.getElementById("bar_chart").getContext("2d");
 
         steps = 10
         max = {{max}}
 
     // draw bar chart
-    new Chart(mychart).Bar(barData, {
+    new Chart(mybarchart).Bar(barData, {
         scaleOverride: true,
         scaleSteps: steps,
         scaleStepWidth: Math.ceil(max / steps),
@@ -141,7 +141,87 @@
 
 </div>
 
-</html>
+<div class="barn">
+    <h1>Negative</h1>
+    <canvas id="neg_bar_chart" width="400" height="400"></canvas>
+    <script>
+    // bar chart data
+    var barData = {
+        labels : [
+        {% for item in labels %}
+            "{{ item }}",
+        {% endfor %}
+    ],
+
+        datasets : [{
+        fillColor: "rgba(151,187,205,0.2)",
+        strokeColor: "rgba(151,187,205,1)",
+        pointColor: "rgba(151,187,205,1)",
+        data : [
+            {% for item in values %}
+                "{{ item }}",
+            {% endfor %}
+        ]
+        }
+        ]
+    }
+
+    // get bar chart canvas
+    var mynbarchart = document.getElementById("neg_bar_chart").getContext("2d");
+
+        steps = 10
+        max = {{max}}
+
+    // draw bar chart
+    new Chart(mynbarchart).Bar(barData, {
+        scaleOverride: true,
+        scaleSteps: steps,
+        scaleStepWidth: Math.ceil(max / steps),
+        scaleStartValue: 0,
+        scaleShowVerticalLines: true,
+        scaleShowGridLines : true,
+        barShowStroke : true,
+        scaleShowLabels: true
+        }
+    );
+    </script>
+    <style>
+        .ts {
+             height:500px;
+            width:500px;
+outline: solid 1px black;
+            float: left;
+            padding: 80px;
+        }
+
+        .piec {
+            height:500px;
+            width:500px;
+outline: solid 1px black;
+            float: right;
+            padding: 80px;
+        }
+
+        .barp {
+            height:500px;
+            width:500px;
+outline: solid 1px black;
+            float: left;
+            padding: 80px;
+        }
+
+        .barn {
+            height:500px;
+            width:500px;
+outline: solid 1px black;
+            float:right;
+            padding: 80px;
+                }
+
+    </style>
+</div>
+
+{% endblock %}
 
 
 
