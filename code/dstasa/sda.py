@@ -163,20 +163,13 @@ class DSTA_Service_Delivery():
 		#for each page:
 		#load the forum
 		driver.get(url)
-		time.sleep(3)
+		time.sleep(10)
 
 		#title of forum
-		forum_title = driver.find_element_by_class_name('header-gray').text
+		forum_title = driver.find_element_by_class_name('p-title-value').text
 		print('forum title = ' + forum_title)
 
-		next_text = "Next ›"
 		flag = True
-		next_button = driver.find_element_by_class_name("prevnext")
-		buttons = driver.find_elements_by_class_name("prevnext")
-		for b in buttons:
-			if b.text == next_text:
-				next_button = b
-
 
 		idx = 0;
 		while flag:
@@ -184,15 +177,11 @@ class DSTA_Service_Delivery():
 				break;
 			#get list of all posts
 			print('getting posts')
-			posts = driver.find_elements_by_class_name('alt1')
-
-			#drop last 2, then drop every alternate
-			posts.pop()
-			posts.pop()
-			del posts[1::2]
+			posts = driver.find_elements_by_class_name('message-body.js-selectToQuote')
 			print('done getting posts')
-
-			names = driver.find_elements_by_class_name('bigusername')
+                        #first username is not the first post username
+			names = driver.find_elements_by_class_name('username')
+			names.pop(0)
 			for n in names:
 				post_username.append(n.text)
 
@@ -200,10 +189,10 @@ class DSTA_Service_Delivery():
 			#for every post, check if there is quote.
 			for p in posts:
 				#get the full message, including prev if present
-				full = p.find_element_by_class_name('post_message').text
+				full = p.find_element_by_class_name('bbWrapper').text
 				#check if there is reply
 				try:
-					reply = p.find_element_by_class_name('quote').text
+					reply = p.find_element_by_class_name('bbCodeBlock.bbCodeBlock--expandable.bbCodeBlock--quote.js-expandWatch').text
 					reply = reply.split('\n')
 					full = full.split('\n')[1:]
 					#wtv that is in the full message, but not in the quote is the reply for that user
@@ -219,24 +208,12 @@ class DSTA_Service_Delivery():
 					post_message.append(full)
 					reply_to.append('NIL') #no replies
 					post_title.append(forum_title)
-
-			if next_button.text == next_text:
-				print('clicking next')
-				next_button.click()
-			else:
-				flag = False
-
-			buttons_list = []
-			buttons = driver.find_elements_by_class_name("prevnext")
-			for b in buttons:
-				buttons_list.append(b.text)
-
-			for b in buttons:
-				if b.text == next_text:
-					next_button = b
-					
-			if next_text not in buttons_list:
-				next_button = driver.find_element_by_class_name("prevnext")
+			try:
+                                next_button = driver.find_element_by_class_name("pageNav-jump.pageNav-jump--next")
+                                next_button.click()
+                        except NoSuchElementException:
+                                flag = False
+                                print("No more next button")
 			
 		# data = pd.DataFrame(list(zip(post_title,post_username,post_message,reply_to)), columns = ['post_title','post_username', 'post', 'reply to'])
 		# data.to_csv("hwz_Post_title_output.csv")
