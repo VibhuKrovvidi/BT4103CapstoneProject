@@ -58,29 +58,31 @@ def holding():
 
 @app.route('/dashboard')
 def dashboard():
-    if isinstance(auth.current_user, dict):
+    # if isinstance(auth.current_user, dict):
         ##### READ FROM ANOTHER FILE
-        labels = [
-            'JAN', 'FEB', 'MAR', 'APR',
-            'MAY', 'JUN', 'JUL', 'AUG',
-            'SEP', 'OCT', 'NOV', 'DEC'
-        ]
+    labels = [
+        'JAN', 'FEB', 'MAR', 'APR',
+        'MAY', 'JUN', 'JUL', 'AUG',
+        'SEP', 'OCT', 'NOV', 'DEC'
+    ]
 
-        values = [
-            967.67, 1190.89, 1079.75, 1349.19,
-            2328.91, 2504.28, 2873.83, 4764.87,
-            4349.29, 6458.30, 9907, 16297
-        ]
+    values = [
+        967.67, 1190.89, 1079.75, 1349.19,
+        2328.91, 2504.28, 2873.83, 4764.87,
+        4349.29, 6458.30, 9907, 16297
+    ]
 
-        colors = [
-            "#F7464A", "#46BFBD", "#FDB45C", "#FEDCBA",
-            "#ABCDEF", "#DDDDDD", "#ABCABC", "#4169E1",
-            "#C71585", "#FF4500", "#FEDCBA", "#46BFBD"]
-        graph_labels=labels
-        graph_values=values
-        return render_template('dashboard_home.html', max=17000, labels=graph_labels, values=graph_values, set=zip(values, labels, colors))
-    else:
-        return redirect('/')
+    colors = [
+        "#F7464A", "#46BFBD", "#FDB45C", "#FEDCBA",
+        "#ABCDEF", "#DDDDDD", "#ABCABC", "#4169E1",
+        "#C71585", "#FF4500", "#FEDCBA", "#46BFBD"]
+    graph_labels=labels
+    graph_values=values
+    graph_cats = ["Cat A", "Cat B", "Cat C", "Cat D", "Cat E"]
+
+    return render_template('dashboard_home2.html', max=17000, labels=graph_labels, values=graph_values, category=graph_cats, set=zip(values, labels, colors))
+    # else:
+        # return redirect('/')
 
     
 @app.route('/postbreakdown')

@@ -128,7 +128,8 @@ class DSTA_Service_Delivery():
 					pushref = gr_ref.add({
 						'id' : pushid,
 						'timestamp' : dt_string,
-						'content' : content
+						'content' : content,
+						'location' : location
 						});
 					print("Pushed ", pushref)
 					idcount += 1;
@@ -139,11 +140,12 @@ class DSTA_Service_Delivery():
 				pushref = gr_ref.add({
 					'id' : pushid,
 					'timestamp' : dt_string,
-					'content' : content
+					'content' : content,
+					'location' : location
 					});
 				print("Pushed ", pushref)
 				idcount += 1;
-			self.session_data.append(i); # Append to session's scraped data
+
 
 	def get_harwarezone(self, 
 		url = 'https://forums.hardwarezone.com.sg/national-service-knowledge-base-162/saf-ippt-ipt-rt-questions-4220677-380.html', 
@@ -164,8 +166,8 @@ class DSTA_Service_Delivery():
 		time.sleep(3)
 
 		#title of forum
-		# forum_title = driver.find_element_by_class_name('header-gray').text
-		# print('forum title = ' + forum_title)
+		forum_title = driver.find_element_by_class_name('header-gray').text
+		print('forum title = ' + forum_title)
 
 		next_text = "Next ›"
 		flag = True
@@ -721,37 +723,6 @@ class DSTA_Service_Delivery():
 		print(final_sent.columns)
 		return final_sent, desc_df;
 
-	def get_tfidf_features(self, df, content_str = "Content", min_ = 2, max_ = 0.5, ngramrange = (1,2)):
-	 
-		# Replace "" with nan's for removal
-		df[content_str].replace('', np.nan, inplace=True)
-		df.dropna(subset=[content_str], inplace=True)
-		stop_words = set(stopwords.words('english'))
-		df[content_str] = df[content_str].apply(lambda x: ''.join([word for word in x.split() if word not in (stop_words)]))
-		
-		review_list = df[content_str].to_list()
-		
-		tfidf = TfidfVectorizer(min_df = min_, max_df = max_, ngram_range = ngramrange);
-		features = tfidf.fit_transform(review_list);
-		q = pd.DataFrame(features.todense(), columns=tfidf.get_feature_names())
-		
-		return list(q.columns)
-
-	def refine_features(self, originaldf, sentimentdf, content_str = "Content", min_ = 2, max_ = 0.5, ngramrange = (1,2)):
-		tfidf_output = self.get_tfidf_features(originaldf)
-		sentimentdf = sentimentdf.reset_index()
-		ft_extract = set(sentimentdf['index']);
-		tfidf_extract = set(tfidf_output)
-		
-		intersecting_features = ft_extract.intersection(tfidf_extract)
-		
-		return_df = sentimentdf
-		return_df = return_df.loc[return_df['index'].isin(list(intersecting_features))]
-		print("Number of extracted features:")
-		print("Initial = ", len(ft_extract), " TFIDF = ", len(intersecting_features), " Final after intersection = ", return_df.shape[0])
-		return return_df
-
-
 	def run_feat_extraction(self, df, content_str="Content"):
 		# rdr = pd.read_csv('../../output/scraped-ns/cmpb.csv')
 		# fdr = pd.read_csv("../../output/corpus.csv")
@@ -761,12 +732,8 @@ class DSTA_Service_Delivery():
 		a, b = self.do_extraction(df, a, b, content_str)
 		fin, desc = self.get_sentiment(a, b)
 
-		ref_feat = self.refine_features(df, fin)
-		print(ref_feat)
-
-
-		fin.to_csv("fin.csv")
-		desc.to_csv("desc.csv")
+		# fin.to_csv("fin.csv")
+		# desc.to_csv("desc.csv")
 		print("Code completed")
 
 		fin.reset_index(inplace=True)

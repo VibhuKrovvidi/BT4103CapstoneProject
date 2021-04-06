@@ -1,0 +1,83 @@
+{% extends "base2.html" %}
+
+{% block content %}
+{{ super() }}
+
+<head>
+  <meta charset="utf-8" />
+
+<!-- Import all desired scripts -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.js'></script>
+
+  Dashboard
+</head>
+
+
+
+<!-- First Chart -->
+
+<h1> Sentiment Score over Time </h1>
+
+<canvas id="myChart"></canvas>
+<select id="chartType">
+    <option value="line1">{{category[0]}}</option>
+    <option value="line2">{{category[1]}}</option>
+</select>
+
+<script>
+var ctx = document.getElementById("myChart").getContext("2d");
+ ctx.canvas.width = 400;
+ ctx.canvas.height = 400;
+
+ var dataMap = {
+     'line1': {
+         method: 'Line',
+         data: {
+             labels: {{ labels | tojson}},
+             datasets: [{
+                 label: "My First dataset",
+                 fillColor: "rgba(220,220,220,0.5)",
+                 strokeColor: "rgba(220,220,220,0.8)",
+                 highlightFill: "rgba(220,220,220,0.75)",
+                 highlightStroke: "rgba(220,220,220,1)",
+                 data: {{ values | tojson}}
+             }],
+         }
+     },
+     'line2': {
+         method: 'Line',
+         data: {
+             labels: {{ labels | tojson}},
+             datasets: [{
+                 label: "My First dataset",
+                 fillColor: "rgba(220,220,220,0.5)",
+                 strokeColor: "rgba(220,220,220,0.8)",
+                 highlightFill: "rgba(220,220,220,0.75)",
+                 highlightStroke: "rgba(220,220,220,1)",
+                 data: {{ values | tojson}}
+             }],
+         }
+     }
+
+ };
+
+var currentChart;
+
+ function updateChart() {
+     if(currentChart){currentChart.destroy();}
+   
+     var determineChart = $("#chartType").val();
+
+     var params = dataMap[determineChart]
+     currentChart = new Chart(ctx)[params.method](params.data, {});
+ }
+
+ $('#chartType').on('change', updateChart)
+ updateChart();
+</script>
+
+
+
+
+{% endblock %}
