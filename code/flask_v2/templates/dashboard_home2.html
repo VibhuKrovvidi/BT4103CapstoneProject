@@ -9,20 +9,18 @@
 <!-- Import all desired scripts -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 	<script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.js'></script>
-
-  Dashboard
 </head>
 
 
 
 <!-- First Chart -->
-
+<div class="ts">
 <h1> Sentiment Score over Time </h1>
 
 <canvas id="myChart"></canvas>
 <select id="chartType">
-    <option value="line1">{{category[0]}}</option>
-    <option value="line2">{{category[1]}}</option>
+	<option value="line1">{{category[0]}}</option>
+	<option value="line2">{{category[1]}}</option>
 </select>
 
 <script>
@@ -31,53 +29,247 @@ var ctx = document.getElementById("myChart").getContext("2d");
  ctx.canvas.height = 400;
 
  var dataMap = {
-     'line1': {
-         method: 'Line',
-         data: {
-             labels: {{ labels | tojson}},
-             datasets: [{
-                 label: "My First dataset",
-                 fillColor: "rgba(220,220,220,0.5)",
-                 strokeColor: "rgba(220,220,220,0.8)",
-                 highlightFill: "rgba(220,220,220,0.75)",
-                 highlightStroke: "rgba(220,220,220,1)",
-                 data: {{ values | tojson}}
-             }],
-         }
-     },
-     'line2': {
-         method: 'Line',
-         data: {
-             labels: {{ labels | tojson}},
-             datasets: [{
-                 label: "My First dataset",
-                 fillColor: "rgba(220,220,220,0.5)",
-                 strokeColor: "rgba(220,220,220,0.8)",
-                 highlightFill: "rgba(220,220,220,0.75)",
-                 highlightStroke: "rgba(220,220,220,1)",
-                 data: {{ values | tojson}}
-             }],
-         }
-     }
+	 'line1': {
+		 method: 'Line',
+		 data: {
+			 labels: {{ labels | tojson}},
+			 datasets: [{
+				 label: "My First dataset",
+				 fillColor: "rgba(220,220,220,0.5)",
+				 strokeColor: "rgba(220,220,220,0.8)",
+				 highlightFill: "rgba(220,220,220,0.75)",
+				 highlightStroke: "rgba(220,220,220,1)",
+				 data: {{ values | tojson}}
+			 }],
+		 }
+	 },
+	 'line2': {
+		 method: 'Line',
+		 data: {
+			 labels: {{ labels | tojson}},
+			 datasets: [{
+				 label: "My First dataset",
+				 fillColor: "rgba(220,220,220,0.5)",
+				 strokeColor: "rgba(220,220,220,0.8)",
+				 highlightFill: "rgba(220,220,220,0.75)",
+				 highlightStroke: "rgba(220,220,220,1)",
+				 data: {{ values | tojson}}
+			 }],
+		 }
+	 }
 
  };
 
 var currentChart;
 
  function updateChart() {
-     if(currentChart){currentChart.destroy();}
+	 if(currentChart){currentChart.destroy();}
    
-     var determineChart = $("#chartType").val();
+	 var determineChart = $("#chartType").val();
 
-     var params = dataMap[determineChart]
-     currentChart = new Chart(ctx)[params.method](params.data, {});
+	 var params = dataMap[determineChart]
+	 currentChart = new Chart(ctx)[params.method](params.data, {});
  }
 
  $('#chartType').on('change', updateChart)
  updateChart();
 </script>
+</div>
 
 
+<div class="piec">
+<h1>Sources</h1>
+	<canvas id="pie_chart" width="400" height="400"></canvas>
+	<script>
+	  var pieData = [
+		{% for item, label, colors in set %}
+		  {
+			value: {{item}},
+			label: "{{label}}",
+			color : "{{colors}}"
+		  },
+		{% endfor %}
+	  ];
 
+	  // get pie chart canvas
+	  var mypiechart = document.getElementById("pie_chart").getContext("2d");
+	  steps = 10
+	  max = {{ max }}
+
+	  // draw pie chart
+	  new Chart(document.getElementById("pie_chart").getContext("2d")).Pie(pieData);
+
+	</script>
+</div>
+
+
+<div class="barp">
+	<h1>Positive Features By Frequency</h1>
+	<canvas id="bar_chart" width="400" height="400"></canvas>
+	<script>
+	// bar chart data
+	var barData = {
+		labels : {{postag | tojson }},
+
+		datasets : [{
+		fillColor: "rgba(151,187,205,0.2)",
+		strokeColor: "rgba(151,187,205,1)",
+		pointColor: "rgba(151,187,205,1)",
+		data : {{posfreq | tojson }}
+		}
+		]
+	}
+
+	// get bar chart canvas
+	var mybarchart = document.getElementById("bar_chart").getContext("2d");
+
+	// draw bar chart
+	new Chart(mybarchart).Bar(barData, {
+		// scaleOverride: true,
+		// scaleSteps: steps,
+		// scaleStepWidth: Math.ceil(max / steps),
+		scaleStartValue: 0,
+		scaleShowVerticalLines: true,
+		scaleShowGridLines : true,
+		barShowStroke : true,
+		scaleShowLabels: true
+		}
+	);
+
+	</script>
+
+</div>
+
+<div class="barn">
+	<h1>Negative Features By Frequency</h1>
+	<canvas id="bar_chartn" width="400" height="400"></canvas>
+	<script>
+	// bar chart data
+	
+
+	
+	var barData2 = {
+		labels : {{negtag | tojson }},
+
+		datasets : [{
+		fillColor: "rgba(151,187,205,0.2)",
+		strokeColor: "rgba(151,187,205,1)",
+		pointColor: "rgba(151,187,205,1)",
+		data : {{negfreq | tojson }}
+		}
+		]
+	}
+
+	// get bar chart canvas
+	var mybarchart2 = document.getElementById("bar_chartn").getContext("2d");
+
+	// draw bar chart
+	new Chart(mybarchart2).Bar(barData2, {
+		// scaleOverride: true,
+		// scaleSteps: steps,
+		// scaleStepWidth: Math.ceil(max / steps),
+		scaleStartValue: 0,
+		scaleShowVerticalLines: true,
+		scaleShowGridLines : true,
+		barShowStroke : true,
+		scaleShowLabels: true,
+		
+		}
+	);
+
+	</script>
+
+</div>
+
+<div class="allreviews">
+ <h1> Top Features and Sentiments </h1>
+	 <canvas id="allr" width="400" height="400"></canvas>
+	 
+    <script>
+	var ctx = document.getElementById('allr').getContext("2d");
+
+
+    	var barData3 = {
+		labels : {{allrtag | tojson }},
+
+		datasets : [{
+		fillColor: "rgba(151,187,205,0.2)",
+		strokeColor: "rgba(151,187,205,1)",
+		pointColor: "rgba(151,187,205,1)",
+		data : {{allrsent | tojson }}
+		}
+		]
+	}
+
+	// get bar chart canvas
+	var mybarchart3 = document.getElementById("allr").getContext("2d");
+
+	// draw bar chart
+	new Chart(mybarchart3).Bar(barData3, {
+		// scaleOverride: true,
+		// scaleSteps: steps,
+		// scaleStepWidth: Math.ceil(max / steps),
+		// scaleStartValue: -1,
+		scaleShowVerticalLines: true,
+		scaleShowGridLines : true,
+		barShowStroke : true,
+		scaleShowLabels: true,
+		scaleBeginAtZero: true,
+		scales: {
+            y: {
+                suggestedMin: -1,
+                suggestedMax: 1
+            }
+        }
+		
+		}
+	);
+    
+</script>
+</div>
+
+
+<style>
+  .ts {
+			 height:500px;
+			width:500px;
+outline: solid 1px black;
+			float: left;
+			padding: 80px;
+		}
+
+		.piec {
+			height:500px;
+			width:500px;
+outline: solid 1px black;
+			float: right;
+			padding: 80px;
+		}
+
+		.barp {
+			height:500px;
+			width:500px;
+outline: solid 1px black;
+			float: left;
+			padding: 80px;
+		}
+
+		.barn {
+			height:500px;
+			width:500px;
+outline: solid 1px black;
+			float:right;
+			padding: 80px;
+				}
+
+		.allreviews {
+			height:500px;
+			width:500px;
+outline: solid 1px black;
+float:right;
+			padding: 80px;
+		}
+
+</style>
 
 {% endblock %}

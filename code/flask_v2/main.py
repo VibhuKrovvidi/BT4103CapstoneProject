@@ -12,6 +12,7 @@ import datetime
 from loguru import logger
 import testclass
 from testclass import TestClass;
+import pandas as pd;
 
 # from flask_login import LoginManager
 
@@ -33,107 +34,137 @@ auth = pb.auth()
 #Api route to get a new token for a valid user
 @app.route('/', methods=['GET', 'POST'])
 def login():
-    form = LoginForm()
-    if form.validate_on_submit():
+	form = LoginForm()
+	if form.validate_on_submit():
 
-        email = form.email.data
-        password = form.password.data
-        try:
-            user = auth.sign_in_with_email_and_password(email, password)
-            return redirect('/holding')
-        except:
-            return "Invalid Credentials. Please try again"
+		email = form.email.data
+		password = form.password.data
+		try:
+			user = auth.sign_in_with_email_and_password(email, password)
+			return redirect('/holding')
+		except:
+			return "Invalid Credentials. Please try again"
 
-    return render_template('login.html', title='Sign In', form=form)
+	return render_template('login.html', title='Sign In', form=form)
 
 
 
 @app.route('/holding')
 def holding():
-    if isinstance(auth.current_user, dict):
-        return render_template('holding.html', title="Holding")
-    else:
-        return redirect('/')
+	if isinstance(auth.current_user, dict):
+
+		return render_template('holding.html', title="Holding")
+	else:
+		return redirect('/')
 
 
 @app.route('/dashboard')
 def dashboard():
-    # if isinstance(auth.current_user, dict):
-        ##### READ FROM ANOTHER FILE
-    labels = [
-        'JAN', 'FEB', 'MAR', 'APR',
-        'MAY', 'JUN', 'JUL', 'AUG',
-        'SEP', 'OCT', 'NOV', 'DEC'
-    ]
+	# if isinstance(auth.current_user, dict):
+	
+	# Read from file
+	df = pd.read_csv("../../output/features-entity-score.csv")
+	df.drop(["Unnamed: 0"], axis=1, inplace=True)
 
-    values = [
-        967.67, 1190.89, 1079.75, 1349.19,
-        2328.91, 2504.28, 2873.83, 4764.87,
-        4349.29, 6458.30, 9907, 16297
-    ]
+	# Top 10 by freq Bar
+	pos = df[df["Avg_sent_singlish"] > 1]
 
-    colors = [
-        "#F7464A", "#46BFBD", "#FDB45C", "#FEDCBA",
-        "#ABCDEF", "#DDDDDD", "#ABCABC", "#4169E1",
-        "#C71585", "#FF4500", "#FEDCBA", "#46BFBD"]
-    graph_labels=labels
-    graph_values=values
-    graph_cats = ["Cat A", "Cat B", "Cat C", "Cat D", "Cat E"]
+	pos = pos.head(10)
 
-    return render_template('dashboard_home2.html', max=17000, labels=graph_labels, values=graph_values, category=graph_cats, set=zip(values, labels, colors))
-    # else:
-        # return redirect('/')
+	pos_tag = pos["index"].tolist()
+	pos_freq = pos["Freq_singlish"].tolist()
 
-    
+	neg = df[df["Avg_sent_singlish"] < 1]
+	neg = neg.head(10)
+	print(neg)
+	neg_tag = neg["index"].tolist()
+	neg_freq = neg["Freq_singlish"].tolist()
+
+	allr = df.head(10)
+	allr_tag = allr["index"].tolist()
+	allr_sent = allr["Avg_sent_singlish"].tolist()
+	allr_sent = [i-1 for i in allr_sent]
+
+	labels = [
+		'JAN', 'FEB', 'MAR', 'APR',
+		'MAY', 'JUN', 'JUL', 'AUG',
+		'SEP', 'OCT', 'NOV', 'DEC'
+	]
+
+	values = [
+		967.67, 1190.89, 1079.75, 1349.19,
+		2328.91, 2504.28, 2873.83, 4764.87,
+		4349.29, 6458.30, 9907, 16297
+	]
+
+	colors = [
+		"#F7464A", "#46BFBD", "#FDB45C", "#FEDCBA",
+		"#ABCDEF", "#DDDDDD", "#ABCABC", "#4169E1",
+		"#C71585", "#FF4500", "#FEDCBA", "#46BFBD"]
+	graph_labels=labels
+	graph_values=values
+	graph_cats = ["Cat A", "Cat B", "Cat C", "Cat D", "Cat E"]
+
+	return render_template('dashboard_home2.html', max=17000, labels=graph_labels, 
+		values=graph_values, category=graph_cats, set=zip(values, labels, colors),
+		postag = pos_tag, posfreq = pos_freq, negtag = neg_tag, negfreq=neg_freq,
+		allrtag = allr_tag, allrsent = allr_sent
+		)
+	# else:
+		# return redirect('/')
+
+	
 @app.route('/postbreakdown')
 def post_breakdown():
-    if isinstance(auth.current_user, dict):
-        return "Post Breakdown is still being built"
-    else:
-        return redirect('/')
+	if isinstance(auth.current_user, dict):
+		return "Post Breakdown is still being built"
+	else:
+		return redirect('/')
 
 
 @app.route('/runscript')
 def runscript():
-    if isinstance(auth.current_user, dict):
-        
+	if isinstance(auth.current_user, dict):
+		tester = TestClass()
+		x = tester.method1()
+		loginfo(x)
 
-        return render_template("runscript.html")
-    else:
-        return redirect('/')
+		return render_template("runscript.html")
+	else:
+		return redirect('/')
 
 
 logger.add("app/static/job.log", format="{time} - {message}")
 
 def flask_logger():
-    flag=True;
-    """creates logging information"""
-    
-    with open("app/static/job.log") as log_info:
-        while flag:
-            logger.info(f"")
-            data = log_info.read()
-            yield data.encode()
-            time.sleep(5)
-        # Create empty job.log, old logging will be deleted
-        open("app/static/job.log", 'w').close()
+	flag=True;
+	"""creates logging information"""
+	
+	with open("app/static/job.log") as log_info:
+		while flag:
+			logger.info(f"")
+			data = log_info.read()
+			yield data.encode()
+			time.sleep(5)
+		# Create empty job.log, old logging will be deleted
+		open("app/static/job.log", 'w').close()
 
 def loginfo(details):
-    open("app/static/job.log", 'w').close()
-    if isinstance(details, str):
-        logger.info(details)
-    else:
-        try:
-            logger.info(str(details))
-        except:
-            logger.info("Attempted to log non-string. Was unable to do so.")
-    
+	open("app/static/job.log", 'w').close()
+	if isinstance(details, str):
+		logger.info(details)
+	else:
+		try:
+			logger.info(str(details))
+		except:
+			logger.info("Attempted to log non-string. Was unable to do so.")
+	
 
 @app.route("/log_stream", methods=["GET"])
 def stream():
-    """returns logging information"""
-    return Response(flask_logger(), mimetype="text/plain", content_type="text/event-stream")
+	"""returns logging information"""
+	return Response(flask_logger(), mimetype="text/plain", content_type="text/event-stream")
 
 if __name__ == '__main__':
-    app.run(debug=False)
-    
+	app.run(debug=False)
+	
