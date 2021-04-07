@@ -486,18 +486,17 @@ class DSTA_Service_Delivery():
 	def get_all_data(self):
 		data = []
 
-		'''
+		
 		gr_ref = self.db.collection(u'google_reviews')
 		try:
 			gdata = gr_ref.get()
 			for entry in gdata:
 				data.append(entry.to_dict()['content'])
 			print("Got Google Reviews!")
-			print(gdata) # why is this suddenly empty???????
 		except:
 			print("Error getting Google Reviews")
 
-		
+		'''
 		hz_ref = self.db.collection(u'hardwarezone_reviews')
 		try:
 			hzdata = hz_ref.get()
@@ -506,7 +505,7 @@ class DSTA_Service_Delivery():
 			print("Got Hardwarezone Reviews!")
 		except:
 			print("Error getting Hardwarezone Reviews")
-		'''
+		
 
 		rd_ref = self.db.collection(u'reddit_posts')
 		try:
@@ -525,10 +524,9 @@ class DSTA_Service_Delivery():
 			print("Got Reddit Comments!")
 		except:
 			print("Error getting Reddit Comments")
-		
+		'''
 
 		print("The function get_all_data ran well!")
-		#print(data)
 		return data
 
 	def feature_extraction(self, txt):
@@ -774,14 +772,8 @@ class DSTA_Service_Delivery():
 		options = {"ents": ["TRAINING", "BMT", "ICT", "IPPT", "RT/IPT", "MEDICAL", "CAMP", "FCC", "CMPB", "PORTAL", "SERVICE", "LOCATION"], "colors": colors}
 		
 		# Run entity extraction and render results
-		print("data_list: ")
-		print(data_list)
-		cleaned1 = map(lambda s: s.replace('\n', ''), data_list) # get rid of '\n' in the strings within the list
-		print("cleaned1:")
-		print(cleaned1)
-		cleaned2 = [x for x in cleaned1 if x] # get rid of empty '' in list
-		print("cleaned2:")
-		print(cleaned2)
+		cleaned1 = [x for x in data_list if x] # get rid of empty '' in list 
+		cleaned2 = map(lambda s: s.replace('\n', ' '), cleaned1) # get rid of '\n' in the strings within the list
 		data_string = '\n\n'.join([str(review) for review in cleaned2])
 		print("\nData as string:")
 		print(data_string)
@@ -795,7 +787,6 @@ class DSTA_Service_Delivery():
 			fp.close()
 
 		entities = [(ent.text, ent.label_) for ent in docx.ents]
-		#print(entities)
 
 		return html, entities
 
