@@ -616,7 +616,7 @@ class DSTA_Service_Delivery():
                 pass;
             for sent in output:
                 for pair in sent:
-                    print(pair)
+                    #print(pair)
                     if pair[0] in feat_sent:
                         if pair[1] is not None:
                             flist = feat_sent[pair[0]]
