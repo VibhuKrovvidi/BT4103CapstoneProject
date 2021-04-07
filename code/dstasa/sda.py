@@ -556,17 +556,17 @@ class DSTA_Service_Delivery():
                     if((j[0]==i[0] or j[1]==i[0]) and (j[2] in [
                         # Different types of words that are identified as potential features
                         "nsubj",
-                        #"acl:relcl",
+                        "acl:relcl",
                         "obj",
                         "dobj",
-                        #"agent",
-                        #"advmod",
-                        #"amod",
-                        #"neg",
-                        #"prep_of",
-                        #"acomp",
-                        #"xcomp",
-                        #"compound"
+                        "agent",
+                        "advmod",
+                        "amod",
+                        "neg",
+                        "prep_of",
+                        "acomp",
+                        "xcomp",
+                        "compound"
                     ])):
                         if(j[0]==i[0]):
                             filist.append(j[1])
@@ -599,9 +599,6 @@ class DSTA_Service_Delivery():
             separate = review.split('-')
             review = ''.join(separate)
             
-            # Remove non-alphabets
-            review = re.sub(r'[^a-z\s\t]', '', review)
-            
             idx += 1;
             if idx >= df.shape[0]:
                 break;
@@ -633,6 +630,13 @@ class DSTA_Service_Delivery():
                     else:
                         feat_count[pair[0]] = 1
         
+        #remove punctuation for sentiment analysis
+        for a in feat_count:
+            if a in string.punctuation:
+                feat_count.remove(a)
+        for a in feat_sent:
+            if a in string.punctuation:
+                feat_sent.remove(a)
         return feat_count, feat_sent;
     
 
