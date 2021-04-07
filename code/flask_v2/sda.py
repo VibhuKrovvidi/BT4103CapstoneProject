@@ -25,7 +25,7 @@ import firebase_admin
 import pyrebase
 import json
 from firebase_admin import credentials, firestore
-
+from loguru import logger
 import numpy as np
 import nltk
 import regex
@@ -38,14 +38,15 @@ from nltk.stem.wordnet import WordNetLemmatizer
 from sklearn.feature_extraction.text import TfidfVectorizer
 import stanza
 
-stanza.download('en') # download English model
-nltk.download('stopwords')
-nltk.download('punkt')
-nltk.download('averaged_perceptron_tagger')
 
 
 class DSTA_Service_Delivery():
 	def __init__(self):
+		stanza.download('en') # download English model
+		nltk.download('stopwords')
+		nltk.download('punkt')
+		nltk.download('averaged_perceptron_tagger')
+
 		self.chrome_options = Options();
 		self.chrome_options.add_argument("--headless")
 		self.chrome_options.add_argument("--no-sandbox")
@@ -60,6 +61,7 @@ class DSTA_Service_Delivery():
 		cred = credentials.Certificate('fbadmin.json')
 		# firebase_admin.initialize_app(cred)
 		self.db = firestore.client()
+		print("Database Initialised")
 
 
 
@@ -735,8 +737,52 @@ class DSTA_Service_Delivery():
 			feat_ref.document(i["Feature"]).set(i)
 			print("Pushed processed data for :", i["Feature"])
 
+	def runscraping(self):
+		self.get_google_reviews("https://www.google.com/maps/place/CMPB/@1.280195,103.815126,17z/data=!4m7!3m6!1s0x31da1bd0af54732f:0x9c274decbab4e599!8m2!3d1.280195!4d103.815126!9m1!1b1", "CMPB")
+		logger.info("Scraped Google Reviews for CMPB")
+
+		self.get_google_reviews("https://www.google.com/maps/place/Bedok+FCC+in+Bedok+Camp+2/@1.3170913,103.9013688,13z/data=!4m7!3m6!1s0x31da22d0dd021831:0x72f9d7d2f5dfe24d!8m2!3d1.3168752!4d103.954114!9m1!1b1", "BedokFCC")
+		logger.info("Scraped Google Reviews for BedokFCC")
+
+		self.get_google_reviews("https://www.google.com/maps/place/Maju+FCC/@1.3170913,103.9013688,13z/data=!4m7!3m6!1s0x31da114548788fbf:0xe7b1351cb138a2dc!8m2!3d1.3297773!4d103.7717872!9m1!1b1", "MajuFCC")
+		logger.info("Scraped Google Reviews for MajuFCC")
+
+		self.get_google_reviews("https://www.google.com/maps/place/Kranji+FCC/@1.3170913,103.9013688,13z/data=!4m7!3m6!1s0x31da11ae095fac6f:0xfbe6c8bc26249e47!8m2!3d1.400557!4d103.7416568!9m1!1b1", "KranjiFCC")
+		logger.info("Scraped Google Reviews for KranjiFCC")
+
+		self.get_google_reviews("https://www.google.com/maps/place/Clementi+Camp/@1.3170913,103.9013688,13z/data=!4m11!1m2!2m1!1sMedical+Center+NS!3m7!1s0x31da11a69aa0ac43:0xca88158b0ea52b74!8m2!3d1.3290056!4d103.7629462!9m1!1b1!15sChFNZWRpY2FsIENlbnRlciBOU1omChFtZWRpY2FsIGNlbnRlciBucyIRbWVkaWNhbCBjZW50ZXIgbnOSAQRjYW1w", "ClementiCamp")
+		logger.info("Scraped Google Reviews for ClementiCamp")
+		
+
+		# Hardwarezone
+
+		self.get_harwarezone("https://forums.hardwarezone.com.sg/national-service-knowledge-base-162/ffi-need-go-every-year-after-35-a-4109332.html", "FFI");
+		logger.info("Scraped " + "FFI") 
+
+		self.get_harwarezone("https://forums.hardwarezone.com.sg/national-service-knowledge-base-162/pes-d-dilemma-3709993.html", "Pes_D_dilemma");
+		logger.info("Scraped " + "Pes_D_dilemma") 
+
+		self.get_harwarezone("https://forums.hardwarezone.com.sg/national-service-knowledge-base-162/after-40-years-old-still-need-go-back-reservist-5111453.html", "reservist");
+		logger.info("Scraped " + "reservist") 
+
+		self.get_harwarezone("https://forums.hardwarezone.com.sg/national-service-knowledge-base-162/saf-ippt-ipt-rt-questions-4220677-380.html", "IPPT_IPT_RT");
+		logger.info("Scraped " + "IPPT_IPT_RT") 
+
+		self.get_harwarezone("https://forums.hardwarezone.com.sg/national-service-knowledge-base-162/cmpb-enlistment-medical-checkup-tomorrow-no-form-healthbooklet-how-3623665.html", "CMPB");
+		logger.info("Scraped " + "CMPB") 
+
+		# scrape reddit
+		d = date.today() - timedelta(days=365)
+		unixtime = time.mktime(d.timetuple())
+
+		self.get_reddit(start_date = unixtime, limit_amt=10)
+		print("Scraped Reddit" )
 
 
+	def runprocessing(self):
+		data = self.get_all_data()
+		data = pd.DataFrame(data, columns=["Content"])
+		self.run_feat_extraction(data)
 
 
 def main():
