@@ -602,7 +602,6 @@ class DSTA_Service_Delivery():
             print("Review Number : ", idx)
             
             # Some data pre-processing
-            
             review = review.lower()
             
             # Merge hyphenated words
@@ -641,12 +640,12 @@ class DSTA_Service_Delivery():
                         feat_count[pair[0]] = 1
 
         #remove punctuation for sentiment analysis
-        for a in feat_count:
+        for a in feat_count.copy():
             if a in string.punctuation:
-                feat_count.remove(a)
-        for a in feat_sent:
+                del feat_count[a]
+        for a in feat_sent.copy():
             if a in string.punctuation:
-                feat_sent.remove(a)
+                del feat_sent[a]
         
         return feat_count, feat_sent;
     
@@ -702,13 +701,10 @@ class DSTA_Service_Delivery():
         adf = pd.DataFrame.from_dict(feat_count, orient='index', columns=['Freq'])
         adf.sort_values(by="Freq", ascending=False, inplace = True)
 
-        
-
         avg_sent = pd.DataFrame.from_dict(sentiment_score, orient='index', columns=["Avg_sent"])
         desc_words = pd.DataFrame.from_dict(feat_sent, orient="index", columns=["Descriptors"])
         
         avg_sent = avg_sent.merge(desc_words, left_index=True, right_index=True)
-        
         
         final_sent = avg_sent.merge(adf, left_index=True, right_index=True)
         final_sent.sort_values(by="Freq", ascending=False, inplace=True)
