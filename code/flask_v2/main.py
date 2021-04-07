@@ -11,6 +11,7 @@ import time
 import random
 import datetime
 from loguru import logger
+<<<<<<< Updated upstream
 import testclass
 from testclass import TestClass
 
@@ -20,6 +21,10 @@ from spacy import displacy
 nlp = spacy.load('en_core_web_sm')
 '''
 from testclass import TestClass;
+=======
+import sda
+from sda import DSTA_Service_Delivery
+>>>>>>> Stashed changes
 import pandas as pd;
 
 # from flask_login import LoginManager
@@ -144,14 +149,62 @@ def extractentitiy():
 @app.route('/runscript')
 def runscript():
 	if isinstance(auth.current_user, dict):
-		tester = TestClass()
-		x = tester.method1()
-		loginfo(x)
+		
+
 
 		return render_template("runscript.html")
 	else:
 		return redirect('/')
 
+@app.route('/runscript/running')
+def runningscript():
+	if isinstance(auth.current_user, dict):
+		print("Starting DSTA Web Scraper")
+		scraper = DSTA_Service_Delivery()
+		scraper.initialiseDB()
+
+		# GR
+		scraper.get_google_reviews("https://www.google.com/maps/place/CMPB/@1.280195,103.815126,17z/data=!4m7!3m6!1s0x31da1bd0af54732f:0x9c274decbab4e599!8m2!3d1.280195!4d103.815126!9m1!1b1", "CMPB")
+		loginfo("Scraped Google Reviews for CMPB")
+
+		scraper.get_google_reviews("https://www.google.com/maps/place/Bedok+FCC+in+Bedok+Camp+2/@1.3170913,103.9013688,13z/data=!4m7!3m6!1s0x31da22d0dd021831:0x72f9d7d2f5dfe24d!8m2!3d1.3168752!4d103.954114!9m1!1b1", "BedokFCC")
+		loginfo("Scraped Google Reviews for ", "BedokFCC")
+
+		scraper.get_google_reviews("https://www.google.com/maps/place/Maju+FCC/@1.3170913,103.9013688,13z/data=!4m7!3m6!1s0x31da114548788fbf:0xe7b1351cb138a2dc!8m2!3d1.3297773!4d103.7717872!9m1!1b1", "MajuFCC")
+		loginfo("Scraped Google Reviews for ", "MajuFCC")
+
+		scraper.get_google_reviews("https://www.google.com/maps/place/Kranji+FCC/@1.3170913,103.9013688,13z/data=!4m7!3m6!1s0x31da11ae095fac6f:0xfbe6c8bc26249e47!8m2!3d1.400557!4d103.7416568!9m1!1b1", "KranjiFCC")
+		loginfo("Scraped Google Reviews for ", "KranjiFCC")
+
+		scraper.get_google_reviews("https://www.google.com/maps/place/Clementi+Camp/@1.3170913,103.9013688,13z/data=!4m11!1m2!2m1!1sMedical+Center+NS!3m7!1s0x31da11a69aa0ac43:0xca88158b0ea52b74!8m2!3d1.3290056!4d103.7629462!9m1!1b1!15sChFNZWRpY2FsIENlbnRlciBOU1omChFtZWRpY2FsIGNlbnRlciBucyIRbWVkaWNhbCBjZW50ZXIgbnOSAQRjYW1w", "ClementiCamp")
+		loginfo("Scraped Google Reviews for ", "ClementiCamp")
+		
+
+		# Hardwarezone
+
+		scraper.get_harwarezone("https://forums.hardwarezone.com.sg/national-service-knowledge-base-162/ffi-need-go-every-year-after-35-a-4109332.html", "FFI");
+		loginfo("Scraped " + "FFI") 
+
+		scraper.get_harwarezone("https://forums.hardwarezone.com.sg/national-service-knowledge-base-162/pes-d-dilemma-3709993.html", "Pes_D_dilemma");
+		loginfo("Scraped " + "Pes_D_dilemma") 
+
+		scraper.get_harwarezone("https://forums.hardwarezone.com.sg/national-service-knowledge-base-162/after-40-years-old-still-need-go-back-reservist-5111453.html", "reservist");
+		loginfo("Scraped " + "reservist") 
+
+		scraper.get_harwarezone("https://forums.hardwarezone.com.sg/national-service-knowledge-base-162/saf-ippt-ipt-rt-questions-4220677-380.html", "IPPT_IPT_RT");
+		loginfo("Scraped " + "IPPT_IPT_RT") 
+
+		scraper.get_harwarezone("https://forums.hardwarezone.com.sg/national-service-knowledge-base-162/cmpb-enlistment-medical-checkup-tomorrow-no-form-healthbooklet-how-3623665.html", "CMPB");
+		loginfo("Scraped " + "CMPB") 
+
+		# scrape reddit
+		d = date.today() - timedelta(days=365)
+		unixtime = time.mktime(d.timetuple())
+
+		scraper.get_reddit(start_date = unixtime, limit_amt=10)
+		loginfo("Scraped Reddit" )
+	else:
+		return redirect('/')
 
 logger.add("app/static/job.log", format="{time} - {message}")
 
