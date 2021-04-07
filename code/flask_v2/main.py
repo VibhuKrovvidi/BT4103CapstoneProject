@@ -3,6 +3,7 @@ import pyrebase
 import json
 from firebase_admin import credentials, auth
 from flask import Flask, request,render_template,flash, redirect,jsonify,Response
+#from flask.markdown import Markdown
 import forms
 from forms import LoginForm
 import webbrowser
@@ -11,13 +12,20 @@ import random
 import datetime
 from loguru import logger
 import testclass
-from testclass import TestClass;
+from testclass import TestClass
+
+'''
+import spacy
+from spacy import displacy
+nlp = spacy.load('en_core_web_sm')
+'''
 
 # from flask_login import LoginManager
 
 
 #App configuration
 app = Flask(__name__)
+#Markdown(app)
 # login_manager.init_app(app)
 # login = LoginManager(app)
 
@@ -92,6 +100,16 @@ def post_breakdown():
     else:
         return redirect('/')
 
+'''
+@app.route('/extractentity', methods=["GET", "POST"])
+def extractentitiy():
+    if request.method == "POST":
+        inputtext = request.form["inputtext"]
+        docx = nlp(inputtext)
+        html = displacy.render(docx, style="ent")
+        result = html
+    return render_template("entities.html", inputtext=inputtext, result=result)
+'''
 
 @app.route('/runscript')
 def runscript():
