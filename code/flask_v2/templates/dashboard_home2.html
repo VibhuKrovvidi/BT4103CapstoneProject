@@ -53,7 +53,7 @@ var ctx = document.getElementById("myChart").getContext("2d");
 				 strokeColor: "rgba(220,220,220,0.8)",
 				 highlightFill: "rgba(220,220,220,0.75)",
 				 highlightStroke: "rgba(220,220,220,1)",
-				 data: {{ values | tojson}}
+				 data: {{ values3 | tojson}}
 			 }],
 		 }
 	 }
@@ -78,7 +78,7 @@ var currentChart;
 
 
 <div class="piec">
-<h1>Sources</h1>
+<h1>Breakdown of Reviews by Sources</h1>
 	<canvas id="pie_chart" width="400" height="400"></canvas>
 	<script>
 	  var pieData = [
@@ -186,7 +186,7 @@ var currentChart;
 	 <canvas id="allr" width="400" height="400"></canvas>
 	 
     <script>
-	var ctx = document.getElementById('allr').getContext("2d");
+	// var ctx2 = document.getElementById('allr').getContext("2d");
 
 
     	var barData3 = {
@@ -228,6 +228,11 @@ var currentChart;
 </script>
 </div>
 
+<div class="wcloud">
+	<h1> Word Cloud of Top Features by Frequency </h1>
+	<img src="/static/wordcloud.png" alt="Wordcloud">
+</div>
+
 
 <style>
   .ts {
@@ -267,6 +272,14 @@ outline: solid 1px black;
 			width:500px;
 outline: solid 1px black;
 float:right;
+			padding: 80px;
+		}
+
+		.wcloud {
+			height:500px;
+			width:500px;
+outline: solid 1px black;
+float:left;
 			padding: 80px;
 		}
 
