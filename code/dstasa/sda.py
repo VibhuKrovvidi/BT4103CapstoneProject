@@ -43,6 +43,9 @@ nltk.download('stopwords')
 nltk.download('punkt')
 nltk.download('averaged_perceptron_tagger')
 
+# Import entity extraction tools
+import spacy
+from spacy import displacy
 
 class DSTA_Service_Delivery():
 	def __init__(self):
@@ -321,7 +324,7 @@ class DSTA_Service_Delivery():
 		search_link = search_link.format(subreddit, start, end, limit, extra_query)
 		
 		# Get the data from Pushshift as JSON.
-		retrieved_data = requests.get(search_link)
+		retrieved_data = requests.get(search_link) #verify=True
 		returned_submissions = retrieved_data.json()['data']
 		
 		i = 0
@@ -483,28 +486,34 @@ class DSTA_Service_Delivery():
 	def get_all_data(self):
 		data = []
 
+		'''
 		gr_ref = self.db.collection(u'google_reviews')
 		try:
 			gdata = gr_ref.get()
 			for entry in gdata:
-				data.append(entry.to_dict()['content']);
+				data.append(entry.to_dict()['content'])
+			print("Got Google Reviews!")
+			print(gdata) # why is this suddenly empty???????
 		except:
 			print("Error getting Google Reviews")
 
+		
 		hz_ref = self.db.collection(u'hardwarezone_reviews')
 		try:
 			hzdata = hz_ref.get()
 			for entry in hzdata:
-				data.append(entry.to_dict()['content']);
+				data.append(entry.to_dict()['content'])
+			print("Got Hardwarezone Reviews!")
 		except:
 			print("Error getting Hardwarezone Reviews")
-
+		'''
 
 		rd_ref = self.db.collection(u'reddit_posts')
 		try:
 			rddata = rd_ref.get();
 			for entry in rddata:
-				data.append(entry.to_dict()['content']);
+				data.append(entry.to_dict()['content'])
+			print("Got Reddit Posts!")
 		except:
 			print("Error getting Reddit Posts")
 
@@ -512,18 +521,21 @@ class DSTA_Service_Delivery():
 		try:
 			rdcdata = rd_ref.get();
 			for entry in rdcdata:
-				data.append(entry.to_dict()['content']);
+				data.append(entry.to_dict()['content'])
+			print("Got Reddit Comments!")
 		except:
 			print("Error getting Reddit Comments")
+		
 
-		print(data)
-		return data;
+		print("The function get_all_data ran well!")
+		#print(data)
+		return data
 
 	def feature_extraction(self, txt):
 		# Convert para into sentences
 		sentList = nltk.sent_tokenize(txt)
 
-		retlist = [];
+		retlist = []
 		# For each sentence
 		for line in sentList:
 			# Tag and word tokenize
@@ -562,7 +574,7 @@ class DSTA_Service_Delivery():
 					if (int(dep_node[i][1]) != 0):
 						dep_node[i][1] = newwordList[(int(dep_node[i][1]) - 1)]
 			except:
-				pass;
+				pass
 			
 			# Final features + descriptors
 			featureList = []
@@ -599,11 +611,11 @@ class DSTA_Service_Delivery():
 			print(fcluster) 
 			
 			retlist.append(fcluster)
-		return retlist;
+		return retlist
 
 	def do_extraction(self, df, feat_count, feat_sent, content_str = "Content"):
 		
-		idx = 0;
+		idx = 0
 		# Replace "" with nan's for removal
 		df[content_str].replace('', np.nan, inplace=True)
 		df.dropna(subset=[content_str], inplace=True)
@@ -612,7 +624,7 @@ class DSTA_Service_Delivery():
 		 
 		print(" Processing : " , df.shape[0], "rows of data")
 		for review in tqdm(review_list):
-			print("Review Number : ", idx);
+			print("Review Number : ", idx)
 			
 			# Some data pre-processing
 			
@@ -625,13 +637,13 @@ class DSTA_Service_Delivery():
 			# Remove non-alphabets
 			review = re.sub(r'[^a-z\s\t]', '', review)
 			
-			idx += 1;
+			idx += 1
 			if idx >= df.shape[0]:
-				break;
+				break
 			try:
 				output = self.feature_extraction(review);
 			except:
-				pass;
+				pass
 			for sent in output:
 				for pair in sent:
 					print(pair)
@@ -749,9 +761,54 @@ class DSTA_Service_Delivery():
 			feat_ref.document(i["Feature"]).set(i)
 			print("Pushed processed data for :", i["Feature"])
 
+		return fin
 
 
+	def run_entityextraction(self, data_list):
+		# Set nlp's settings
+		nlp = spacy.load("en_core_web_sm")
+		ruler = nlp.add_pipe("entity_ruler", config={"overwrite_ents": True}).from_disk("patterns.jsonl")
+		
+		# Set displacy's options
+		colors = {"TRAINING": "#EEE2DF", "BMT": "#ADA8B6", "ICT": "#DCABDF", "IPPT": "#bfe1d9", "RT/IPT": "#D0C4DF", "MEDICAL": "#EE8434", "CAMP": "#CBEFB6", "FCC": "#DDDFDF", "CMPB": "#717ec3", "PORTAL": "#635d5c", "SERVICE": "#9b1d20", "LOCATION": "#fbba72"}
+		options = {"ents": ["TRAINING", "BMT", "ICT", "IPPT", "RT/IPT", "MEDICAL", "CAMP", "FCC", "CMPB", "PORTAL", "SERVICE", "LOCATION"], "colors": colors}
+		
+		# Run entity extraction and render results
+		print("data_list: ")
+		print(data_list)
+		cleaned1 = map(lambda s: s.replace('\n', ''), data_list) # get rid of '\n' in the strings within the list
+		print("cleaned1:")
+		print(cleaned1)
+		cleaned2 = [x for x in cleaned1 if x] # get rid of empty '' in list
+		print("cleaned2:")
+		print(cleaned2)
+		data_string = '\n\n'.join([str(review) for review in cleaned2])
+		print("\nData as string:")
+		print(data_string)
 
+		docx = nlp(data_string)
+
+		html = displacy.render(docx, style="ent", page=True, options=options) # output html file here for now
+		#print("HTML markup: ", html)
+		with open("entitiesextracted.html", "w+", encoding="utf-8") as fp:
+			fp.write(html)
+			fp.close()
+
+		entities = [(ent.text, ent.label_) for ent in docx.ents]
+		#print(entities)
+
+		return html, entities
+
+
+	def intersect_features(self, featuresDF, entities):
+		entitiesDF = pd.DataFrame(entities, columns=['Feature', 'Entity'])
+		entitiesDF['Feature'] = entitiesDF['Feature'].str.lower()
+		entitiesDF = entitiesDF.drop_duplicates()
+
+		final = pd.merge(entitiesDF, featuresDF, on = 'Feature', how='inner')#.drop(columns=['Unnamed: 0']) #replace test with corpus-refined-features
+		mergedDF = final[final['Entity'].isin(['MEDICAL', 'SERVICE', 'CMPB', 'BMT', 'ICT', 'IPPT', 'RT/IPT', 'FCC', 'PORTAL', 'CAMP', 'TRAINING', 'LOCATION'])]
+		print(mergedDF)
+		return mergedDF
 
 def main():
 	print("Starting DSTA Web Scraper")
@@ -771,27 +828,14 @@ def main():
 	hzone_urls = [] # Store tuple (url, forumname, limit)
 	reddit_urls = [] # Store tuple (subredditname, start_date, limit)
 
-
 	# Run processing code:
-
 	data = scraper.get_all_data()
+	html, entities = scraper.run_entityextraction(data)
+
 	data = pd.DataFrame(data, columns=["Content"])
-	scraper.run_feat_extraction(data)	
-
-
-	
-	
+	features = scraper.run_feat_extraction(data)
+	scraper.intersect_features(features, entities)
 
 if __name__ == '__main__':
 	main()
 	print("Completed all processes. Will exit code now")
-
-
-
-
-
-
-
-
-
-
