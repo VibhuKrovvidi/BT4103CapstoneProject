@@ -1,0 +1,98 @@
+{% extends "base2.html" %}
+
+{% block content %}
+{{ super() }}
+
+<button onclick="toggle()"> Switch View </button>
+
+<div class="postsbreakdown">
+
+<div id="taggedentity">
+<b> Full comments with tagged entities </b><br>
+
+<!-- Select Entity to inspect -->
+<select name="filter" method="GET" action="/postsbreakdown" id="choice" onchange="changeFrame()">
+	<option value="{{entities[0]}}" selected>{{entities[0]}}</option>
+	{% for entity in entities[1:] %}
+	<option value="{{entity}}">{{entity}}</option>
+	{% endfor %}
+</select><br>
+
+
+
+<iframe src="/display_spacy/SERVICE" id="viewent" class="iframe_posts"></iframe>
+</div>	
+
+<div id="sentencelevel" style="display:none">
+
+Sentence Level
+
+</div>
+
+
+</div>
+
+
+<script type="text/javascript">
+function toggle() {
+  var x = document.getElementById("taggedentity");
+  var y = document.getElementById("sentencelevel");
+
+  if (x.style.display === "none") {
+  	y.style.display = "none";
+    x.style.display = "block";
+  } else {
+  	y.style.display = "block";
+    x.style.display = "none";
+  }
+}	
+
+function changeFrame() {
+	var choose = document.getElementById("choice").value;
+	var base = "/display_spacy/"
+	var loc = base.concat(choose)
+	document.getElementById("viewent").src = loc
+
+}
+
+
+
+
+
+
+
+
+</script>
+
+
+
+
+
+
+
+
+<style type="text/css">
+.iframe_posts {
+width: 800px;
+height: 600px;
+text-align: center;
+margin: auto;
+float: right;
+box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+}
+
+.iframe_posts:hover {
+  box-shadow: 0 16px 32px 0 rgba(0,0,0,0.2);
+}
+
+#taggedentity {
+	float: right;
+	text-align: center;
+}
+
+
+
+</style>
+
+{% endblock %}

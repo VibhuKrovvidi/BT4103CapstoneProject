@@ -175,13 +175,258 @@ def dashboard():
 	# else:
 		# return redirect('/')
 	
-@app.route('/postbreakdown')
+@app.route('/postbreakdown',  methods=['GET'])
 def post_breakdown():
 	if isinstance(auth.current_user, dict):
-		return "Post Breakdown is still being built"
+		entities = ["SERVICE", "MEDICAL", "IPPT", "LOCATION", "CAMP", "FCC", "ICT", "ALL"]
+		return render_template("postsbreakdown.html", entities=entities)
 	else:
 		return redirect('/')
 
+
+@app.route('/display_spacy/ALL')
+def display_spacy():
+	return render_template("entitiesextracted.html")
+
+body_start = """
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>displaCy</title>
+    </head>
+
+    <body style="font-size: 16px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'; padding: 4rem 2rem; direction: ltr">
+<figure style="margin-bottom: 6rem">
+<div class="entities" style="line-height: 2.5; direction: ltr">
+
+"""
+body_end = """
+</div>
+</figure>
+</body>
+</html>
+"""
+
+@app.route('/display_spacy/SERVICE')
+def display_spacy_service():
+	f = open("./templates/entitiesextracted.html")
+	file = f.read()
+	f.close()
+	x = file.replace("</br></br>", "<br> <hr /> <br>")
+
+	x = x.split("<hr />")
+
+	finlist = []
+
+	for i in x:
+	    if """<span style="font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; vertical-align: middle; margin-left: 0.5rem">SERVICE</span>""" not in i:
+	        pass;
+	    else:
+	        finlist.append(i)
+	        finlist.append("<br> <hr /> <br>")
+
+
+	finstr = ' '.join(finlist)
+
+	finstr = body_start + finstr + body_end
+
+	y = open("./templates/formatted_entities_service.html", "w")
+	y.write(finstr)
+	y.close()
+
+
+	return render_template("formatted_entities_service.html")
+
+@app.route('/display_spacy/MEDICAL')
+def display_spacy_medical():
+	f = open("./templates/entitiesextracted.html")
+	file = f.read()
+	f.close()
+	x = file.replace("</br></br>", "<br> <hr /> <br>")
+
+	x = x.split("<hr />")
+
+	finlist = []
+
+	for i in x:
+	    if """<span style="font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; vertical-align: middle; margin-left: 0.5rem">MEDICAL</span>""" not in i:
+	        pass;
+	    else:
+	        finlist.append(i)
+	        finlist.append("<br> <hr /> <br>")
+
+   
+	finstr = ' '.join(finlist)
+	finstr = body_start + finstr + body_end
+
+	y = open("./templates/formatted_entities_medical.html", "w")
+	y.write(finstr)
+	y.close()
+
+
+	return render_template("formatted_entities_medical.html")
+	
+
+@app.route('/display_spacy/IPPT')
+def display_spacy_ippt():
+	f = open("./templates/entitiesextracted.html")
+	file = f.read()
+	f.close()
+	x = file.replace("</br></br>", "<br> <hr /> <br>")
+
+	x = x.split("<hr />")
+
+	finlist = []
+
+	for i in x:
+	    if """<span style="font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; vertical-align: middle; margin-left: 0.5rem">IPPT</span>""" not in i:
+	        pass;
+	    else:
+	        finlist.append(i)
+	        finlist.append("<br> <hr /> <br>")
+
+   
+	finstr = ' '.join(finlist)
+	finstr = body_start + finstr + body_end
+
+	y = open("./templates/formatted_entities_ippt.html", "w")
+	y.write(finstr)
+	y.close()
+
+
+	return render_template("formatted_entities_ippt.html")
+
+@app.route('/display_spacy/LOCATION')
+def display_spacy_location():
+	f = open("./templates/entitiesextracted.html")
+	file = f.read()
+	f.close()
+	x = file.replace("</br></br>", "<br> <hr /> <br>")
+
+	x = x.split("<hr />")
+
+	finlist = []
+
+	for i in x:
+	    if """<span style="font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; vertical-align: middle; margin-left: 0.5rem">LOCATION</span>""" not in i:
+	        pass;
+	    else:
+	        finlist.append(i)
+	        finlist.append("<br> <hr /> <br>")
+
+   
+	finstr = ' '.join(finlist)
+	finstr = body_start + finstr + body_end
+
+	y = open("./templates/formatted_entities_location.html", "w")
+	y.write(finstr)
+	y.close()
+
+
+	return render_template("formatted_entities_location.html")
+
+@app.route('/display_spacy/CAMP')
+def display_spacy_camp():
+	f = open("./templates/entitiesextracted.html")
+	file = f.read()
+	f.close()
+	x = file.replace("</br></br>", "<br> <hr /> <br>")
+
+	x = x.split("<hr />")
+
+	finlist = []
+
+	for i in x:
+	    if """<span style="font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; vertical-align: middle; margin-left: 0.5rem">CAMP</span>""" not in i:
+	        pass;
+	    else:
+	        finlist.append(i)
+	        finlist.append("<br> <hr /> <br>")
+
+   
+	finstr = ' '.join(finlist)
+	finstr = body_start + finstr + body_end
+
+	y = open("./templates/formatted_entities_camp.html", "w")
+	y.write(finstr)
+	y.close()
+
+
+	return render_template("formatted_entities_camp.html")
+
+@app.route('/display_spacy/FCC')
+def display_spacy_fcc():
+	f = open("./templates/entitiesextracted.html")
+	file = f.read()
+	f.close()
+	x = file.replace("</br></br>", "<br> <hr /> <br>")
+
+	x = x.split("<hr />")
+
+	finlist = []
+
+	for i in x:
+	    if """<span style="font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; vertical-align: middle; margin-left: 0.5rem">FCC</span>""" not in i:
+	        pass;
+	    else:
+	        finlist.append(i)
+	        finlist.append("<br> <hr /> <br>")
+
+   
+	finstr = ' '.join(finlist)
+	finstr = body_start + finstr + body_end
+
+	y = open("./templates/formatted_entities_fcc.html", "w")
+	y.write(finstr)
+	y.close()
+
+
+	return render_template("formatted_entities_fcc.html")
+
+
+@app.route('/display_spacy/ICT')
+def display_spacy_ict():
+	f = open("./templates/entitiesextracted.html")
+	file = f.read()
+	f.close()
+	x = file.replace("</br></br>", "<br> <hr /> <br>")
+
+	x = x.split("<hr />")
+
+	finlist = []
+
+	for i in x:
+	    if """<span style="font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; vertical-align: middle; margin-left: 0.5rem">ICT</span>""" not in i:
+	        pass;
+	    else:
+	        finlist.append(i)
+	        finlist.append("<br> <hr /> <br>")
+
+   
+	finstr = ' '.join(finlist)
+	finstr = body_start + finstr + body_end
+
+	y = open("./templates/formatted_entities_ict.html", "w")
+	y.write(finstr)
+	y.close()
+
+
+	return render_template("formatted_entities_ict.html")
+
+
+
+
+
+
+
+
+
+
+
+@app.route('/login')
+def login_out():
+	# auth.signOut()
+	return redirect('/')
 '''
 @app.route('/extractentity', methods=["GET", "POST"])
 def extractentitiy():
