@@ -82,19 +82,11 @@ def dashboard():
 	df = pd.read_csv("../../output/sentiment evaluation/features-entity-score.csv")
 	df.drop(["Unnamed: 0"], axis=1, inplace=True)
 
-	# Top 10 by freq Bar
-	pos = df[df["Avg_sent_singlish"] > 1]
+	data = df
 
-	pos = pos.head(10)
-
-	pos_tag = pos["index"].tolist()
-	pos_freq = pos["Freq_singlish"].tolist()
-
-	neg = df[df["Avg_sent_singlish"] < 1]
-	neg = neg.head(10)
-	print(neg)
-	neg_tag = neg["index"].tolist()
-	neg_freq = neg["Freq_singlish"].tolist()
+	data_tag = data["entity"].tolist()
+	data_freq = data["Freq_singlish"].tolist()
+	data_score = data["Avg_sent_singlish"].tolist()
 
 	allr = df.head(10)
 	allr_tag = allr["index"].tolist()
@@ -169,7 +161,7 @@ def dashboard():
 
 	return render_template('dashboard_home2.html', max=17000, labels=graph_labels, 
 		values=graph_values, values3=values3, category=graph_cats, set=zip(values2, labels2, colors2),
-		postag = pos_tag, posfreq = pos_freq, negtag = neg_tag, negfreq=neg_freq,
+		datatag = data_tag, datafreq = data_freq, datascore = data_score,
 		allrtag = allr_tag, allrsent = allr_sent
 		)
 	# else:
