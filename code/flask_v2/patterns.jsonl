@@ -1,0 +1,57 @@
+{"label": "TRAINING", "pattern": [{"ORTH": "vocational"}, {"ORTH": "training"}]}
+{"label": "TRAINING", "pattern": [{"LOWER": "session"}]}
+
+{"label": "BMT", "pattern": [{"LOWER": "bmt"}]}
+{"label": "ICT", "pattern": [{"LOWER": "ict"}]}
+{"label": "IPPT", "pattern": [{"LOWER": "ippt"}]}
+{"label": "RT_IPT", "pattern": [{"LOWER": {"IN": ["rt", "ipt"]}}]}
+
+{"label": "MEDICAL", "pattern": [{"LOWER": "medical"}]}
+{"label": "MEDICAL", "pattern": [{"LOWER": "medical"}, {"LOWER": {"IN": ["checkup", "check-up", "screening", "officer", "specialist", "screening"]}}]}
+{"label": "MEDICAL", "pattern": [{"LOWER": "medical"}, {"LOWER": "check"}, {"LOWER": "up"}]}
+{"label": "MEDICAL", "pattern": [{"LOWER": {"IN": ["checkup", "check-up"]}}]}
+{"label": "MEDICAL", "pattern": [{"LOWER": "pre"}, {"LOWER": "enlistment"}, {"LOWER": {"IN": ["checkup", "check-up"]}}]}
+{"label": "MEDICAL", "pattern": [{"LOWER": {"IN": ["preenlistment", "pre-enlistment"]}}, {"LOWER": {"IN": ["checkup", "check-up", "screening"]}}]}
+
+{"label": "MEDICAL", "pattern": [{"LOWER": "health"}]}
+{"label": "MEDICAL", "pattern": [{"LOWER": "screening"}]}
+{"label": "MEDICAL", "pattern": [{"LOWER": "mo"}]}
+{"label": "MEDICAL", "pattern": [{"LOWER": "hsp"}]}
+{"label": "MEDICAL", "pattern": [{"LEMMA": "specialist"}]}
+{"label": "MEDICAL", "pattern": [{"LEMMA": "doctor"}]}
+{"label": "MEDICAL", "pattern": [{"LEMMA": "medic"}]}
+
+{"label": "FCC", "pattern": [{"LOWER": "fcc"}]}
+{"label": "CMPB", "pattern": [{"LOWER": "cmpb"}]}
+{"label": "CMPB", "pattern": [{"LOWER": "cpmb"}]}
+{"label": "CMPB", "pattern": [{"LOWER": "cmpd"}]}
+
+{"label": "CAMP", "pattern": [{"LOWER": "camp"}]}
+{"label": "CAMP", "pattern": [{"LOWER": {"IN": ["khatib", "kranji", "clementi", "hendon", "sembawang", "mowbray", "stagmont", "selarang", "bedok", "maju", "seletar"]}}, {"LOWER": "camp"}]}
+{"label": "CAMP", "pattern": [{"LOWER": {"IN": ["nee", "mandai", "amoy", "pasir", "sungei", "sarimbun"]}}, {"LOWER": {"IN": ["soon", "hill", "quee", "ris", "gedong", "scout", "laba"]}}, {"LOWER": "camp"}]}
+{"label": "CAMP", "pattern": [{"LOWER": {"IN": ["khatib", "kranji", "clementi", "hendon", "sembawang", "mowbray", "stagmont", "selarang", "bedok", "maju", "seletar"]}}]}
+{"label": "CAMP", "pattern": [{"LOWER": {"IN": ["nee", "mandai", "amoy", "pasir", "sungei", "sarimbun"]}}, {"LOWER": {"IN": ["soon", "hill", "quee", "ris", "gedong", "scout", "laba"]}}]}
+
+{"label": "LOCATION", "pattern": [{"LOWER": "location"}]}
+{"label": "LOCATION", "pattern": [{"LOWER": "locations"}]}
+{"label": "LOCATION", "pattern": [{"LOWER": "place"}]}
+{"label": "LOCATION", "pattern": [{"LEMMA": "travel"}]}
+
+{"label": "PORTAL", "pattern": [{"LOWER": "booking"}]}
+{"label": "PORTAL", "pattern": [{"LOWER": {"IN": ["portal", "learnet"]}}]}
+
+{"label": "SERVICE", "pattern": [{"LOWER": "service"}]}
+{"label": "SERVICE", "pattern": [{"LOWER": "customer"}, {"LOWER": "service"}]}
+{"label": "SERVICE", "pattern": [{"POS": "PROPN"}, {"LOWER": "staff"}]}
+{"label": "SERVICE", "pattern": [{"LOWER": "staff"}]}
+{"label": "SERVICE", "pattern": [{"LOWER": "assist"}]}
+{"label": "SERVICE", "pattern": [{"LOWER": "people"}]}
+{"label": "SERVICE", "pattern": [{"LOWER": "waiting"}, {"LEMMA": "time"}]}
+{"label": "SERVICE", "pattern": [{"LEMMA": "waiting"}]}
+{"label": "SERVICE", "pattern": [{"LOWER": "attitude"}]}
+{"label": "SERVICE", "pattern": [{"LOWER": "tone"}]}
+{"label": "SERVICE", "pattern": [{"LEMMA": "greet"}]}
+{"label": "SERVICE", "pattern": [{"LEMMA": "treated"}]}
+{"label": "SERVICE", "pattern": [{"LOWER": "guard"}]}
+{"label": "SERVICE", "pattern": [{"LOWER": "guards"}]}
+{"label": "SERVICE", "pattern": [{"LOWER": "counter"}]}
