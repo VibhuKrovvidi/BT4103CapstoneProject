@@ -616,7 +616,7 @@ class DSTA_Service_Delivery():
                 pass;
             for sent in output:
                 for pair in sent:
-                    print(pair)
+                    #print(pair)
                     if pair[0] in feat_sent:
                         if pair[1] is not None:
                             flist = feat_sent[pair[0]]
@@ -649,6 +649,9 @@ class DSTA_Service_Delivery():
     
 
     def get_sentiment(self, feat_count, feat_sent):
+        #get stopwords from stanza
+        stop_words = stopwords.words('english')
+        stop_words.append('Ã°Ã¿â„¢ÂÃ°Ã¿ÂÂ»') #emoji
 
         sentiment_score = dict()
         singlish = pd.read_csv("singlish_sent2.csv")
@@ -676,24 +679,31 @@ class DSTA_Service_Delivery():
             print(feat_sent[f].split(" ,"))
             ssum = 0;
             length = 0;
+            des_list = [];
             for g in feat_sent[f].split(" ,"):
-                length += 1;
-                if g in singlish.keys():
-                    ssum += singlish[g]
+                # removal of stop words
+                if g in stop_words:
+                    continue
                 else:
-                    try:
+                length += 1;
+                    if g in singlish.keys():
+                        ssum += singlish[g]
+                    else:
+                        try:
 
-                        doc = self.nlp(g);
+                            doc = self.nlp(g);
 
-                        for i in doc.sentences:
+                            for i in doc.sentences:
 
-                                #print(i.sentiment)
-                                ssum += i.sentiment;
-                                new_row = [[f, g, i.sentiment, feat_count[f]]]
-                                desc_df = desc_df.append(pd.DataFrame(new_row, columns=dcolumns))
-                    except:
-                        pass;
-            sentiment_score[f] = ssum / length;
+                                    #print(i.sentiment)
+                                    ssum += i.sentiment;
+                                    new_row = [[f, g, i.sentiment, feat_count[f]]]
+                                    desc_df = desc_df.append(pd.DataFrame(new_row, columns=dcolumns))
+                        except:
+                            pass;
+            feat_sent[f] = ' ,'.join(des_list)
+            if length != 0:
+                sentiment_score[f] = ssum / length;
             
 
         adf = pd.DataFrame.from_dict(feat_count, orient='index', columns=['Freq'])

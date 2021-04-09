@@ -11,9 +11,85 @@
 	<script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.js'></script>
 </head>
 
+<div class="bar_freq">
+	<h1>Frequency of Entities</h1>
+	<canvas id="bar_chart" width="400" height="400"></canvas>
+	<script>
+	// bar chart data
+	var barData = {
+		labels : {{datatag | tojson }},
+
+		datasets : [{
+		fillColor: "rgba(151,187,205,1)",
+		strokeColor: "rgba(151,187,205,2)",
+		data : {{datafreq | tojson }}
+		}
+		]
+	}
+
+	// get bar chart canvas
+	var mybarchart = document.getElementById("bar_chart").getContext("2d");
+
+	// draw bar chart
+	new Chart(mybarchart).Bar(barData, {
+		// scaleOverride: true,
+		// scaleSteps: steps,
+		// scaleStepWidth: Math.ceil(max / steps),
+		scaleStartValue: 0,
+		scaleShowVerticalLines: true,
+		scaleShowGridLines : true,
+		barShowStroke : true,
+		scaleShowLabels: true
+		}
+	);
+
+	</script>
+
+</div>
+
+<div class="bar_sent">
+	<h1>Average Sentiment Score of Entities</h1>
+	<p>
+		0 : Negative &nbsp; 1 : Neutral &nbsp; 2 : Positive
+	</p>
+	<canvas id="bar_chart2" width="400" height="400"></canvas>
+	<script>
+	// bar chart data
+	
+	var barData2 = {
+		labels : {{datatag | tojson }},
+
+		datasets : [{
+		fillColor: "rgba(249, 105, 14, 1)",
+		strokeColor: "rgba(249, 105, 14,2)",
+		data : {{datascore  | tojson }}
+		}
+		]
+	}
+
+	// get bar chart canvas
+	var mybarchart2 = document.getElementById("bar_chart2").getContext("2d");
+
+	// draw bar chart
+	new Chart(mybarchart2).Bar(barData2, {
+		// scaleOverride: true,
+		// scaleSteps: steps,
+		// scaleStepWidth: Math.ceil(max / steps),
+		scaleStartValue: 0,
+		scaleShowVerticalLines: true,
+		scaleShowGridLines : true,
+		barShowStroke : true,
+		scaleShowLabels: true
+		}
+	);
+
+	</script>
+
+</div>
 
 
-<!-- First Chart -->
+
+<!-- First Chart
 <div class="ts">
 <h1> Sentiment Score over Time </h1>
 
@@ -53,7 +129,7 @@ var ctx = document.getElementById("myChart").getContext("2d");
 				 strokeColor: "rgba(220,220,220,0.8)",
 				 highlightFill: "rgba(220,220,220,0.75)",
 				 highlightStroke: "rgba(220,220,220,1)",
-				 data: {{ values | tojson}}
+				 data: {{ values3 | tojson}}
 			 }],
 		 }
 	 }
@@ -74,11 +150,11 @@ var currentChart;
  $('#chartType').on('change', updateChart)
  updateChart();
 </script>
-</div>
+</div> -->
 
 
-<div class="piec">
-<h1>Sources</h1>
+<!-- <div class="piec">
+<h1>Breakdown of Reviews by Sources</h1>
 	<canvas id="pie_chart" width="400" height="400"></canvas>
 	<script>
 	  var pieData = [
@@ -100,93 +176,14 @@ var currentChart;
 	  new Chart(document.getElementById("pie_chart").getContext("2d")).Pie(pieData);
 
 	</script>
-</div>
+</div> -->
 
-
-<div class="barp">
-	<h1>Positive Features By Frequency</h1>
-	<canvas id="bar_chart" width="400" height="400"></canvas>
-	<script>
-	// bar chart data
-	var barData = {
-		labels : {{postag | tojson }},
-
-		datasets : [{
-		fillColor: "rgba(151,187,205,0.2)",
-		strokeColor: "rgba(151,187,205,1)",
-		pointColor: "rgba(151,187,205,1)",
-		data : {{posfreq | tojson }}
-		}
-		]
-	}
-
-	// get bar chart canvas
-	var mybarchart = document.getElementById("bar_chart").getContext("2d");
-
-	// draw bar chart
-	new Chart(mybarchart).Bar(barData, {
-		// scaleOverride: true,
-		// scaleSteps: steps,
-		// scaleStepWidth: Math.ceil(max / steps),
-		scaleStartValue: 0,
-		scaleShowVerticalLines: true,
-		scaleShowGridLines : true,
-		barShowStroke : true,
-		scaleShowLabels: true
-		}
-	);
-
-	</script>
-
-</div>
-
-<div class="barn">
-	<h1>Negative Features By Frequency</h1>
-	<canvas id="bar_chartn" width="400" height="400"></canvas>
-	<script>
-	// bar chart data
-	
-
-	
-	var barData2 = {
-		labels : {{negtag | tojson }},
-
-		datasets : [{
-		fillColor: "rgba(151,187,205,0.2)",
-		strokeColor: "rgba(151,187,205,1)",
-		pointColor: "rgba(151,187,205,1)",
-		data : {{negfreq | tojson }}
-		}
-		]
-	}
-
-	// get bar chart canvas
-	var mybarchart2 = document.getElementById("bar_chartn").getContext("2d");
-
-	// draw bar chart
-	new Chart(mybarchart2).Bar(barData2, {
-		// scaleOverride: true,
-		// scaleSteps: steps,
-		// scaleStepWidth: Math.ceil(max / steps),
-		scaleStartValue: 0,
-		scaleShowVerticalLines: true,
-		scaleShowGridLines : true,
-		barShowStroke : true,
-		scaleShowLabels: true,
-		
-		}
-	);
-
-	</script>
-
-</div>
-
-<div class="allreviews">
+<!-- <div class="allreviews">
  <h1> Top Features and Sentiments </h1>
 	 <canvas id="allr" width="400" height="400"></canvas>
 	 
     <script>
-	var ctx = document.getElementById('allr').getContext("2d");
+	// var ctx2 = document.getElementById('allr').getContext("2d");
 
 
     	var barData3 = {
@@ -226,27 +223,16 @@ var currentChart;
 	);
     
 </script>
-</div>
+</div> -->
+
+<!-- <div class="wcloud">
+	<h1> Word Cloud of Top Features by Frequency </h1>
+	<img src="/static/wordcloud.png" alt="Wordcloud">
+</div> -->
 
 
 <style>
-  .ts {
-			 height:500px;
-			width:500px;
-outline: solid 1px black;
-			float: left;
-			padding: 80px;
-		}
-
-		.piec {
-			height:500px;
-			width:500px;
-outline: solid 1px black;
-			float: right;
-			padding: 80px;
-		}
-
-		.barp {
+		.bar_freq {
 			height:500px;
 			width:500px;
 outline: solid 1px black;
@@ -254,21 +240,44 @@ outline: solid 1px black;
 			padding: 80px;
 		}
 
-		.barn {
+		.bar_sent {
 			height:500px;
 			width:500px;
 outline: solid 1px black;
 			float:right;
 			padding: 80px;
 				}
+  /* .ts {
+			 height:500px;
+			width:500px;
+outline: solid 1px black;
+			float: left;
+			padding: 80px;
+		} */
 
-		.allreviews {
+		/* .piec {
+			height:500px;
+			width:500px;
+outline: solid 1px black;
+			float: right;
+			padding: 80px;
+		} */
+
+		/* .allreviews {
 			height:500px;
 			width:500px;
 outline: solid 1px black;
 float:right;
 			padding: 80px;
-		}
+		} */
+
+		/* .wcloud {
+			height:500px;
+			width:500px;
+outline: solid 1px black;
+float:left;
+			padding: 80px;
+		} */
 
 </style>
 
