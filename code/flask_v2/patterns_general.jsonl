@@ -32,11 +32,6 @@
 {"label": "CAMP", "pattern": [{"LOWER": {"IN": ["khatib", "kranji", "clementi", "hendon", "sembawang", "mowbray", "stagmont", "selarang", "bedok", "maju", "seletar"]}}]}
 {"label": "CAMP", "pattern": [{"LOWER": {"IN": ["nee", "mandai", "amoy", "pasir", "sungei", "sarimbun"]}}, {"LOWER": {"IN": ["soon", "hill", "quee", "ris", "gedong", "scout", "laba"]}}]}
 
-{"label": "LOCATION", "pattern": [{"LOWER": "location"}]}
-{"label": "LOCATION", "pattern": [{"LOWER": "locations"}]}
-{"label": "LOCATION", "pattern": [{"LOWER": "place"}]}
-{"label": "LOCATION", "pattern": [{"LEMMA": "travel"}]}
-
 {"label": "PORTAL", "pattern": [{"LOWER": "booking"}]}
 {"label": "PORTAL", "pattern": [{"LOWER": {"IN": ["portal", "learnet"]}}]}
 
@@ -45,13 +40,11 @@
 {"label": "SERVICE", "pattern": [{"POS": "PROPN"}, {"LOWER": "staff"}]}
 {"label": "SERVICE", "pattern": [{"LOWER": "staff"}]}
 {"label": "SERVICE", "pattern": [{"LOWER": "assist"}]}
-{"label": "SERVICE", "pattern": [{"LOWER": "people"}]}
 {"label": "SERVICE", "pattern": [{"LOWER": "waiting"}, {"LEMMA": "time"}]}
 {"label": "SERVICE", "pattern": [{"LEMMA": "waiting"}]}
 {"label": "SERVICE", "pattern": [{"LOWER": "attitude"}]}
 {"label": "SERVICE", "pattern": [{"LOWER": "tone"}]}
 {"label": "SERVICE", "pattern": [{"LEMMA": "greet"}]}
-{"label": "SERVICE", "pattern": [{"LEMMA": "treated"}]}
 {"label": "SERVICE", "pattern": [{"LOWER": "guard"}]}
 {"label": "SERVICE", "pattern": [{"LOWER": "guards"}]}
 {"label": "SERVICE", "pattern": [{"LOWER": "counter"}]}
