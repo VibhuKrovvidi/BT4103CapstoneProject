@@ -784,60 +784,165 @@ class DSTA_Service_Delivery():
 		data = pd.DataFrame(data, columns=["Content"])
 		self.run_feat_extraction(data)
 
+	def sentence_level_sentiment(self):
+		data = self.get_all_data()
+		data = pd.DataFrame(data, columns=["Content"])
+		dfl = data["Content"].to_list()
+
+		# Preprocess
+		final_list = []
+		for review in dfl:
+			stop_words = set(stopwords.words('english'))
+			new_txt_list = nltk.word_tokenize(review)
+			wordsList = [w for w in new_txt_list if not w in stop_words]
+			cleaned = " ".join(wordsList)
+		#     print(cleaned)
+			final_list.append(cleaned)
+
+		singlish = pd.read_csv("singlish_sent2.csv")
+		singlish.columns = ["word", "sent"]
+		sd = singlish.to_dict('index')
+
+		singlish_dict = dict()
+
+		for i in sd.keys():
+			j = sd[i]
+		#     print(j)
+			singlish_dict[j["word"]] = j["sent"]
+		singlish_dict 
+		count = 0
+
+		review_level_s = []
+		for review in final_list: 
+			count += 1;
+			sentences = nltk.sent_tokenize(review)
+			sent_list = []
+			for sentence in sentences:
+				len_sent = 0
+				wordlist = nltk.word_tokenize(sentence);
+				ssum = 0;
+				for word in wordlist:
+					len_sent += 1;
+					
+					if word in singlish_dict.keys():
+						ssum += singlish_dict[word]
+					else:
+						doc = self.nlp(word)
+						for i in doc.sentences:
+							ssum += i.sentiment;
+				avg_sent = ssum / len_sent;
+				sent_list.append((sentence, avg_sent))
+		#         print("Sent_lIst = ", sent_list)
+			
+			review_level_s.append(sent_list)
+			# print(review, "\n", review_level_s, "\n\n")
+			
+		now = datetime.now()
+		dt_string = str(now.strftime("%d/%m/%Y %H:%M:%S"))
+
+		id_count = 1;
+		list_of_dicts = []
+		for review in review_level_s:
+			sentence_count = 1;
+			for sentence in review:
+				now = datetime.now()
+				dt_string = str(now.strftime("%d/%m/%Y %H:%M:%S"))
+				return_dict = dict();
+				return_dict["review_id"] = id_count;
+				return_dict["sentence_id"] = sentence_count;
+				return_dict["sentence_content"] = sentence[0];
+				return_dict["sentence_sent"] = sentence[1];
+				return_dict["timestamp"] = dt_string
+				list_of_dicts.append(return_dict)
+				sentence_count += 1
+			id_count += 1;
+
+		print(list_of_dicts)
+
+		
+		today = str(date.today())
+
+		collection_name = "sentence_level" + today
+		sentence_ref = self.db.collection(collection_name)
+
+		for i in list_of_dicts:
+			pushref = sentence_ref.add(i)
+			print("Pushed processed data for :", i["review_id"])
+
+	def get_sentence_level(self):
+		collections = []
+		for col in self.db.collections():
+			if "sentence_level" in str(col.id):
+				collections.append(str(col.id))
+
+		collections = sorted(collections, reverse=True)
+
+		data = []
+		sent_ref = self.db.collection(collections[0])
+		try:
+			sdata = sent_ref.get()
+			for entry in sdata:
+				data.append(entry.to_dict());
+		except:
+			print("Error getting Sentence Level Reviews")
+
+		return data;
 
 def main():
 	print("Starting DSTA Web Scraper")
 	scraper = DSTA_Service_Delivery()
 	scraper.initialiseDB()
+	scraper.get_sentence_level()
+	# scraper.sentence_level_sentiment()
+	# # Test greview
+	# # scraper.get_google_reviews("https://www.google.com/maps/place/CMPB/@1.280195,103.815126,17z/data=!4m7!3m6!1s0x31da1bd0af54732f:0x9c274decbab4e599!8m2!3d1.280195!4d103.815126!9m1!1b1", "CMPB")
 
-	# Test greview
+	# # Test harewarezone
+	# # scraper.get_harwarezone();
+	# # Test reddit
+	# # scraper.get_reddit();
+	
+	# # GR
 	# scraper.get_google_reviews("https://www.google.com/maps/place/CMPB/@1.280195,103.815126,17z/data=!4m7!3m6!1s0x31da1bd0af54732f:0x9c274decbab4e599!8m2!3d1.280195!4d103.815126!9m1!1b1", "CMPB")
+	# print("Scraped Google Reviews for CMPB")
 
-	# Test harewarezone
-	# scraper.get_harwarezone();
-	# Test reddit
-	# scraper.get_reddit();
-	
-	# GR
-	scraper.get_google_reviews("https://www.google.com/maps/place/CMPB/@1.280195,103.815126,17z/data=!4m7!3m6!1s0x31da1bd0af54732f:0x9c274decbab4e599!8m2!3d1.280195!4d103.815126!9m1!1b1", "CMPB")
-	print("Scraped Google Reviews for CMPB")
+	# scraper.get_google_reviews("https://www.google.com/maps/place/Bedok+FCC+in+Bedok+Camp+2/@1.3170913,103.9013688,13z/data=!4m7!3m6!1s0x31da22d0dd021831:0x72f9d7d2f5dfe24d!8m2!3d1.3168752!4d103.954114!9m1!1b1", "BedokFCC")
+	# print("Scraped Google Reviews for ", "BedokFCC")
 
-	scraper.get_google_reviews("https://www.google.com/maps/place/Bedok+FCC+in+Bedok+Camp+2/@1.3170913,103.9013688,13z/data=!4m7!3m6!1s0x31da22d0dd021831:0x72f9d7d2f5dfe24d!8m2!3d1.3168752!4d103.954114!9m1!1b1", "BedokFCC")
-	print("Scraped Google Reviews for ", "BedokFCC")
+	# scraper.get_google_reviews("https://www.google.com/maps/place/Maju+FCC/@1.3170913,103.9013688,13z/data=!4m7!3m6!1s0x31da114548788fbf:0xe7b1351cb138a2dc!8m2!3d1.3297773!4d103.7717872!9m1!1b1", "MajuFCC")
+	# print("Scraped Google Reviews for ", "MajuFCC")
 
-	scraper.get_google_reviews("https://www.google.com/maps/place/Maju+FCC/@1.3170913,103.9013688,13z/data=!4m7!3m6!1s0x31da114548788fbf:0xe7b1351cb138a2dc!8m2!3d1.3297773!4d103.7717872!9m1!1b1", "MajuFCC")
-	print("Scraped Google Reviews for ", "MajuFCC")
+	# scraper.get_google_reviews("https://www.google.com/maps/place/Kranji+FCC/@1.3170913,103.9013688,13z/data=!4m7!3m6!1s0x31da11ae095fac6f:0xfbe6c8bc26249e47!8m2!3d1.400557!4d103.7416568!9m1!1b1", "KranjiFCC")
+	# print("Scraped Google Reviews for ", "KranjiFCC")
 
-	scraper.get_google_reviews("https://www.google.com/maps/place/Kranji+FCC/@1.3170913,103.9013688,13z/data=!4m7!3m6!1s0x31da11ae095fac6f:0xfbe6c8bc26249e47!8m2!3d1.400557!4d103.7416568!9m1!1b1", "KranjiFCC")
-	print("Scraped Google Reviews for ", "KranjiFCC")
-
-	scraper.get_google_reviews("https://www.google.com/maps/place/Clementi+Camp/@1.3170913,103.9013688,13z/data=!4m11!1m2!2m1!1sMedical+Center+NS!3m7!1s0x31da11a69aa0ac43:0xca88158b0ea52b74!8m2!3d1.3290056!4d103.7629462!9m1!1b1!15sChFNZWRpY2FsIENlbnRlciBOU1omChFtZWRpY2FsIGNlbnRlciBucyIRbWVkaWNhbCBjZW50ZXIgbnOSAQRjYW1w", "ClementiCamp")
-	print("Scraped Google Reviews for ", "ClementiCamp")
+	# scraper.get_google_reviews("https://www.google.com/maps/place/Clementi+Camp/@1.3170913,103.9013688,13z/data=!4m11!1m2!2m1!1sMedical+Center+NS!3m7!1s0x31da11a69aa0ac43:0xca88158b0ea52b74!8m2!3d1.3290056!4d103.7629462!9m1!1b1!15sChFNZWRpY2FsIENlbnRlciBOU1omChFtZWRpY2FsIGNlbnRlciBucyIRbWVkaWNhbCBjZW50ZXIgbnOSAQRjYW1w", "ClementiCamp")
+	# print("Scraped Google Reviews for ", "ClementiCamp")
 	
 
-	# Hardwarezone
+	# # Hardwarezone
 
-	scraper.get_harwarezone("https://forums.hardwarezone.com.sg/national-service-knowledge-base-162/ffi-need-go-every-year-after-35-a-4109332.html", "FFI");
-	print("Scraped " + "FFI") 
+	# scraper.get_harwarezone("https://forums.hardwarezone.com.sg/national-service-knowledge-base-162/ffi-need-go-every-year-after-35-a-4109332.html", "FFI");
+	# print("Scraped " + "FFI") 
 
-	scraper.get_harwarezone("https://forums.hardwarezone.com.sg/national-service-knowledge-base-162/pes-d-dilemma-3709993.html", "Pes_D_dilemma");
-	print("Scraped " + "Pes_D_dilemma") 
+	# scraper.get_harwarezone("https://forums.hardwarezone.com.sg/national-service-knowledge-base-162/pes-d-dilemma-3709993.html", "Pes_D_dilemma");
+	# print("Scraped " + "Pes_D_dilemma") 
 
-	scraper.get_harwarezone("https://forums.hardwarezone.com.sg/national-service-knowledge-base-162/after-40-years-old-still-need-go-back-reservist-5111453.html", "reservist");
-	print("Scraped " + "reservist") 
+	# scraper.get_harwarezone("https://forums.hardwarezone.com.sg/national-service-knowledge-base-162/after-40-years-old-still-need-go-back-reservist-5111453.html", "reservist");
+	# print("Scraped " + "reservist") 
 
-	scraper.get_harwarezone("https://forums.hardwarezone.com.sg/national-service-knowledge-base-162/saf-ippt-ipt-rt-questions-4220677-380.html", "IPPT_IPT_RT");
-	print("Scraped " + "IPPT_IPT_RT") 
+	# scraper.get_harwarezone("https://forums.hardwarezone.com.sg/national-service-knowledge-base-162/saf-ippt-ipt-rt-questions-4220677-380.html", "IPPT_IPT_RT");
+	# print("Scraped " + "IPPT_IPT_RT") 
 
-	scraper.get_harwarezone("https://forums.hardwarezone.com.sg/national-service-knowledge-base-162/cmpb-enlistment-medical-checkup-tomorrow-no-form-healthbooklet-how-3623665.html", "CMPB");
-	print("Scraped " + "CMPB") 
+	# scraper.get_harwarezone("https://forums.hardwarezone.com.sg/national-service-knowledge-base-162/cmpb-enlistment-medical-checkup-tomorrow-no-form-healthbooklet-how-3623665.html", "CMPB");
+	# print("Scraped " + "CMPB") 
 
-	# scrape reddit
-	d = date.today() - timedelta(days=365)
-	unixtime = time.mktime(d.timetuple())
+	# # scrape reddit
+	# d = date.today() - timedelta(days=365)
+	# unixtime = time.mktime(d.timetuple())
 
-	scraper.get_reddit(start_date = unixtime, limit_amt=10)
-	print("Scraped Reddit" )
+	# scraper.get_reddit(start_date = unixtime, limit_amt=10)
+	# print("Scraped Reddit" )
+
 
 	# Run processing code:
 

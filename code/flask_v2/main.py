@@ -406,8 +406,31 @@ def display_spacy_ict():
 	return render_template("formatted_entities_ict.html")
 
 
+@app.route("/display_sentence_level")
+def sentence_level():
+	init = threading.Thread(target=init_scraper)
+	init.start()
+	init.join()
+	scraper = myqueue.get()
+	t1 = threading.Thread(target=scraper.initialiseDB)
+	t1.start()
+	t1.join()
+	data = scraper.get_sentence_level()
+	df = pd.DataFrame(data)
+	df = df.sort_values(["review_id", "sentence_id"], ascending=[True, True])
+	content = df["sentence_content"].tolist()
+	sent = df["sentence_sent"].tolist()
+	review = df["review_id"].tolist()
 
+	finlist = []
+	for i in range(0, len(review)):
+		if i != 0:
+			if review[i] != review[i-1]:
+				finlist.append(["<br><hr><br>", "<hr>\n\n"])
+		finlist.append([content[i], sent[i]])
+	# print(finlist)
 
+	return render_template("sentence_level.html", finlist = finlist)
 
 
 
@@ -439,7 +462,7 @@ def runscript():
 		init.start()
 		init.join()
 		scraper = myqueue.get()
-
+	
 		t1 = threading.Thread(target=scraper.initialiseDB)
 		t1.start()
 		t1.join()
