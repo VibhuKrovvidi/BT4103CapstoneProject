@@ -26,12 +26,20 @@ from spacy import displacy
 nlp = spacy.load('en_core_web_sm')
 '''
 
-import sda
-from sda import DSTA_Service_Delivery
+import processing 
+from processing import DSTA_Service_Delivery
 import pandas as pd;
 
-# from flask_login import LoginManager
 
+
+
+def init_scraper():
+	scraper = DSTA_Service_Delivery()
+	myqueue.put(scraper)
+
+
+global scraper;
+myqueue = queue.Queue()
 
 #App configuration
 app = Flask(__name__)
@@ -48,17 +56,20 @@ pb = pyrebase.initialize_app(json.load(open('fbconfig.json')))
 
 auth = pb.auth()
 
+
 #Api route to get a new token for a valid user
 @app.route('/', methods=['GET', 'POST'])
 def login():
 	form = LoginForm()
 	if form.validate_on_submit():
 
+		
+
 		email = form.email.data
 		password = form.password.data
 		try:
 			user = auth.sign_in_with_email_and_password(email, password)
-			return redirect('/holding')
+			return redirect('/dashboard')
 		except:
 			return "Invalid Credentials. Please try again"
 
@@ -66,12 +77,6 @@ def login():
 
 
 
-@app.route('/holding')
-def holding():
-	if isinstance(auth.current_user, dict):
-		return render_template('holding.html', title="Holding")
-	else:
-		return redirect('/')
 
 
 @app.route('/dashboard')
@@ -81,17 +86,20 @@ def dashboard():
 	# Read from file
 	df = pd.read_csv("../../output/sentiment evaluation/features-entity-score.csv")
 	df.drop(["Unnamed: 0"], axis=1, inplace=True)
+	# init = threading.Thread(target=init_scraper)
+	# init.start()
+	# init.join()
+	# scraper = myqueue.get()
+	# scraper.initialiseDB()
+	# data = scraper.get_entity_sent()
+	# df = pd.DataFrame(data)
+	# print(df.head)
 
 	data = df
 
-	data_tag = data["entity"].tolist()
+	data_tag = data["Entity"].tolist()
 	data_freq = data["Freq_singlish"].tolist()
-	data_score = data["Avg_sent_singlish"].tolist()
-
-	allr = df.head(10)
-	allr_tag = allr["index"].tolist()
-	allr_sent = allr["Avg_sent_singlish"].tolist()
-	allr_sent = [i-1 for i in allr_sent]
+	data_score = data["Avg_sent"].tolist()
 
 	#wordcloud
 	comment_words = ''
@@ -119,50 +127,8 @@ def dashboard():
 	wordcloud.to_file("./Static/wordcloud.png")
   
 
-	labels = [
-		'JAN', 'FEB', 'MAR', 'APR',
-		'MAY', 'JUN', 'JUL', 'AUG',
-		'SEP', 'OCT', 'NOV', 'DEC'
-	]
-
-	values = [
-		1, 1.1, 1.3, 1.3,
-		1.25, 1.2, 1.1, 1,
-		0.95, 0.7, 0.9, 1
-	]
-
-	colors = [
-		"#F7464A", "#46BFBD", "#FDB45C", "#FEDCBA",
-		"#ABCDEF", "#DDDDDD", "#ABCABC", "#4169E1",
-		"#C71585", "#FF4500", "#FEDCBA", "#46BFBD"]
-
-
-
-
-	labels2 = [
-		"Reddit", "Hardwarezone", "Google Reviews", "Others"
-	]
-
-	values2 = [
-		600, 3000, 350, 0 
-	]
-
-	values3 = [	
-		0.95, 0.7, 0.9, 1,
-		1, 1.1, 1.3, 1.3,
-		1.25, 1.2, 1.1, 1,
-	]
-
-	colors2 = [
-		"#F7464A", "#46BFBD", "#FDB45C", "#FEDCBA"]
-	graph_labels=labels
-	graph_values=values
-	graph_cats = ["IPPT", "Medical", "Cat C", "Cat D", "Cat E"]
-
 	return render_template('dashboard_home2.html', max=17000, labels=graph_labels, 
-		values=graph_values, values3=values3, category=graph_cats, set=zip(values2, labels2, colors2),
-		datatag = data_tag, datafreq = data_freq, datascore = data_score,
-		allrtag = allr_tag, allrsent = allr_sent
+		datatag = data_tag, datafreq = data_freq, datascore = data_score
 		)
 	# else:
 		# return redirect('/')
@@ -408,13 +374,13 @@ def display_spacy_ict():
 
 @app.route("/display_sentence_level")
 def sentence_level():
+	# To be deleted once dashboard is fixed
 	init = threading.Thread(target=init_scraper)
 	init.start()
 	init.join()
 	scraper = myqueue.get()
-	t1 = threading.Thread(target=scraper.initialiseDB)
-	t1.start()
-	t1.join()
+	scraper.initialiseDB()
+	#################################
 	data = scraper.get_sentence_level()
 	df = pd.DataFrame(data)
 	df = df.sort_values(["review_id", "sentence_id"], ascending=[True, True])
@@ -442,16 +408,7 @@ def sentence_level():
 def login_out():
 	# auth.signOut()
 	return redirect('/')
-'''
-@app.route('/extractentity', methods=["GET", "POST"])
-def extractentitiy():
-	if request.method == "POST":
-		inputtext = request.form["inputtext"]
-		docx = nlp(inputtext)
-		html = displacy.render(docx, style="ent")
-		result = html
-	return render_template("entities.html", inputtext=inputtext, result=result)
-'''
+
 
 myqueue = queue.Queue()
 @app.route('/runscript')
@@ -472,10 +429,6 @@ def runscript():
 		return render_template("runscript.html")
 	else:
 		return redirect('/')
-
-def init_scraper():
-	scraper = DSTA_Service_Delivery()
-	myqueue.put(scraper)
 
 
 logger.add("app/static/job.log", format="{time} - {message}")

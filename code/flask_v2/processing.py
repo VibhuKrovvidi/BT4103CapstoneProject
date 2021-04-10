@@ -82,7 +82,7 @@ class DSTA_Service_Delivery():
         Initialise Firebase app by providing administrative credentials in a JSON file, fbadmin.json.
         """
         cred = credentials.Certificate("fbadmin.json")
-        firebase_admin.initialize_app(cred)
+        # firebase_admin.initialize_app(cred)
         self.db = firestore.client()
     
     def get_google_reviews(self, location="CMPB", url="https://www.google.com/maps/place/CMPB/@1.280195,103.815126,17z/data=!4m7!3m6!1s0x31da1bd0af54732f:0x9c274decbab4e599!8m2!3d1.280195!4d103.815126!9m1!1b1"):
@@ -1030,6 +1030,18 @@ class DSTA_Service_Delivery():
             print("Error getting Sentence Level Reviews")
 
         return data
+
+    def get_entity_sent(self):
+        ges_ref = self.db.collection(u'sentiment_score_by_entity');
+        data = []
+        try:
+            sdata = ges_ref.get()
+            for entry in sdata:
+                data.append(entry.to_dict())
+        except:
+            print("error getting entity level data");
+        return data;
+
 
 def main():
     scraper = DSTA_Service_Delivery()
