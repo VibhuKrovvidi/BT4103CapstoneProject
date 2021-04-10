@@ -474,7 +474,7 @@ class DSTA_Service_Delivery():
             Determines whether the returned list of data is split into Google Reviews and HardwareZone/Reddit (default is False)
         """
         data = []
-        
+        """
         hz_ref = self.db.collection(u"hardwarezone")
         try:
             hzdata = hz_ref.get()
@@ -498,7 +498,7 @@ class DSTA_Service_Delivery():
                 data.append(entry.to_dict()["content"])
         except:
             print("Error getting Reddit Comments")
-        
+        """
         gdata = []
         gr_ref = self.db.collection(u"google_reviews")
         try:
@@ -902,7 +902,7 @@ class DSTA_Service_Delivery():
         print(mergedDF)
         return mergedDF
     
-    def entity_sentiment(self, entitiesDF, sent = 'Avg_sent', entity = 'Entity'):
+    def entity_table(self, entitiesDF, sent = 'Avg_sent', entity = 'Entity', freq = 'Freq'):
         """
         A simple function that calculates average sentiment of each sentiment by averaging the sentiment score of the features identified for each entity.
         Output dataframe will be pushed to Firebase.
@@ -915,18 +915,19 @@ class DSTA_Service_Delivery():
         entity : str
             Column name of the column containing the entity label of feature. If not specified, 'Entity' will be used by default.
         """
-        # Group the rows by entity, then calculate average sentiment score of entity group
+        # Group the rows by entity, then calculate average sentiment score of entity group and frequency of occurence 
         sent_by_entity = entitiesDF.groupby(entity)[[sent]].mean()
-        sent_by_entity = sent_by_entity.reset_index(level= entity)
+        freq_by_entity = df_entity_level.groupby(entity)[[freq]].sum()
+        entity_df = pd.concat([sent_by_entity, freq_by_entity],axis = 1)
 
         # Push to Firebase
-        sent_entity_ref = self.db.collection('sentiment_score_by_entity')
-        entity_dict = sent_by_entity.to_dict('records')
+        entity_ref = self.db.collection('sentiment_freq_by_entity')
+        entity_dict = entity_df.to_dict('records')
 
         for i in entity_dict:
-            sent_entity_ref.document(i[entity]).set(i)
+            entity_ref.document(i[entity]).set(i)
             print("Pushed processed data for :", i[entity])
-        return sent_by_entity
+        return entity_df
 
     def sentence_level_sentiment(self):
         data = self.get_all_contentdata()["general"]
@@ -1101,11 +1102,11 @@ def main():
     features = scraper.run_feat_extraction(dataDF)
     print("\nDone extracting features and running sentiment analysis!")
 
-    # Get the intersection of features and output entity-sentiment table
+    # Get the intersection of features and output entity-sentiment-freq table
     intersecting_features = scraper.intersect_features(features, entities)
     print(intersecting_features.head(10))
-    entity_sent_table = scraper.entity_sentiment(intersecting_features)
-    print(entity_sent_table.head(10))
+    final_entity_table = scraper.entity_table(intersecting_features)
+    print(final_entity_table.head(10))
 
     # Get sentence-level sentiments
     scraper.sentence_level_sentiment()
