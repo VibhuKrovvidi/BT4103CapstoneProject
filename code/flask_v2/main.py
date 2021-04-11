@@ -84,50 +84,50 @@ def dashboard():
 	# if isinstance(auth.current_user, dict):
 	
 	# Read from file
-	df = pd.read_csv("../../output/sentiment evaluation/features-entity-score.csv")
-	df.drop(["Unnamed: 0"], axis=1, inplace=True)
-	# init = threading.Thread(target=init_scraper)
-	# init.start()
-	# init.join()
-	# scraper = myqueue.get()
-	# scraper.initialiseDB()
-	# data = scraper.get_entity_sent()
-	# df = pd.DataFrame(data)
-	# print(df.head)
+	# df = pd.read_csv("../../output/sentiment evaluation/features-entity-score.csv")
+	# df.drop(["Unnamed: 0"], axis=1, inplace=True)
+	init = threading.Thread(target=init_scraper)
+	init.start()
+	init.join()
+	scraper = myqueue.get()
+	scraper.initialiseDB()
+	data = scraper.get_entity_sent()
+	df = pd.DataFrame(data)
+	print(df.head)
 
 	data = df
 
 	data_tag = data["Entity"].tolist()
-	data_freq = data["Freq_singlish"].tolist()
+	data_freq = data["Freq"].tolist()
 	data_score = data["Avg_sent"].tolist()
 
-	#wordcloud
-	comment_words = ''
-	stopwords = set(STOPWORDS)
-	# iterate through the csv file
-	for val in df["index"]:
+	# #wordcloud
+	# comment_words = ''
+	# stopwords = set(STOPWORDS)
+	# # iterate through the csv file
+	# for val in df["index"]:
 	      
-	    # typecaste each val to string
-	    val = str(val)
+	#     # typecaste each val to string
+	#     val = str(val)
 	  
-	    # split the value
-	    tokens = val.split()
+	#     # split the value
+	#     tokens = val.split()
 	      
-	    # Converts each token into lowercase
-	    for i in range(len(tokens)):
-	        tokens[i] = tokens[i].lower()
+	#     # Converts each token into lowercase
+	#     for i in range(len(tokens)):
+	#         tokens[i] = tokens[i].lower()
 	      
-	    comment_words += " ".join(tokens)+" "
+	#     comment_words += " ".join(tokens)+" "
 	  
-	wordcloud = WordCloud(width = 400, height = 400,
-	                background_color ='white',
-	                stopwords = stopwords,
-	                min_font_size = 10).generate(comment_words)
+	# wordcloud = WordCloud(width = 400, height = 400,
+	#                 background_color ='white',
+	#                 stopwords = stopwords,
+	#                 min_font_size = 10).generate(comment_words)
 	  
-	wordcloud.to_file("./Static/wordcloud.png")
+	# wordcloud.to_file("./Static/wordcloud.png")
   
 
-	return render_template('dashboard_home2.html', max=17000, labels=graph_labels, 
+	return render_template('dashboard_home2.html', max=17000, 
 		datatag = data_tag, datafreq = data_freq, datascore = data_score
 		)
 	# else:
@@ -413,22 +413,22 @@ def login_out():
 myqueue = queue.Queue()
 @app.route('/runscript')
 def runscript():
-	if isinstance(auth.current_user, dict):
+	# if isinstance(auth.current_user, dict):
 		
-		init = threading.Thread(target=init_scraper)
-		init.start()
-		init.join()
-		scraper = myqueue.get()
-	
-		t1 = threading.Thread(target=scraper.initialiseDB)
-		t1.start()
-		t1.join()
-		t2 = threading.Thread(target=scraper.runscraping)
-		t2.start()
+	init = threading.Thread(target=init_scraper)
+	init.start()
+	init.join()
+	scraper = myqueue.get()
 
-		return render_template("runscript.html")
-	else:
-		return redirect('/')
+	t1 = threading.Thread(target=scraper.initialiseDB)
+	t1.start()
+	t1.join()
+	t2 = threading.Thread(target=scraper.run_processing)
+	t2.start()
+
+	return render_template("runscript.html")
+	# else:
+		# return redirect('/')
 
 
 logger.add("app/static/job.log", format="{time} - {message}")
