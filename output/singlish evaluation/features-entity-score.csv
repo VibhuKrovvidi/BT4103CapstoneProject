@@ -1,0 +1,42 @@
+,index,Descriptors_singlish,Freq_singlish,Avg_sent_singlish,Avg_sent_no singlish,entity
+1,ippt,"book ,take ,rewards ,whole ,finish ,take ,attempt ,need ,failed ,pass ,failed ,pass ,book ,book ,sessions ,sessions ,one ,one ,10th ,failed ,take ,session ,book ,training ,pass ,year ,attempt ,defaulted ,nonict ,attempt ,clear ,nonict ,attempt ,clear ,completed ,session ,take ,open ,slots ,took ,route ,fail",50,0.9007936507936508,0.9285714285714286,IPPT
+12,rt,"loh ,got ,complete ,cleared ,attending ,booked ,kenna ,go ,complete ,supposed ,normal",19,1.1818181818181819,1.1818181818181819,RT/IPT
+13,session,"first ,ipt ,8th ,previous ,book ,ippt ,book ,first ,iptippt ,attended ,khatib ,ippt ,book ,last ,ippt ,book ,last ,8th ,iptippt ,book",17,1.0,1.0,TRAINING
+21,first,"loh ,attend ,session ,sessions ,clear ,ipt ,shelter ,time ,rtsession ,session ,ipptwindow",13,0.9696969696969696,1.0,ORDINAL
+27,pes,"f ,status ,e1 ,officially ,e1 ,officially ,status ,choose ,c ,c ,c",11,1.0,1.0,ORG
+28,pes,"f ,status ,e1 ,officially ,e1 ,officially ,status ,choose ,c ,c ,c",11,1.0,1.0,PERSON
+35,ns,"booklet ,portal ,portal ,portal ,hotline ,portal ,portal ,journey",9,1.0,1.0,ORG
+36,ns,"booklet ,portal ,portal ,portal ,hotline ,portal ,portal ,journey",9,1.0,1.0,GPE
+39,portal,"ns ,ns ,check ,ns ,ns ,seem ,ns ,ns",8,1.0,1.0,PORTAL
+43,months,"e1 ,took ,took ,e1 ,took ,took ,e1 ,took ,took ,e1 ,took ,took ,complete",8,1.0769230769230769,1.0769230769230769,DATE
+50,weeks,"half ,training ,training",6,0.6666666666666666,1.0,DATE
+51,camp,"bedok ,entering ,khatib ,use ,kranji ,miss",6,1.0,1.0,CAMP
+70,fcc,"conduct ,khatib ,closed ,kranji ,try",5,1.0,1.0,FCC
+72,years,"old ,many ,clear ,working ,mean",5,0.7333333333333333,0.8,DATE
+73,days,"slight ,working",5,1.0,1.0,DATE
+84,bmt,"enter ,part ,companies",4,1.0,1.0,BMT
+94,saf,"try ,specialist",4,1.0,1.0,ORG
+95,saf,"try ,specialist",4,1.0,1.0,PERSON
+106,finish,"next ,carry ,lah ,cycle ,never ,fit",3,1.1666666666666667,1.1666666666666667,NORP
+107,medical,"review ,board ,board",3,1.0,1.0,MEDICAL
+129,guards,kena,3,0.1428571428571428,1.0,ORG
+132,nsf,"incoming ,went",3,1.0,1.0,ORG
+165,oc,"told ,going",2,1.0,1.0,ORG
+166,one,"red ,took ,knows",2,1.1666666666666667,1.0,CARDINAL
+185,saturday,interview,2,1.0,1.0,DATE
+186,mo,"see ,ask",2,0.5,1.0,MEDICAL
+188,specialist,"consultation ,saf",2,1.0,1.0,MEDICAL
+234,service,"pay ,medals",2,1.0,1.0,SERVICE
+246,navy,"call ,centerbro",2,1.0,1.0,ORG
+260,army,men,1,1.0,1.0,ORG
+310,recruit,poor,1,0.0,0.0,ORG
+330,commando,xiong,1,1.0,1.0,ORG
+337,cdec,grades,1,1.0,1.0,ORG
+351,profile,says,1,1.0,1.0,PERSON
+401,pop,"coy ,already ,ago",1,1.0,1.0,ORG
+418,govt,fine,1,2.0,2.0,ORG
+456,ict,"single ,done",1,1.0,1.0,ICT
+463,night,last,1,1.0,1.0,TIME
+521,obese,personnel,1,1.0,1.0,NORP
+570,july,last,1,1.0,1.0,DATE
+620,booking,cancel,1,1.0,1.0,PORTAL

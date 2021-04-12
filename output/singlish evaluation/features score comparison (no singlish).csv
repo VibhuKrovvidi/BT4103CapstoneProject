@@ -1,0 +1,641 @@
+,Avg_sent,Descriptors,Freq
+i,1.0416666666666667,"wear ,wear ,hear ,done ,sure ,able ,got ,got ,received ,got ,old ,get ,get ,completed ,completed ,planned ,unable ,clear ,managed ,clear ,booked ,absent ,booked ,absent ,booked ,absent ,booked ,point ,checked ,ipt ,checked ,ipt ,need ,failed ,book ,ready ,booked ,reach ,sure ,heard ,sure ,heard ,took ,see ,bookippt ,going ,rushing ,afraid ,late ,afraid ,late ,think ,tried ,forgot ,think ,agree ,ask ,ask ,need ,thought ,checked ,need ,done ,thought ,checked ,need ,done ,thought ,checked ,need ,done ,thought ,checked ,need ,done ,thought ,taken ,counted ,thought ,taken ,counted ,attended ,tried ,knowthats ,get ,get ,see ,bother ,think ,defaulted ,called ,defaulted ,called ,defaulted ,called ,completed ,attempt ,attempt ,scared ,thinking ,attempt ,booked ,thinking ,attempt ,booked ,new ,seek ,booked ,seen ,checked ,dundeclare ,lie ,dundeclare ,lie ,booked ,passed ,able ,plan ,able ,plan ,confused ,see ,posted ,complete ,push ,complete ,push ,go ,think ,remember ,doubt ,hope ,remember ,doubt ,hope ,remember ,doubt ,hope ,see ,saw ,see ,saw ,see ,saw ,spent ,recruit ,spent ,recruit ,understand ,call ,guess ,rmb ,enlisting ,guess ,enlisting ,guess ,came ,think ,waited ,think ,waited ,teach ,enter ,get ,serving ,think ,rmb ,know",114
+ippt,0.9285714285714286,"book ,take ,rewards ,whole ,finish ,take ,attempt ,need ,failed ,pass ,failed ,pass ,book ,book ,sessions ,sessions ,one ,one ,10th ,failed ,take ,session ,book ,training ,pass ,year ,attempt ,defaulted ,nonict ,attempt ,clear ,nonict ,attempt ,clear ,completed ,session ,take ,open ,slots ,took ,route ,fail",50
+not,1.03125,"book ,meet ,allowed ,comprehensive ,get ,taken ,charged ,sure ,exactly ,need ,systemliao ,allowed ,conduct ,book ,forgetting ,able ,ðÿ™ðÿ» ,counted ,charged ,completed ,ipt ,allowed ,ah ,cancelled ,good ,much ,sure ,locked ,resumed ,sure ,put ,really",38
+just,1.0,"wear ,mix ,counting ,rmb ,discharge ,go ,received ,want ,follow ,went ,point ,need ,follow ,went ,bookrt ,ask ,show ,continue ,go ,wan ,came ,clock ,go ,want ,18 ,lie ,need ,wanted ,relax ,go ,stay ,pretend",35
+ipt,1.08,"attend ,booking ,complete ,clear ,absent ,session ,go ,first ,sessions ,sessions ,sessions ,1 ,attend ,book ,book ,slots ,completed ,completed ,completed ,completed ,program ,completed ,completed ,complete ,resumed",35
+still,1.05,"ipptwindow ,giving ,applies ,got ,go ,unable ,liability ,need ,need ,seeking ,good ,need ,consider ,anal ,thinking ,able ,distance ,serving ,news ,cdo",26
+n't,1.12,"make ,got ,clear ,think ,seem ,know ,matter ,need ,go ,go ,answer ,relate ,book ,know ,clear ,bother ,stress ,complete ,think ,complete ,push ,complete ,push ,enter ,realize",24
+window,1.032258064516129,"closes ,complete ,next ,n ,closes ,next ,n ,closes ,next ,n ,closes ,clear ,next ,need ,next ,pass ,next ,pass ,end ,closes ,considered ,start ,current ,current ,current ,current ,current ,current ,current ,current ,current",22
+book,0.8787878787878788,"ippt ,le ,unable ,sessions ,directly ,ready ,need ,ippt ,faster ,slot ,ipptsession ,unable ,session ,unable ,ipptsession ,ipt ,unable ,ipptsession ,ipt ,ipt ,need ,session ,ipt ,ippt ,n't ,ippt ,continue ,sessions ,session ,unable ,sessions ,able ,session",22
+so,1.0,"need ,forget ,based ,breathing ,need ,strange ,advisable ,12 ,going ,check ,issue ,date ,rtdefaulter ,got ,see ,comes ,random",22
+sessions,1.119047619047619,"finish ,book ,attend ,booked ,first ,ippt ,payable ,remaining ,ipt ,remaining ,ipt ,attend ,fit ,finish ,ipt ,clock ,many ,rt ,check ,need ,total ,complete ,total ,complete ,total ,complete ,rtippt ,taken ,already ,rtippt ,taken ,already ,rtippt ,taken ,already ,rtippt ,taken ,already ,book ,complete ,iptippt ,book",21
+only,1.0526315789473684,"know ,bring ,take ,applies ,reach ,first ,one ,6 ,27 ,f ,training ,count ,9_10 ,try ,session ,feb ,ipt ,status ,waited",20
+rt,1.1818181818181819,"loh ,got ,complete ,cleared ,attending ,booked ,kenna ,go ,complete ,supposed ,normal",19
+session,1.0,"first ,ipt ,8th ,previous ,book ,ippt ,book ,first ,iptippt ,attended ,khatib ,ippt ,book ,last ,ippt ,book ,last ,8th ,iptippt ,book",17
+year,1.0,"orns ,10th ,aug ,required ,10th ,aug ,required ,ipptwindow ,next ,ipptwindow ,ipptwindow ,next ,ipptwindow ,officer ,old ,last ,mindefmarch ,financial ,next ,man ,ippt ,next ,next ,leap ,next ,leap ,next ,leap",17
+now,1.0769230769230769,"unable ,facing ,clear ,thought ,right ,start ,right ,thinking ,16 ,contact ,liao ,become ,issue",16
+then,1.0,"instead ,start ,changed ,rest ,need ,sessions ,turn ,follow ,17 ,go ,dropped ,sure ,stay ,even ,shotts",15
+also,0.9285714285714286,"applies ,affected ,slot ,iptippt ,agree ,mention ,luck ,seem ,issue ,skip ,called ,use ,plan ,jokingly",15
+iptippt,1.0,"become ,iptsession ,also ,iptsession ,sat_sun ,conduct ,take ,session ,timing ,slots ,sessions ,session ,take ,session ,take",14
+time,1.1818181818181819,"go ,attend ,long ,first ,last ,good ,long ,give ,last ,dundeclare ,slots",13
+next,1.0,"month ,cycle ,year ,finish ,window ,window ,yearseptember ,31 ,yearrt ,ipptwindow ,year ,intake ,year",13
+first,1.0,"loh ,attend ,session ,sessions ,clear ,ipt ,shelter ,time ,rtsession ,session ,ipptwindow",13
+really,1.0,"comprehensive ,close ,missed ,want ,feel ,early ,rollercoaster ,wants ,knows",12
+clear,1.0,"loh ,n't ,ipt ,rts ,asap ,first ,wan ,cycles ,windows ,10 ,n't ,many ,make ,years ,one",12
+last,1.0,"timeliao ,week ,night ,year ,time ,timeliao ,july ,session ,time ,yeari",12
+anyone,1.0,"elaborate ,know ,confirm ,know ,went ,knows ,knows ,got ,knows ,know",11
+unit,1.0,"commanders ,suppose ,man",11
+pes,1.0,"f ,status ,e1 ,officially ,e1 ,officially ,status ,choose ,c ,c ,c",11
+many,1.1,"ppl ,attempt ,sessions ,thanks ,clear ,defaulters ,years ,loans ,slots ,people",10
+same,1.0,"thing ,windows ,time ,thing ,workyear ,window ,much ,day",10
+gagt,1.0,"using ,gagt ,f ,using ,using ,using ,using ,using",10
+already,1.0,"throw ,cleared ,means ,served ,sessions ,indeed ,46 ,seek ,pop ,waiting",9
+thanks,1.0,"ok ,many ,see",9
+back,1.0,"carry ,returning ,carry ,returning ,going ,man ,came ,seen ,go ,get ,came",9
+ns,1.0,"booklet ,portal ,portal ,portal ,hotline ,portal ,portal ,journey",9
+current,1.0,"planning ,windows ,planning ,windows ,window ,window ,window ,window ,window ,window ,window ,window",8
+there,1.0,"went ,book",8
+portal,1.0,"ns ,ns ,check ,ns ,ns ,seem ,ns ,ns",8
+more,1.0,"365 ,ippt ,session ,find ,xiong ,guy ,source",8
+long,1.0,"singlet ,medals ,time ,charged ,40 ,time ,deems ,shotts",8
+day,1.0,"missed ,additional",8
+months,1.0769230769230769,"e1 ,took ,took ,e1 ,took ,took ,e1 ,took ,took ,e1 ,took ,took ,complete",8
+https,1.0,"pay ,pay ,mid",7
+slots,1.0,"ipt ,many ,different ,ippt ,time ,iptippt ,many ,different ,ippt ,time ,iptippt ,much ,available",7
+much,1.4285714285714286,"clear ,better ,easier ,better ,pretty ,slots ,earn",7
+aug,1.0,"year ,year ,year ,year ,year ,date",7
+never,1.0,"get ,done ,attend ,finish ,spent",7
+rounds,1.0,"ago ,big ,ran ,run",6
+weeks,1.0,"half ,training ,training",6
+camp,1.0,"bedok ,entering ,khatib ,use ,kranji ,miss",6
+here,1.0,"commanders ,help ,relate ,anyone",6
+windows,1.0,"clear ,current ,clear ,clear ,closed",6
+sent,1.0,"haha ,faster ,roll",6
+new,1.2,"programme ,fit ,yeartill ,hii ,mpcommander",6
+few,1.0,"sessions ,ippt_ipts ,days ,slots ,months",6
+ipptwindow,1.0,"still ,year ,year ,next ,open ,first",5
+right,1.0,"means ,attend",5
+slot,0.8,"select ,booked ,also ,empty ,book",5
+ah,1.0,sir,5
+as,1.0,"'s ,much ,know ,long ,safe",5
+big,1.0,"rounds ,vehicles ,wind ,queue ,decision",5
+good,1.0,"still ,luck ,time ,replies ,v ,alr",5
+iptsession,1.0,"begins ,10th ,iptippt ,however ,1st ,iptippt ,10th ,remain",5
+even,1.0,"turning ,need ,nsfs",5
+unable,1.0,"still ,select ,book ,book ,book ,book",5
+quite,1.0,"jialat ,concerned ,confused ,mild",5
+fail,1.0,"bo ,matter",5
+t,1.0,"clear ,clear ,affect ,think",5
+fcc,1.0,"conduct ,khatib ,closed ,kranji ,try",5
+sure,1.0,"make ,liao ,saw",5
+years,0.8,"old ,many ,clear ,working ,mean",5
+days,1.0,"slight ,working",5
+once,1.0,"attend ,finish ,nsfs",5
+week,1.0,last,5
+always,1.0,"get ,thought",4
+enough,1.0,"singlet ,cover ,lockers ,serious",4
+such,1.0,"information ,offences ,programme",4
+guess,0.0,falls,4
+better,1.0,"go ,oic ,much ,oic ,much ,late",4
+well,1.0,schtho,4
+yet,1.0,"got ,taken ,resumed ,enter",4
+other,1.0,"exercises ,reservist ,company ,doc",4
+bmt,1.0,"enter ,part ,companies",4
+fit,1.25,"new ,thing ,sessions ,finish",4
+attendance,1.0,"recorded ,counting",4
+rtippt,1.0,"take ,sessions ,sessions",4
+everything,1.0,"throw ,everything ,b2 ,get",4
+recruits,1.0,"female ,male ,female ,male ,female ,male ,female",4
+post,1.0,"refers ,previous ,see ,earlier",4
+however,1.0,"allowed ,get ,iptsession",4
+lor,1.0,decide,4
+usually,1.25,"include ,show ,complete ,ask",4
+saf,1.0,"try ,specialist",4
+old,1.0,"year ,years ,liao",4
+sms,1.0,"got ,received ,send ,show",4
+need,1.0,"ippt ,wait",4
+green,1.0,"managementprogramme ,tag ,warmachine",4
+info,1.0,"avail ,got ,source",4
+pro,1.0,term,4
+month,1.0,next,4
+point,1.0,"away ,'s",4
+later,1.0,"date ,contacted ,kena",4
+maybe,1.0,"call ,shelter ,13 ,think",4
+finish,1.1666666666666667,"next ,carry ,lah ,cycle ,never ,fit",3
+medical,1.0,"review ,board ,board",3
+call,1.0,"man ,received ,make",3
+board,1.0,"med ,medical ,med ,medical ,medical ,require",3
+thing,1.5,"fit ,experienced",3
+leh,1.0,ask,3
+status,1.0,"pes ,pes",3
+nightmare,1.0,man,3
+everyone,1.0,wan,3
+able,1.0,"extend ,ended ,take ,still ,book",3
+question,1.0,"ask ,answer ,previous",3
+birthday,0.0,"falls ,falls",3
+late,1.4,"slightly ,bit ,better ,bit ,better",3
+ipptsession,1.0,"book ,single ,book ,nonict ,attempt ,booked",3
+normal,1.0,"person ,rt",3
+review,1.0,"medical ,med ,med",3
+ok,2.0,thanks,3
+part,1.25,"unknown ,bmt ,probably ,best",3
+rest,1.0,see,3
+f,1.0,"returnuniform ,pes ,pes ,decision",3
+yellow,1.0,applies,3
+different,1.0,"locations ,thread ,slots",3
+directly,1.0,"book ,contact ,call",3
+guards,1.0,kena,3
+timing,1.0,"strict ,iptippt ,reporting ,timing ,booked ,iptippt ,reporting ,timing ,booked",3
+cos,1.0,opened,3
+nsf,1.0,"incoming ,went",3
+guy,1.0,"tekan ,waiting",3
+company,1.0,"matter ,get",3
+recently,1.0,"went ,attended",3
+otherwise,1.0,"charged ,get ,says",3
+information,1.0,"reveal ,helps",3
+s,1.0,request,3
+previous,1.0,"post ,session ,question",3
+rts,1.0,"clear ,need",3
+orns,1.0,"year ,activity",3
+attempt,1.0,"many ,ippt ,made ,charged",3
+sat_sunsat_sun,1.0,sat_sunq,3
+too,0.5,"save ,limited",3
+again,1.0,"follow ,call ,call",3
+probably,1.0,"breathing ,deployed ,part",3
+simple,1.3333333333333333,"lo ,charged ,life ,ðÿ™ðÿ» ,life ,ðÿ™ðÿ»",3
+dys8,1.0,"contacted ,contacted",3
+away,1.0,point,2
+hk,1.0,"icts ,icts ,icts ,icts",2
+n,1.0,window,2
+letter,1.0,"send ,thought",2
+10th,1.0,"ippt ,iptsession",2
+shelter,1.0,"first ,come ,maybe",2
+pretty,1.0,"much ,fked",2
+issue,1.0,facing,2
+icts,1.0,"hk ,hk ,hk ,hk",2
+luck,1.3333333333333333,"try ,good ,also",2
+activities,1.0,indoor,2
+timeliao,1.0,"last ,last",2
+yeari,1.0,"last ,took",2
+officer,1.0,"year ,commanding",2
+programme,1.3333333333333333,"new ,announce ,attending",2
+alr,1.25,"running ,good ,machine ,use",2
+oc,1.0,"told ,going",2
+one,1.0,"red ,took ,knows",2
+hence,1.0,postponed,2
+single,1.0,"ict ,ipptsession",2
+mindef_saf,0.5,"mindef_saf ,stupid ,mindef_saf ,stupid",2
+carpark,1.0,"sheltered ,park",2
+rtsession,1.0,"1st ,first",2
+someone,1.0,need,2
+liao,1.0,"old ,sure",2
+people,1.0,"take ,many",2
+friend,1.0,"ask ,deferred",2
+fully,1.0,"covered ,pay ,covered ,pay",2
+ago,1.0,"went ,pop",2
+bmi,1.0,requirement,2
+batch,1.0,poly,2
+own,1.0,call,2
+likely,1.0,"rtdefaulter ,require",2
+oic,2.0,"better ,better",2
+s8_oc,1.0,"contact ,contact ,contact ,contact",2
+requirement,1.0,"bmi ,got",2
+saturday,1.0,interview,2
+mo,1.0,"see ,ask",2
+very,1.0,"strict ,random",2
+specialist,1.0,"consultation ,saf",2
+early,1.0,"really ,take",2
+mean,1.0,"sian ,fccliao ,need",2
+khatibcamp,1.0,campi,2
+machine,1.0,alr,2
+posts,1.0,mindeffb,2
+instructions,1.0,"follow ,says",2
+kind,1.0,count,2
+sense,1.0,make,2
+blue,1.0,band,2
+red,1.0,one,2
+defaulter,0.0,avoid,2
+pushups,1.0,improve,2
+today,1.0,consider,2
+xiong,1.0,"etc ,commando",2
+hq,1.0,"realize ,ncc",2
+reason,1.0,"realize ,mild",2
+bit,1.0,"include ,late",2
+things,1.0,mix,2
+tag,1.0,"purple ,'s ,green ,got",2
+leap,1.0,"year ,year",2
+closes,1.0,"window ,window",2
+greent,1.0,"wrote ,wrote",2
+message,1.0,conveyed,2
+currently,1.0,"conducted ,serving",2
+no,1.0,longer,2
+present,1.0,instructors,2
+feedback,1.0,necessary,2
+sian,0.0,mean,2
+companies,1.0,"bmt ,bmt",2
+requirements,1.0,"meet ,fulfilled",2
+program,1.0,"ipt ,starting",2
+training,1.0,"weeks ,vocational",2
+thread,1.5,"different ,create",2
+answers,1.0,"get ,following ,help",2
+instructors,1.0,"female ,present ,cisco ,ask",2
+start,1.0,"window ,sent",2
+chance,1.0,"call ,gave",2
+mr,1.0,"throw ,means",2
+system,0.5,"says ,abuse",2
+groin,1.0,"cover ,cover",2
+female,1.0,"instructors ,recruits",2
+easier,1.0,"much ,route",2
+further,1.0,"notice ,advise",2
+defaulters,1.0,"many ,see",2
+bday,1.0,may,2
+service,1.0,"pay ,medals",2
+grades,1.0,"jcgrade ,jc ,cdec",2
+ippt_ipts,1.0,"attended ,attended",2
+marina,1.0,"citygallery ,citygallery",2
+location,1.0,exact,2
+actually,1.0,one,2
+cycles,1.3333333333333333,"complete ,one ,clear",2
+whole,1.0,"ippt ,workcycle",2
+gloves,1.0,"wear ,wear",2
+nonict,1.0,"ippt ,ipptsession",2
+reservist,1.5,"serve ,complete",2
+s8,1.0,said,2
+navy,1.0,"call ,centerbro",2
+jog,1.0,arbo,2
+cycle,1.3333333333333333,"next ,complete ,finish",2
+non,1.0,ictippt,2
+exactly,1.0,12,2
+u,1.0,saf100,2
+close,1.0,really,2
+help,1.0,"seek ,seek",2
+world,1.0,"little ,piano",1
+rtdefaulter,1.0,likely,1
+safety,1.0,informed,1
+little,1.0,world,1
+men,1.0,"army ,deployed",1
+returnuniform,1.0,f,1
+army,1.0,men,1
+unknowingly,1.0,defaulted,1
+uniform,1.0,keep,1
+nonictippt,1.0,attempt,1
+piano,1.0,world,1
+list,1.0,holding,1
+nshotline,1.0,called,1
+government,1.0,deems,1
+startsonly,1.0,khatib,1
+loh,1.0,say,1
+live,1.0,chatservice,1
+fi,1.0,say,1
+safe,1.0,deems,1
+ran,1.0,rounds,1
+slip,1.0,generate,1
+ll,1.0,jobless,1
+jialat,1.0,"24 ,quite",1
+income,1.0,scarified,1
+chatservice,1.0,live,1
+officers,1.0,conducting,1
+helpful,1.0,replies,1
+waiversms,1.0,receive,1
+times,1.0,got,1
+replies,2.0,"helpful ,good",1
+vehicles,1.0,"big ,park",1
+yeartill,2.0,new,1
+incentives,1.0,get,1
+caseetc,1.0,review,1
+website,1.0,checked,1
+bad,1.0,yearrt,1
+open,1.0,"ippt ,say",1
+yearrt,0.5,"next ,bad",1
+working,1.0,days,1
+ffi,1.0,arrange,1
+dundeclare,1.0,time,1
+activity,1.0,orns,1
+results,1.0,improve,1
+rollercoaster,1.0,really,1
+others,0.0,skip,1
+loans,1.0,"many ,got",1
+date,1.0,"aug ,later ,enlistment",1
+hotline,1.0,"ns ,call",1
+enlistment,1.0,date,1
+insurance,1.0,pay,1
+enlistmentdate,1.0,get,1
+contact,1.0,"details ,directly",1
+hii,2.0,new,1
+details,1.0,"contact ,request",1
+operator,1.0,replied,1
+examplei,1.0,enlisting,1
+recruit,0.0,poor,1
+wind,1.0,big,1
+interview,1.0,saturday,1
+request,0.0,ignore,1
+technically,1.0,pretend,1
+keyboard,1.0,using,1
+excuse,1.0,get,1
+logically,1.0,speaking,1
+cock,1.0,talking,1
+bed,1.0,"ironing ,spend",1
+journey,1.0,ns,1
+vocational,1.0,training,1
+additional,1.0,day,1
+oil,1.0,"extra ,get",1
+extra,1.0,oil,1
+forgot,1.0,apply,1
+regimentation,1.0,"military ,respecting",1
+mild,1.0,"reason ,quite",1
+c,1.0,pes,1
+interest,1.0,declare,1
+commando,1.0,xiong,1
+b2,1.0,everything,1
+postpoly,1.0,cdo,1
+cdo,1.0,"postpoly ,still",1
+schtho,1.3333333333333333,"decently ,well ,secsch",1
+secsch,1.0,schtho,1
+decently,1.0,schtho,1
+cdec,1.0,grades,1
+jc,1.0,grades,1
+military,1.0,regimentation,1
+decision,1.0,"f ,big",1
+news,1.0,still,1
+source,1.0,"info ,want",1
+ahi,1.0,see,1
+nice,1.0,toilets,1
+toilets,2.0,nice,1
+special,1.0,whats,1
+whats,2.0,special,1
+warmachine,0.5,"green ,mean",1
+bitch,0.0,bottom,1
+bottom,0.0,bitch,1
+profile,1.0,says,1
+kengloser,1.0,"typical ,chaokeng",1
+chaokeng,1.0,kengloser,1
+typical,1.0,kengloser,1
+shotts,1.0,long,1
+ultimately,1.0,matters,1
+term,1.0,"infantry ,pro",1
+infantry,1.0,term,1
+ncc,1.0,hq,1
+spewnonsense,1.0,"tspew ,got",1
+tspew,1.0,spewnonsense,1
+bags,1.0,sling,1
+packs,1.0,"assault ,issue",1
+assault,1.0,packs,1
+centerbro,1.0,"navy ,recruitmentcenter ,call",1
+recruitmentcenter,1.0,centerbro,1
+specialistmemo,1.0,"public ,matters",1
+public,1.0,specialistmemo,1
+jcgrade,1.0,grades,1
+half,1.0,weeks,1
+v,2.0,good,1
+mid,1.0,https,1
+jokingly,1.0,"also ,tekan",1
+sia,1.0,remember,1
+oot,1.0,posting,1
+d,1.0,activated,1
+applies,0.5,"manning ,unfortunately",1
+unfortunately,1.0,applies,1
+mob,1.0,manning,1
+jcbatch,1.0,13,1
+poly,1.0,batch,1
+exact,1.0,location,1
+distance,1.0,"still ,walking ,though",1
+lockers,1.0,enough,1
+anyway,0.0,abuse,1
+ripsia,1.0,siayeah,1
+stupid,1.0,mindef_saf,1
+think,1.0,confused,1
+confused,1.0,"quite ,think",1
+plan,1.0,"also ,take",1
+available,1.0,slots,1
+mindeffb,1.0,posts,1
+look,1.0,take,1
+stations,0.0,static,1
+static,1.0,stations,1
+route,1.0,"ippt ,easier",1
+try,1.0,"want ,fcc",1
+heng,1.0,passed,1
+tekan,1.0,"jokingly ,guy",1
+siayeah,1.0,ripsia,1
+pop,1.0,"coy ,already ,ago",1
+poor,1.0,recruit,1
+coy,1.0,pop,1
+hospilization,0.0,leave,1
+intake,1.0,next,1
+vocations,1.0,put,1
+palms,1.0,sweaty,1
+sweaty,1.0,palms,1
+correctly,1.0,rmb,1
+etc,1.0,xiong,1
+stay,1.0,become,1
+mp,1.0,become,1
+mpcommander,2.0,new,1
+bay,1.0,marina,1
+penny,1.0,spent,1
+chronic,1.0,skincondition,1
+fine,1.0,"generally ,govt",1
+govt,2.0,fine,1
+generally,2.0,fine,1
+queue,1.0,"big ,isnt",1
+ball,1.0,need,1
+doctors,1.0,need,1
+officially,1.0,pes,1
+mmidoctor,1.0,see,1
+hospitaldoc,1.0,govt,1
+serious,1.0,"condition ,enough",1
+condition,1.0,serious,1
+skincondition,1.0,chronic,1
+bands,1.0,"colored ,issue",1
+outstanding,1.0,medics,1
+maintenance,1.0,seem,1
+refers,1.0,post,1
+ictippt,1.0,non,1
+bo,0.0,fail,1
+gdla,1.0,pass,1
+wat,1.0,said,1
+sir,1.0,"ah ,say",1
+cert,1.0,present,1
+hspcert,1.0,get,1
+qn,1.0,got,1
+cozonline,1.0,seems,1
+needwait,1.0,start,1
+necessary,1.0,feedback,1
+honestly,1.0,speaking,1
+__wwwnssg_web_wcm_connect_nsycitygalleryhttps,1.0,bayhttps,1
+bayhttps,1.0,"citygallery ,__wwwnssg_web_wcm_connect_nsycitygalleryhttps",1
+citygallery,1.0,"marina ,bayhttps",1
+medals,1.0,"long ,service ,received",1
+pay,1.0,service,1
+kena,1.0,called,1
+rtwindow,1.0,extend,1
+rewards,1.0,"ippt ,monetary ,save",1
+monetary,2.0,rewards,1
+saf100,1.0,u,1
+suppose,1.0,"unit ,arrange",1
+ict,1.0,"single ,done",1
+bx,1.0,wake,1
+cisco,1.0,instructors,1
+arbo,1.0,jog,1
+attempted,1.0,"u ,ippt_ictipptippt_ictippt",1
+confusion,0.0,avoid,1
+pros,1.0,got,1
+night,1.0,last,1
+ganyumobile,1.0,"waify ,using",1
+waify,1.0,ganyumobile,1
+usemachine,1.0,push,1
+ground,1.0,"indoorcarpark ,track ,hard",1
+hard,1.0,ground,1
+track,1.0,ground,1
+indoorcarpark,1.0,ground,1
+liability,1.0,still,1
+boat,1.0,carry,1
+carry,1.0,"finish ,boat ,back",1
+assaultboat,1.0,sitassault,1
+sitassault,1.0,assaultboat,1
+script,1.0,"self ,digging",1
+self,1.0,script,1
+pools,1.0,selarang,1
+selarang,1.0,pools,1
+else,1.0,go,1
+log,1.0,wooden,1
+wooden,1.0,log,1
+hopeeveryone,1.0,clear,1
+ipt_rt,1.0,tomorrowresume,1
+tomorrowresume,1.0,ipt_rt,1
+meaning,1.0,understand,1
+minimum,1.0,items,1
+sleeves,1.0,"calf ,wearing",1
+calf,1.0,sleeves,1
+singlet,1.0,"long ,wear ,enough",1
+pants,1.0,"running ,wear",1
+wear,1.0,"questions ,tights ,pants",1
+tights,1.0,"short ,compression ,wear",1
+compression,1.0,tights,1
+short,1.0,tights,1
+comprehensive,1.0,"guideline ,really",1
+guideline,1.0,comprehensive,1
+questions,1.0,wear,1
+stint,1.0,upcoming,1
+upcoming,1.0,stint,1
+promptly,1.0,get,1
+topic,1.0,know,1
+furthermore,1.0,ipptrelated,1
+nevertheless,1.0,matter,1
+offences,1.0,related,1
+related,1.0,offences,1
+commanders,1.0,unit,1
+understandsian,1.0,dununderstand,1
+dununderstand,1.0,understandsian,1
+items,1.5,"minimum ,bring",1
+funky_banana,1.0,wrote,1
+colour,1.0,tags,1
+trainers,1.0,include,1
+booklet,1.0,"ns ,try",1
+recorded,1.0,attendance,1
+aerobics,1.0,kpop,1
+kpop,1.0,aerobics,1
+classes,1.0,evening,1
+purple,1.0,tag,1
+personnel,1.0,obese,1
+obese,1.0,personnel,1
+managementprogramme,1.0,"green ,weightmanagement",1
+weightmanagement,1.0,managementprogramme,1
+fitness,1.0,aerobic,1
+tags,1.0,"colour ,giving",1
+aerobic,1.0,fitness,1
+version,1.0,"imo ,intensive",1
+intensive,1.0,version,1
+imo,1.0,version,1
+bars,1.0,weighted,1
+bells,1.0,kettle,1
+mostly,1.0,body,1
+body,1.0,"upper ,mostly",1
+upper,1.0,body,1
+strength,1.0,blue,1
+ippt_ictipptippt_ictippt,1.0,attempted,1
+workcycle,1.0,whole,1
+sryi,1.0,got,1
+slightly,1.0,late,1
+sat_sun,1.0,"sat_sun ,iptippt",1
+wrongly,1.0,heard,1
+causei,1.0,"doubtcause ,heard",1
+doubtcause,1.0,causei,1
+following,1.0,answers,1
+hopefully,1.0,help,1
+instructor,1.0,explain,1
+earlier,1.0,post,1
+sad,1.0,feel,1
+feel,0.6666666666666666,"tiocall ,really ,sad",1
+holan,1.0,bo,1
+man,0.8,"unit ,call ,back ,year ,nightmare",1
+ippttill,1.0,40,1
+suffering,1.0,one,1
+complete,1.0,"reservist ,usually ,cycles",1
+unfair,1.0,simi,1
+simi,1.0,"one ,unfair",1
+serve,1.0,reservist,1
+consultation,1.0,"specialist ,seeking",1
+yearseptember,1.0,next,1
+apparently,1.0,got,1
+justme,1.0,"confirmation ,wrote",1
+confirmation,1.0,justme,1
+realize,1.0,"reason ,hq",1
+weather,2.0,warm,1
+warm,1.5,"weather ,warm",1
+thingðÿ™ðÿ,1.0,ðÿ™ðÿ»,1
+dunwan,1.0,go,1
+reservice,1.0,one,1
+recuit,1.0,seen,1
+july,1.0,last,1
+damn,1.0,packed,1
+eastsider,1.0,relate,1
+indeed,1.0,already,1
+record,1.0,counted,1
+total,1.0,sessions,1
+ðÿ™ðÿ»,1.0,"simple ,thingðÿ™ðÿ",1
+life,1.0,"simple ,using",1
+sat_sunq,1.0,sat_sunsat_sun,1
+house,1.0,nearest,1
+gym,1.0,"safra ,nearest",1
+safra,1.0,gym,1
+person,1.0,"normal ,clock",1
+locations,1.0,different,1
+resume,1.0,mention,1
+unknown,1.0,part,1
+planning,1.0,current,1
+sessionq,1.0,attend,1
+trainingsession,1.0,attend,1
+jam,1.0,'s,1
+eta,1.0,12,1
+noob,1.0,got,1
+lo,1.0,simple,1
+financial,1.0,year,1
+mindefmarch,1.0,year,1
+changes,1.0,anymore,1
+anymore,1.0,changes,1
+wincentive,1.0,"desired ,gold_silver_passgold_silver_pass ,gold_silver_passw ,get",1
+gold_silver_passw,1.0,wincentive,1
+gold_silver_passgold_silver_pass,1.0,wincentive,1
+desired,1.0,wincentive,1
+ippts,1.0,attending,1
+payable,1.0,sessions,1
+death,1.0,know,1
+ippt_rt,1.0,ippt_rt,1
+mindef,1.0,send,1
+indoor,1.0,activities,1
+sheltered,1.0,carpark,1
+beforehand,1.0,15,1
+strict,1.0,timing,1
+lah,1.0,"mai ,volunteer ,finish",1
+mai,1.0,lah,1
+ready,1.0,book,1
+intensely,1.0,training,1
+ans,1.0,find,1
+qns,1.0,got,1
+rumors,1.0,heard,1
+band,1.0,"blue ,take",1
+sadly,1.0,took,1
+rocketbunnyi,1.0,"manrocketbunny ,ask",1
+booking,1.0,cancel,1
+roll,1.0,"nominal ,check ,sent",1
+nominal,1.0,roll,1
+campi,1.0,khatibcamp,1
+kenna,1.0,"rt ,rejectsay",1
+fren,1.0,bookrt,1
+empty,1.0,slot,1
+iptslot,1.0,"bedok ,throw ,see",1
+bedok,1.0,iptslot,1
+redo,1.0,manage,1
+thankman,1.0,manrocketbunny,1
+separated,1.0,booked,1
+fccliao,0.0,mean,1
+normally,1.0,bookrt,1
+bookrt,1.0,normally,1
+medics,2.0,outstanding,1
+feed,1.0,"spoon ,get",1
+spoon,1.0,feed,1
+bridge,1.0,cross,1
+lk,1.0,served,1
+automatically,1.0,change,1
+default,1.0,cover,1
+dumb,1.0,sound,1
