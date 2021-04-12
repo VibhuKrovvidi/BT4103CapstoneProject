@@ -3,9 +3,10 @@
 {% block content %}
 {{ super() }}
 
-<button onclick="toggle()"> Switch View </button>
+<button onclick="toggle()" id="switchview"> Switch View </button>
 
 <div class="postsbreakdown">
+
 
 <div id="taggedentity">
 <b> Full comments with tagged entities </b><br>
@@ -18,6 +19,206 @@
 	{% endfor %}
 </select><br>
 
+<div id="chart">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.js'></script>
+<canvas id="myChart"></canvas>
+  <script>
+var ctx = document.getElementById("myChart").getContext("2d");
+ ctx.canvas.width = 400;
+ ctx.canvas.height = 400;
+
+ var dataMap = {
+     'MEDICAL': {
+         method: 'Line',
+         data: {
+             labels: {{ labels | tojson }},
+             datasets: [{
+                 label: "MEDICAL",
+                 fillColor: "rgba(220,220,220,0.5)",
+                 strokeColor: "rgba(220,220,220,0.8)",
+                 highlightFill: "rgba(220,220,220,0.75)",
+                 highlightStroke: "rgba(220,220,220,1)",
+                 data: {{ med | tojson}}
+             }],
+         }
+     },
+     'SERVICE': {
+         method: 'Line',
+         data: {
+             labels: {{ labels | tojson }},
+             datasets: [{
+                 label: "MEDICAL",
+                 fillColor: "rgba(220,220,220,0.5)",
+                 strokeColor: "rgba(220,220,220,0.8)",
+                 highlightFill: "rgba(220,220,220,0.75)",
+                 highlightStroke: "rgba(220,220,220,1)",
+                 data: {{ med | tojson}}
+             }],
+         }
+     },
+     'IPPT': {
+         method: 'Line',
+         data: {
+             labels: {{ labels | tojson }},
+             datasets: [{
+                 label: "MEDICAL",
+                 fillColor: "rgba(220,220,220,0.5)",
+                 strokeColor: "rgba(220,220,220,0.8)",
+                 highlightFill: "rgba(220,220,220,0.75)",
+                 highlightStroke: "rgba(220,220,220,1)",
+                 data: {{ ippt | tojson}}
+             }],
+         }
+     },
+     'LOCATION': {
+         method: 'Line',
+         data: {
+             labels: {{ labels | tojson }},
+             datasets: [{
+                 label: "MEDICAL",
+                 fillColor: "rgba(220,220,220,0.5)",
+                 strokeColor: "rgba(220,220,220,0.8)",
+                 highlightFill: "rgba(220,220,220,0.75)",
+                 highlightStroke: "rgba(220,220,220,1)",
+                 data: {{ loc | tojson}}
+             }],
+         }
+     },
+     'CAMP': {
+         method: 'Line',
+         data: {
+             labels: {{ labels | tojson }},
+             datasets: [{
+                 label: "MEDICAL",
+                 fillColor: "rgba(220,220,220,0.5)",
+                 strokeColor: "rgba(220,220,220,0.8)",
+                 highlightFill: "rgba(220,220,220,0.75)",
+                 highlightStroke: "rgba(220,220,220,1)",
+                 data: {{ camp | tojson}}
+             }],
+         }
+     },
+     'FCC': {
+         method: 'Line',
+         data: {
+             labels: {{ labels | tojson }},
+             datasets: [{
+                 label: "MEDICAL",
+                 fillColor: "rgba(220,220,220,0.5)",
+                 strokeColor: "rgba(220,220,220,0.8)",
+                 highlightFill: "rgba(220,220,220,0.75)",
+                 highlightStroke: "rgba(220,220,220,1)",
+                 data: {{ fcc | tojson}}
+             }],
+         }
+     },
+     'ICT': {
+         method: 'Line',
+         data: {
+             labels: {{ labels | tojson }},
+             datasets: [{
+                 label: "MEDICAL",
+                 fillColor: "rgba(220,220,220,0.5)",
+                 strokeColor: "rgba(220,220,220,0.8)",
+                 highlightFill: "rgba(220,220,220,0.75)",
+                 highlightStroke: "rgba(220,220,220,1)",
+                 data: {{ ict | tojson}}
+             }],
+         }
+     },
+     'CMPB': {
+         method: 'Line',
+         data: {
+             labels: {{ labels | tojson }},
+             datasets: [{
+                 label: "MEDICAL",
+                 fillColor: "rgba(220,220,220,0.5)",
+                 strokeColor: "rgba(220,220,220,0.8)",
+                 highlightFill: "rgba(220,220,220,0.75)",
+                 highlightStroke: "rgba(220,220,220,1)",
+                 data: {{ cmpb | tojson}}
+             }],
+         }
+     },
+     'BMT': {
+         method: 'Line',
+         data: {
+             labels: {{ labels | tojson }},
+             datasets: [{
+                 label: "MEDICAL",
+                 fillColor: "rgba(220,220,220,0.5)",
+                 strokeColor: "rgba(220,220,220,0.8)",
+                 highlightFill: "rgba(220,220,220,0.75)",
+                 highlightStroke: "rgba(220,220,220,1)",
+                 data: {{ bmt | tojson}}
+             }],
+         }
+     },
+     'RT': {
+         method: 'Line',
+         data: {
+             labels: {{ labels | tojson }},
+             datasets: [{
+                 label: "MEDICAL",
+                 fillColor: "rgba(220,220,220,0.5)",
+                 strokeColor: "rgba(220,220,220,0.8)",
+                 highlightFill: "rgba(220,220,220,0.75)",
+                 highlightStroke: "rgba(220,220,220,1)",
+                 data: {{ rt | tojson}}
+             }],
+         }
+     },
+     'PORTAL': {
+         method: 'Line',
+         data: {
+             labels: {{ labels | tojson }},
+             datasets: [{
+                 label: "MEDICAL",
+                 fillColor: "rgba(220,220,220,0.5)",
+                 strokeColor: "rgba(220,220,220,0.8)",
+                 highlightFill: "rgba(220,220,220,0.75)",
+                 highlightStroke: "rgba(220,220,220,1)",
+                 data: {{ portal | tojson}}
+             }],
+         }
+     },
+     'TRAINING': {
+         method: 'Line',
+         data: {
+             labels: {{ labels | tojson }},
+             datasets: [{
+                 label: "MEDICAL",
+                 fillColor: "rgba(220,220,220,0.5)",
+                 strokeColor: "rgba(220,220,220,0.8)",
+                 highlightFill: "rgba(220,220,220,0.75)",
+                 highlightStroke: "rgba(220,220,220,1)",
+                 data: {{ training | tojson}}
+             }],
+         }
+     }
+
+   }
+
+
+     
+
+var currentChart;
+
+ function updateChart() {
+     if(currentChart){currentChart.destroy();}
+   
+     var determineChart = $("#choice").val();
+
+     var params = dataMap[determineChart]
+     currentChart = new Chart(ctx)[params.method](params.data, {});
+ }
+
+ $('#choice').on('change', updateChart)
+ updateChart();
+</script>
+
+</div>
 
 
 <iframe src="/display_spacy/SERVICE" id="viewent" class="iframe_posts"></iframe>
@@ -25,7 +226,7 @@
 
 <div id="sentencelevel" style="display:none">
 
-  <iframe src="/display_sentence_level" id="viewent" class="iframe_posts"></iframe>
+<iframe src="/display_sentence_level" id="viewent" class="iframe_posts"></iframe>
 
 </div>
 
@@ -89,6 +290,10 @@ box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
 #taggedentity {
 	float: right;
 	text-align: center;
+}
+
+#switchview {
+  float: right;
 }
 
 

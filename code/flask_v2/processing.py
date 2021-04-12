@@ -474,7 +474,7 @@ class DSTA_Service_Delivery():
 			Determines whether the returned list of data is split into Google Reviews and HardwareZone/Reddit (default is False)
 		"""
 		data = []
-		"""
+
 		hz_ref = self.db.collection(u"hardwarezone")
 		try:
 			hzdata = hz_ref.get()
@@ -498,7 +498,7 @@ class DSTA_Service_Delivery():
 				data.append(entry.to_dict()["content"])
 		except:
 			print("Error getting Reddit Comments")
-		"""
+
 		gdata = []
 		gr_ref = self.db.collection(u"google_reviews")
 		try:
@@ -924,7 +924,11 @@ class DSTA_Service_Delivery():
 
 
 		# Push to Firebase
-		entity_ref = self.db.collection('sentiment_freq_by_entity')
+		today = str(date.today())
+		collection_name = "sentiment_freq_by_entity" + today
+		entity_ref = self.db.collection(collection_name)
+
+
 		entity_dict = entity_df.to_dict('records')
 
 		for i in entity_dict:
@@ -1047,55 +1051,108 @@ class DSTA_Service_Delivery():
 			print("error getting entity level data");
 		return data;
 
+	def get_entity_sent_over_time(self):
+		collections = []
+		for col in self.db.collections():
+			if "sentiment_freq_by_entity" in str(col.id):
+				collections.append(str(col.id))
+
+		collections = sorted(collections)
+		#['MEDICAL', 'SERVICE', 'CMPB', 'BMT', 'ICT', 'IPPT', 'RT/IPT', 'FCC', 'PORTAL', 'CAMP', 'TRAINING', 'LOCATION']
+		labels = []
+
+		for col in collections:
+			st = col[24:]
+			if st == "":
+				pass;
+			else:
+				labels.append(st)
+		print(labels)
+
+		med, ser, cmpb, bmt, ict, ippt, rt, fcc, portal, camp, training, loc = list(),list(),list(),list(),list(),list(),list(),list(),list(),list(),list(), list()
+
+		for col in collections:
+			data = self.db.collection(col).get()
+			for entry in data:
+				entry = entry.to_dict()
+
+				if entry["Entity"] == "MEDICAL":
+					med.append(entry["Avg_sent"])
+				elif entry["Entity"] == "SERVICE":
+					ser.append(entry["Avg_sent"])
+				elif entry["Entity"] == "CMPB":
+					cmpb.append(entry["Avg_sent"])
+				elif entry["Entity"] == "BMT":
+					bmt.append(entry["Avg_sent"])
+				elif entry["Entity"] == "ICT":
+					ict.append(entry["Avg_sent"])
+				elif entry["Entity"] == "IPPT":
+					ippt.append(entry["Avg_sent"])
+				elif entry["Entity"] == "RT/IPT":
+					rt.append(entry["Avg_sent"])
+				elif entry["Entity"] == "FCC":
+					fcc.append(entry["Avg_sent"])
+				elif entry["Entity"] == "PORTAL":
+					portal.append(entry["Avg_sent"])
+				elif entry["Entity"] == "CAMP":
+					camp.append(entry["Avg_sent"])
+				elif entry["Entity"] == "TRAINING":
+					training.append(entry["Avg_sent"])
+				elif entry["Entity"] == "LOCATION":
+					loc.append(entry["Avg_sent"])
+		print(med)
+		return labels, med, ser, cmpb, bmt, ict, ippt, rt, fcc, portal, camp, training, loc
+
+
 	def run_processing(self):
 		# Web Scraping
-		# self.get_google_reviews("CMPB", "https://www.google.com/maps/place/CMPB/@1.280195,103.815126,17z/data=!4m7!3m6!1s0x31da1bd0af54732f:0x9c274decbab4e599!8m2!3d1.280195!4d103.815126!9m1!1b1")
-		# print("\nScraped Google Reviews for", "CMPB")
-		# self.get_google_reviews("BedokFCC", "https://www.google.com/maps/place/Bedok+FCC+in+Bedok+Camp+2/@1.3170913,103.9013688,13z/data=!4m7!3m6!1s0x31da22d0dd021831:0x72f9d7d2f5dfe24d!8m2!3d1.3168752!4d103.954114!9m1!1b1")
-		# print("Scraped Google Reviews for", "BedokFCC")
-		# self.get_google_reviews("MajuFCC", "https://www.google.com/maps/place/Maju+FCC/@1.3170913,103.9013688,13z/data=!4m7!3m6!1s0x31da114548788fbf:0xe7b1351cb138a2dc!8m2!3d1.3297773!4d103.7717872!9m1!1b1")
-		# print("Scraped Google Reviews for", "MajuFCC")
-		# self.get_google_reviews("KranjiFCC", "https://www.google.com/maps/place/Kranji+FCC/@1.3170913,103.9013688,13z/data=!4m7!3m6!1s0x31da11ae095fac6f:0xfbe6c8bc26249e47!8m2!3d1.400557!4d103.7416568!9m1!1b1")
-		# print("Scraped Google Reviews for", "KranjiFCC")
-		# self.get_google_reviews("ClementiCamp", "https://www.google.com/maps/place/Clementi+Camp/@1.3170913,103.9013688,13z/data=!4m11!1m2!2m1!1sMedical+Center+NS!3m7!1s0x31da11a69aa0ac43:0xca88158b0ea52b74!8m2!3d1.3290056!4d103.7629462!9m1!1b1!15sChFNZWRpY2FsIENlbnRlciBOU1omChFtZWRpY2FsIGNlbnRlciBucyIRbWVkaWNhbCBjZW50ZXIgbnOSAQRjYW1w")
-		# print("Scraped Google Reviews for", "ClementiCamp")
+		self.get_google_reviews("CMPB", "https://www.google.com/maps/place/CMPB/@1.280195,103.815126,17z/data=!4m7!3m6!1s0x31da1bd0af54732f:0x9c274decbab4e599!8m2!3d1.280195!4d103.815126!9m1!1b1")
+		logger.info("\nScraped Google Reviews for CMPB")
+		self.get_google_reviews("BedokFCC", "https://www.google.com/maps/place/Bedok+FCC+in+Bedok+Camp+2/@1.3170913,103.9013688,13z/data=!4m7!3m6!1s0x31da22d0dd021831:0x72f9d7d2f5dfe24d!8m2!3d1.3168752!4d103.954114!9m1!1b1")
+		logger.info("Scraped Google Reviews for BedokFCC")
+		self.get_google_reviews("MajuFCC", "https://www.google.com/maps/place/Maju+FCC/@1.3170913,103.9013688,13z/data=!4m7!3m6!1s0x31da114548788fbf:0xe7b1351cb138a2dc!8m2!3d1.3297773!4d103.7717872!9m1!1b1")
+		logger.info("Scraped Google Reviews for MajuFCC")
+		self.get_google_reviews("KranjiFCC", "https://www.google.com/maps/place/Kranji+FCC/@1.3170913,103.9013688,13z/data=!4m7!3m6!1s0x31da11ae095fac6f:0xfbe6c8bc26249e47!8m2!3d1.400557!4d103.7416568!9m1!1b1")
+		logger.info("Scraped Google Reviews for KranjiFCC")
+		self.get_google_reviews("ClementiCamp", "https://www.google.com/maps/place/Clementi+Camp/@1.3170913,103.9013688,13z/data=!4m11!1m2!2m1!1sMedical+Center+NS!3m7!1s0x31da11a69aa0ac43:0xca88158b0ea52b74!8m2!3d1.3290056!4d103.7629462!9m1!1b1!15sChFNZWRpY2FsIENlbnRlciBOU1omChFtZWRpY2FsIGNlbnRlciBucyIRbWVkaWNhbCBjZW50ZXIgbnOSAQRjYW1w")
+		logger.info("Scraped Google Reviews for ClementiCamp")
 
-		# self.get_hardwarezone("SAF Training", "https://forums.hardwarezone.com.sg/national-service-knowledge-base-162/saf-ippt-ipt-rt-questions-4220677-380.html")
-		# print("\nScraped HardwareZone 1")
-		# self.get_hardwarezone("FFI", "https://forums.hardwarezone.com.sg/national-service-knowledge-base-162/ffi-need-go-every-year-after-35-a-4109332.html")
-		# print("\nScraped HardwareZone 2")
-		# self.get_hardwarezone("Reservists", "https://forums.hardwarezone.com.sg/threads/after-40-years-old-still-need-to-go-back-to-reservist.5111453/")
-		# print("\nScraped HardwareZone 3")
+		self.get_hardwarezone("SAF Training", "https://forums.hardwarezone.com.sg/national-service-knowledge-base-162/saf-ippt-ipt-rt-questions-4220677-380.html")
+		logger.info("\nScraped HardwareZone 1")
+		self.get_hardwarezone("FFI", "https://forums.hardwarezone.com.sg/national-service-knowledge-base-162/ffi-need-go-every-year-after-35-a-4109332.html")
+		logger.info("\nScraped HardwareZone 2")
+		self.get_hardwarezone("Reservists", "https://forums.hardwarezone.com.sg/threads/after-40-years-old-still-need-to-go-back-to-reservist.5111453/")
+		logger.info("\nScraped HardwareZone 3")
 		
-		# d = date.today() - timedelta(days=365)
-		# unixtime = time.mktime(d.timetuple())
-		# self.get_reddit(startdate=unixtime)
-		# print("\nScraped Reddit")
+		d = date.today() - timedelta(days=365)
+		unixtime = time.mktime(d.timetuple())
+		self.get_reddit(startdate=unixtime)
+		logger.info("\nScraped Reddit")
 
 		# Get all the data from firebase
 		data_dict = self.get_all_contentdata(separate=False)
-		print("\nDone getting content data from Firebase!")
+		logger.info("\nDone getting content data from Firebase!")
 
 		# Run Entity Extraction
 		data = data_dict["general"]
 		html, entities = self.run_entityextraction(data)
-		print("\nDone extracting entities!")
+		logger.info("\nDone extracting entities!")
 
 		# Run Feature Extraction Code
 		dataDF = pd.DataFrame(data, columns=["Content"])
 		features = self.run_feat_extraction(dataDF)
-		print("\nDone extracting features and running sentiment analysis!")
+		logger.info("\nDone extracting features and running sentiment analysis!")
 
 		# Intersect Features
 		# Get the intersection of features and output entity-sentiment-freq table
 		intersecting_features = self.intersect_features(features, entities)
-		print(intersecting_features.head(10))
+		logger.info(intersecting_features.head(10))
 		final_entity_table = self.entity_table(intersecting_features)
-		print(final_entity_table.head(10))
+		logger.info(final_entity_table.head(10))
 
 		# Get sentence-level sentiments
 		self.sentence_level_sentiment()
-		print("\nDone calculating and pushing sentence-level sentiments!")
+		logger.info("\nDone calculating and pushing sentence-level sentiments!")
 	
 
 

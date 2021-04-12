@@ -135,11 +135,22 @@ def dashboard():
 	
 @app.route('/postbreakdown',  methods=['GET'])
 def post_breakdown():
-	if isinstance(auth.current_user, dict):
-		entities = ["SERVICE", "MEDICAL", "IPPT", "LOCATION", "CAMP", "FCC", "ICT", "ALL"]
-		return render_template("postsbreakdown.html", entities=entities)
-	else:
-		return redirect('/')
+	# if isinstance(auth.current_user, dict):
+	init = threading.Thread(target=init_scraper)
+	init.start()
+	init.join()
+	scraper = myqueue.get()
+	scraper.initialiseDB()
+	labels, med, ser, cmpb, bmt, ict, ippt, rt, fcc, portal, camp, training, loc = scraper.get_entity_sent_over_time()
+
+
+
+	entities = ["SERVICE", "MEDICAL", "IPPT", "LOCATION", "CAMP", "FCC", "ICT", "CMPB", "BMT", "RT", "PORTAL", "TRAINING", "ALL"]
+	return render_template("postsbreakdown.html", entities=entities, labels = labels,
+		med = med, ser = ser, cmpb = cmpb, bmt = bmt, ict = ict, ippt = ippt, rt = rt, 
+		fcc = fcc, portal = portal, camp = camp, training = training, loc = loc)
+	# else:
+	# 	return redirect('/')
 
 
 @app.route('/display_spacy/ALL')
@@ -371,6 +382,153 @@ def display_spacy_ict():
 
 	return render_template("formatted_entities_ict.html")
 
+@app.route('/display_spacy/CMPB')
+def display_spacy_cmpb():
+	f = open("./templates/entitiesextracted.html")
+	file = f.read()
+	f.close()
+	x = file.replace("</br></br>", "<br> <hr /> <br>")
+
+	x = x.split("<hr />")
+
+	finlist = []
+
+	for i in x:
+	    if """<span style="font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; vertical-align: middle; margin-left: 0.5rem">CMPB</span>""" not in i:
+	        pass;
+	    else:
+	        finlist.append(i)
+	        finlist.append("<br> <hr /> <br>")
+
+   
+	finstr = ' '.join(finlist)
+	finstr = body_start + finstr + body_end
+
+	y = open("./templates/formatted_entities_cmpb.html", "w")
+	y.write(finstr)
+	y.close()
+
+
+	return render_template("formatted_entities_cmpb.html")
+
+
+@app.route('/display_spacy/BMT')
+def display_spacy_bmt():
+	f = open("./templates/entitiesextracted.html")
+	file = f.read()
+	f.close()
+	x = file.replace("</br></br>", "<br> <hr /> <br>")
+
+	x = x.split("<hr />")
+
+	finlist = []
+
+	for i in x:
+	    if """<span style="font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; vertical-align: middle; margin-left: 0.5rem">BMT</span>""" not in i:
+	        pass;
+	    else:
+	        finlist.append(i)
+	        finlist.append("<br> <hr /> <br>")
+
+   
+	finstr = ' '.join(finlist)
+	finstr = body_start + finstr + body_end
+
+	y = open("./templates/formatted_entities_bmt.html", "w")
+	y.write(finstr)
+	y.close()
+
+
+	return render_template("formatted_entities_bmt.html")
+
+
+@app.route('/display_spacy/RT')
+def display_spacy_rt():
+	f = open("./templates/entitiesextracted.html")
+	file = f.read()
+	f.close()
+	x = file.replace("</br></br>", "<br> <hr /> <br>")
+
+	x = x.split("<hr />")
+
+	finlist = []
+
+	for i in x:
+	    if """<span style="font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; vertical-align: middle; margin-left: 0.5rem">RT_IPT</span>""" not in i:
+	        pass;
+	    else:
+	        finlist.append(i)
+	        finlist.append("<br> <hr /> <br>")
+
+   
+	finstr = ' '.join(finlist)
+	finstr = body_start + finstr + body_end
+
+	y = open("./templates/formatted_entities_rt.html", "w")
+	y.write(finstr)
+	y.close()
+
+
+	return render_template("formatted_entities_rt.html")
+
+
+@app.route('/display_spacy/PORTAL')
+def display_spacy_portal():
+	f = open("./templates/entitiesextracted.html")
+	file = f.read()
+	f.close()
+	x = file.replace("</br></br>", "<br> <hr /> <br>")
+
+	x = x.split("<hr />")
+
+	finlist = []
+
+	for i in x:
+	    if """<span style="font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; vertical-align: middle; margin-left: 0.5rem">PORTAL</span>""" not in i:
+	        pass;
+	    else:
+	        finlist.append(i)
+	        finlist.append("<br> <hr /> <br>")
+
+   
+	finstr = ' '.join(finlist)
+	finstr = body_start + finstr + body_end
+
+	y = open("./templates/formatted_entities_portal.html", "w")
+	y.write(finstr)
+	y.close()
+
+
+	return render_template("formatted_entities_portal.html")
+
+@app.route('/display_spacy/TRAINING')
+def display_spacy_training():
+	f = open("./templates/entitiesextracted.html")
+	file = f.read()
+	f.close()
+	x = file.replace("</br></br>", "<br> <hr /> <br>")
+
+	x = x.split("<hr />")
+
+	finlist = []
+
+	for i in x:
+	    if """<span style="font-size: 0.8em; font-weight: bold; line-height: 1; border-radius: 0.35em; vertical-align: middle; margin-left: 0.5rem">TRAINING</span>""" not in i:
+	        pass;
+	    else:
+	        finlist.append(i)
+	        finlist.append("<br> <hr /> <br>")
+
+   
+	finstr = ' '.join(finlist)
+	finstr = body_start + finstr + body_end
+
+	y = open("./templates/formatted_entities_train.html", "w")
+	y.write(finstr)
+	y.close()
+
+
+	return render_template("formatted_entities_train.html")
 
 @app.route("/display_sentence_level")
 def sentence_level():
