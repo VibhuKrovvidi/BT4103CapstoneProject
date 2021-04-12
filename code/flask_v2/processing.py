@@ -938,6 +938,10 @@ class DSTA_Service_Delivery():
 		return entity_df
 
 	def sentence_level_sentiment(self):
+		"""
+		A function which breaks each review down into sentences and computes the average sentiment score by sentence level.
+		This function takes these and pushes each sentence as well as its sentiment score as calculated.
+		"""
 		data = self.get_all_contentdata()["general"]
 		data = pd.DataFrame(data, columns=["Content"])
 		dfl = data["Content"].to_list()
@@ -1022,6 +1026,12 @@ class DSTA_Service_Delivery():
 			print("Pushed processed data for :", i["review_id"])
 
 	def get_sentence_level(self):
+		"""
+		Getter method to get sentence level data as processed by the sentence_level_sentiment method.
+		Returns: data
+			A list of dict instances containing review id, sentence id within the review, the sentence content and timestamp
+
+		"""
 		collections = []
 		for col in self.db.collections():
 			if "sentence_level" in str(col.id):
@@ -1041,7 +1051,19 @@ class DSTA_Service_Delivery():
 		return data
 
 	def get_entity_sent(self):
-		ges_ref = self.db.collection(u'sentiment_freq_by_entity');
+		"""
+		Getter method to get the entity level sentiment score
+		Returns: data
+			A list of dict objects reflecting each entity's sentiment score
+		"""
+		collections = []
+		for col in self.db.collections():
+			if "sentiment_freq_by_entity" in str(col.id):
+				collections.append(str(col.id))
+
+		collections = sorted(collections, reverse=True)
+
+		ges_ref = self.db.collection(collections[0]);
 		data = []
 		try:
 			sdata = ges_ref.get()
@@ -1052,6 +1074,11 @@ class DSTA_Service_Delivery():
 		return data;
 
 	def get_entity_sent_over_time(self):
+		"""
+		Getter method to get sentiment scores for entities over all previously scraped times
+		Returns: labels, med, ser, cmpb, bmt, ict, ippt, rt, fcc, portal, camp, training, loc
+			Lists used for the rendering of charts on the Posts Breakdown page
+		"""
 		collections = []
 		for col in self.db.collections():
 			if "sentiment_freq_by_entity" in str(col.id):
@@ -1077,34 +1104,37 @@ class DSTA_Service_Delivery():
 				entry = entry.to_dict()
 
 				if entry["Entity"] == "MEDICAL":
-					med.append(entry["Avg_sent"])
+					med.append(round(entry["Avg_sent"], 2))
 				elif entry["Entity"] == "SERVICE":
-					ser.append(entry["Avg_sent"])
+					ser.append(round(entry["Avg_sent"], 2))
 				elif entry["Entity"] == "CMPB":
-					cmpb.append(entry["Avg_sent"])
+					cmpb.append(round(entry["Avg_sent"], 2))
 				elif entry["Entity"] == "BMT":
-					bmt.append(entry["Avg_sent"])
+					bmt.append(round(entry["Avg_sent"], 2))
 				elif entry["Entity"] == "ICT":
-					ict.append(entry["Avg_sent"])
+					ict.append(round(entry["Avg_sent"], 2))
 				elif entry["Entity"] == "IPPT":
-					ippt.append(entry["Avg_sent"])
+					ippt.append(round(entry["Avg_sent"], 2))
 				elif entry["Entity"] == "RT/IPT":
-					rt.append(entry["Avg_sent"])
+					rt.append(round(entry["Avg_sent"], 2))
 				elif entry["Entity"] == "FCC":
-					fcc.append(entry["Avg_sent"])
+					fcc.append(round(entry["Avg_sent"], 2))
 				elif entry["Entity"] == "PORTAL":
-					portal.append(entry["Avg_sent"])
+					portal.append(round(entry["Avg_sent"], 2))
 				elif entry["Entity"] == "CAMP":
-					camp.append(entry["Avg_sent"])
+					camp.append(round(entry["Avg_sent"], 2))
 				elif entry["Entity"] == "TRAINING":
-					training.append(entry["Avg_sent"])
+					training.append(round(entry["Avg_sent"], 2))
 				elif entry["Entity"] == "LOCATION":
-					loc.append(entry["Avg_sent"])
-		print(med)
+					loc.append(round(entry["Avg_sent"], 2))
 		return labels, med, ser, cmpb, bmt, ict, ippt, rt, fcc, portal, camp, training, loc
 
 
 	def run_processing(self):
+		"""
+		Driver method for running all processing tasks. 
+		Warning: Requires significant compute power and can take 3+ hours. Works faster with GPU enabled mode
+		"""
 		# Web Scraping
 		self.get_google_reviews("CMPB", "https://www.google.com/maps/place/CMPB/@1.280195,103.815126,17z/data=!4m7!3m6!1s0x31da1bd0af54732f:0x9c274decbab4e599!8m2!3d1.280195!4d103.815126!9m1!1b1")
 		logger.info("\nScraped Google Reviews for CMPB")
@@ -1158,6 +1188,9 @@ class DSTA_Service_Delivery():
 
 
 def main():
+	"""
+	Driver method to test functionality in 3rd party codes.
+	"""
 	scraper = DSTA_Service_Delivery()
 	scraper.initialiseDB()
 

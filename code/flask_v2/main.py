@@ -3,7 +3,6 @@ import pyrebase
 import json
 from firebase_admin import credentials, auth
 from flask import Flask, request,render_template,flash, redirect,jsonify,Response
-#from flask.markdown import Markdown
 import forms
 from forms import LoginForm
 import webbrowser
@@ -18,36 +17,21 @@ from matplotlib.figure import Figure
 import matplotlib.pyplot as plt
 import queue
 from wordcloud import WordCloud, STOPWORDS
-
-
-'''
-import spacy
-from spacy import displacy
-nlp = spacy.load('en_core_web_sm')
-'''
-
 import processing 
 from processing import DSTA_Service_Delivery
-import pandas as pd;
+import pandas as pd
+from flask_caching import Cache
 
 
-
-
-def init_scraper():
-	scraper = DSTA_Service_Delivery()
-	myqueue.put(scraper)
-
-
-global scraper;
-myqueue = queue.Queue()
 
 #App configuration
 app = Flask(__name__)
-#Markdown(app)
-# login_manager.init_app(app)
-# login = LoginManager(app)
 
 app.config['SECRET_KEY'] = 'you-will-never-guess'
+app.config["CACHE_TYPE"] = 'simple'
+cache = Cache()
+cache.init_app(app)
+
 
 #Connect to firebase
 cred = credentials.Certificate('fbadmin.json')
@@ -56,15 +40,18 @@ pb = pyrebase.initialize_app(json.load(open('fbconfig.json')))
 
 auth = pb.auth()
 
+@cache.cached(timeout=300, key_prefix='init_scraper')
+def init_scraper():
+	scraper = DSTA_Service_Delivery()
+	myqueue.put(scraper)
+
+myqueue = queue.Queue()
 
 #Api route to get a new token for a valid user
 @app.route('/', methods=['GET', 'POST'])
 def login():
 	form = LoginForm()
 	if form.validate_on_submit():
-
-		
-
 		email = form.email.data
 		password = form.password.data
 		try:
@@ -75,31 +62,37 @@ def login():
 
 	return render_template('login.html', title='Sign In', form=form)
 
-
-
-
-
 @app.route('/dashboard')
+@cache.cached(timeout=600)
 def dashboard():
-	# if isinstance(auth.current_user, dict):
-	
-	# Read from file
-	# df = pd.read_csv("../../output/sentiment evaluation/features-entity-score.csv")
-	# df.drop(["Unnamed: 0"], axis=1, inplace=True)
-	init = threading.Thread(target=init_scraper)
-	init.start()
-	init.join()
-	scraper = myqueue.get()
-	scraper.initialiseDB()
-	data = scraper.get_entity_sent()
-	df = pd.DataFrame(data)
-	print(df.head)
+	if isinstance(auth.current_user, dict):
+		
+		init = threading.Thread(target=init_scraper)
+		init.start()
+		# init.join()
+		scraper = myqueue.get()
+		scraper.initialiseDB()
+		data = scraper.get_entity_sent()
+		df = pd.DataFrame(data)
 
-	data = df
+		data = df
 
-	data_tag = data["Entity"].tolist()
-	data_freq = data["Freq"].tolist()
-	data_score = data["Avg_sent"].tolist()
+		data_tag = data["Entity"].tolist()
+		data_freq = data["Freq"].tolist()
+		data_score = data["Avg_sent"].tolist()
+		data_score = [i-1 for i in data_score]
+
+		poslist = []
+		neglist = []
+
+		for i in data_score:
+			if i >=0:
+				poslist.append(round(i, 2))
+				neglist.append(0)
+			else:
+				poslist.append(0)
+				neglist.append(round(i, 2))
+
 
 	# #wordcloud
 	# comment_words = ''
@@ -127,33 +120,36 @@ def dashboard():
 	# wordcloud.to_file("./Static/wordcloud.png")
   
 
-	return render_template('dashboard_home2.html', max=17000, 
-		datatag = data_tag, datafreq = data_freq, datascore = data_score
-		)
-	# else:
-		# return redirect('/')
+		return render_template('dashboard_home2.html', max=17000, 
+			datatag = data_tag, datafreq = data_freq, datascore = data_score,
+			poslist=  poslist, neglist = neglist
+			)
+	else:
+		return redirect('/')
 	
 @app.route('/postbreakdown',  methods=['GET'])
+@cache.cached(timeout=600)
 def post_breakdown():
-	# if isinstance(auth.current_user, dict):
-	init = threading.Thread(target=init_scraper)
-	init.start()
-	init.join()
-	scraper = myqueue.get()
-	scraper.initialiseDB()
-	labels, med, ser, cmpb, bmt, ict, ippt, rt, fcc, portal, camp, training, loc = scraper.get_entity_sent_over_time()
+	if isinstance(auth.current_user, dict):
+		init = threading.Thread(target=init_scraper)
+		init.start()
+		# init.join()
+		scraper = myqueue.get()
+		scraper.initialiseDB()
+		labels, med, ser, cmpb, bmt, ict, ippt, rt, fcc, portal, camp, training, loc = scraper.get_entity_sent_over_time()
 
 
 
-	entities = ["SERVICE", "MEDICAL", "IPPT", "LOCATION", "CAMP", "FCC", "ICT", "CMPB", "BMT", "RT", "PORTAL", "TRAINING", "ALL"]
-	return render_template("postsbreakdown.html", entities=entities, labels = labels,
-		med = med, ser = ser, cmpb = cmpb, bmt = bmt, ict = ict, ippt = ippt, rt = rt, 
-		fcc = fcc, portal = portal, camp = camp, training = training, loc = loc)
-	# else:
-	# 	return redirect('/')
+		entities = ["SERVICE", "MEDICAL", "IPPT", "LOCATION", "CAMP", "FCC", "ICT", "CMPB", "BMT", "RT", "PORTAL", "TRAINING", "ALL"]
+		return render_template("postsbreakdown.html", entities=entities, labels = labels,
+			med = med, ser = ser, cmpb = cmpb, bmt = bmt, ict = ict, ippt = ippt, rt = rt, 
+			fcc = fcc, portal = portal, camp = camp, training = training, loc = loc)
+	else:
+		return redirect('/')
 
 
 @app.route('/display_spacy/ALL')
+@cache.cached(timeout=600)
 def display_spacy():
 	return render_template("entitiesextracted.html")
 
@@ -177,6 +173,7 @@ body_end = """
 """
 
 @app.route('/display_spacy/SERVICE')
+@cache.cached(timeout=600)
 def display_spacy_service():
 	f = open("./templates/entitiesextracted.html")
 	file = f.read()
@@ -207,6 +204,7 @@ def display_spacy_service():
 	return render_template("formatted_entities_service.html")
 
 @app.route('/display_spacy/MEDICAL')
+@cache.cached(timeout=600)
 def display_spacy_medical():
 	f = open("./templates/entitiesextracted.html")
 	file = f.read()
@@ -237,6 +235,7 @@ def display_spacy_medical():
 	
 
 @app.route('/display_spacy/IPPT')
+@cache.cached(timeout=600)
 def display_spacy_ippt():
 	f = open("./templates/entitiesextracted.html")
 	file = f.read()
@@ -266,6 +265,7 @@ def display_spacy_ippt():
 	return render_template("formatted_entities_ippt.html")
 
 @app.route('/display_spacy/LOCATION')
+@cache.cached(timeout=600)
 def display_spacy_location():
 	f = open("./templates/entitiesextracted.html")
 	file = f.read()
@@ -295,6 +295,7 @@ def display_spacy_location():
 	return render_template("formatted_entities_location.html")
 
 @app.route('/display_spacy/CAMP')
+@cache.cached(timeout=600)
 def display_spacy_camp():
 	f = open("./templates/entitiesextracted.html")
 	file = f.read()
@@ -324,6 +325,7 @@ def display_spacy_camp():
 	return render_template("formatted_entities_camp.html")
 
 @app.route('/display_spacy/FCC')
+@cache.cached(timeout=600)
 def display_spacy_fcc():
 	f = open("./templates/entitiesextracted.html")
 	file = f.read()
@@ -354,6 +356,7 @@ def display_spacy_fcc():
 
 
 @app.route('/display_spacy/ICT')
+@cache.cached(timeout=600)
 def display_spacy_ict():
 	f = open("./templates/entitiesextracted.html")
 	file = f.read()
@@ -383,6 +386,7 @@ def display_spacy_ict():
 	return render_template("formatted_entities_ict.html")
 
 @app.route('/display_spacy/CMPB')
+@cache.cached(timeout=600)
 def display_spacy_cmpb():
 	f = open("./templates/entitiesextracted.html")
 	file = f.read()
@@ -413,6 +417,7 @@ def display_spacy_cmpb():
 
 
 @app.route('/display_spacy/BMT')
+@cache.cached(timeout=600)
 def display_spacy_bmt():
 	f = open("./templates/entitiesextracted.html")
 	file = f.read()
@@ -443,6 +448,7 @@ def display_spacy_bmt():
 
 
 @app.route('/display_spacy/RT')
+@cache.cached(timeout=600)
 def display_spacy_rt():
 	f = open("./templates/entitiesextracted.html")
 	file = f.read()
@@ -473,6 +479,7 @@ def display_spacy_rt():
 
 
 @app.route('/display_spacy/PORTAL')
+@cache.cached(timeout=600)
 def display_spacy_portal():
 	f = open("./templates/entitiesextracted.html")
 	file = f.read()
@@ -502,6 +509,7 @@ def display_spacy_portal():
 	return render_template("formatted_entities_portal.html")
 
 @app.route('/display_spacy/TRAINING')
+@cache.cached(timeout=600)
 def display_spacy_training():
 	f = open("./templates/entitiesextracted.html")
 	file = f.read()
@@ -531,14 +539,15 @@ def display_spacy_training():
 	return render_template("formatted_entities_train.html")
 
 @app.route("/display_sentence_level")
+@cache.cached(timeout=600)
 def sentence_level():
-	# To be deleted once dashboard is fixed
+
 	init = threading.Thread(target=init_scraper)
 	init.start()
 	init.join()
 	scraper = myqueue.get()
 	scraper.initialiseDB()
-	#################################
+
 	data = scraper.get_sentence_level()
 	df = pd.DataFrame(data)
 	df = df.sort_values(["review_id", "sentence_id"], ascending=[True, True])
@@ -556,19 +565,11 @@ def sentence_level():
 
 	return render_template("sentence_level.html", finlist = finlist)
 
-
-
-
-
-
-
 @app.route('/login')
 def login_out():
 	# auth.signOut()
 	return redirect('/')
 
-
-myqueue = queue.Queue()
 @app.route('/runscript')
 def runscript():
 	# if isinstance(auth.current_user, dict):
