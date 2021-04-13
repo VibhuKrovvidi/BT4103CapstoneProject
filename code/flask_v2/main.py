@@ -94,31 +94,36 @@ def dashboard():
 				neglist.append(round(i, 2))
 
 
-	# #wordcloud
-	# comment_words = ''
-	# stopwords = set(STOPWORDS)
-	# # iterate through the csv file
-	# for val in df["index"]:
-	      
-	#     # typecaste each val to string
-	#     val = str(val)
-	  
-	#     # split the value
-	#     tokens = val.split()
-	      
-	#     # Converts each token into lowercase
-	#     for i in range(len(tokens)):
-	#         tokens[i] = tokens[i].lower()
-	      
-	#     comment_words += " ".join(tokens)+" "
-	  
-	# wordcloud = WordCloud(width = 400, height = 400,
-	#                 background_color ='white',
-	#                 stopwords = stopwords,
-	#                 min_font_size = 10).generate(comment_words)
-	  
-	# wordcloud.to_file("./Static/wordcloud.png")
-  
+		#wordcloud
+		comment_words = ''
+		stopwords = set(STOPWORDS)
+
+		df = scraper.get_feat_data()
+		df = pd.DataFrame(df)
+		print("COL = ", df.columns)
+
+		# iterate through the csv file
+		for val in df["Feature"]:
+		      
+		    # typecaste each val to string
+		    val = str(val)
+		  
+		    # split the value
+		    tokens = val.split()
+		      
+		    # Converts each token into lowercase
+		    for i in range(len(tokens)):
+		        tokens[i] = tokens[i].lower()
+		      
+		    comment_words += " ".join(tokens)+" "
+		  
+		wordcloud = WordCloud(width = 400, height = 400,
+		                background_color ='white',
+		                stopwords = stopwords,
+		                min_font_size = 10).generate(comment_words)
+		  
+		wordcloud.to_file("./app/static/wordcloud.png")
+
 
 		return render_template('dashboard_home2.html', max=17000, 
 			datatag = data_tag, datafreq = data_freq, datascore = data_score,

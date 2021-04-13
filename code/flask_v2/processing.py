@@ -1050,6 +1050,26 @@ class DSTA_Service_Delivery():
 
 		return data
 
+	def get_feat_data(self):
+		"""
+		Getter method to get the features and descriptors from firebase
+		Returns: data
+			A list of dict objects reflecting features, descriptors
+		"""
+		collections = []
+		for col in self.db.collections():
+			if "feat_sent" in str(col.id):
+				collections.append(str(col.id))
+
+		collections = sorted(collections, reverse=True)
+		fref = self.db.collection(collections[0]).get()
+		data = []
+		for entry in fref:
+			data.append(entry.to_dict());
+
+		return data
+
+
 	def get_entity_sent(self):
 		"""
 		Getter method to get the entity level sentiment score

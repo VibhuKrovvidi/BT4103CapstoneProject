@@ -48,42 +48,9 @@
 </div>
 
 <div class="bar_sent">
-	<h1>Average Sentiment Score of Entities</h1>
-	<p>
-		0 : Negative &nbsp; 1 : Neutral &nbsp; 2 : Positive
-	</p>
-	<canvas id="bar_chart2" width="400" height="400"></canvas>
-	<script>
-	// bar chart data
+	<h1> Wordcloud of Top Features </h1><br>
+	<img src ="/static/wordcloud.png"> 
 	
-	var barData2 = {
-		labels : {{datatag | tojson }},
-
-		datasets : [{
-		fillColor: "rgba(249, 105, 14, 1)",
-		strokeColor: "rgba(249, 105, 14,2)",
-		data : {{datascore  | tojson }}
-		}
-		]
-	}
-
-	// get bar chart canvas
-	var mybarchart2 = document.getElementById("bar_chart2").getContext("2d");
-
-	// draw bar chart
-	new Chart(mybarchart2).Bar(barData2, {
-		// scaleOverride: true,
-		// scaleSteps: steps,
-		// scaleStepWidth: Math.ceil(max / steps),
-		scaleStartValue: 0,
-		scaleShowVerticalLines: true,
-		scaleShowGridLines : true,
-		barShowStroke : true,
-		scaleShowLabels: true
-		}
-	);
-
-	</script>
 
 </div>
 
