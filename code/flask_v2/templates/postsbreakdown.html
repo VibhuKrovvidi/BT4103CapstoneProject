@@ -39,10 +39,10 @@ var ctx = document.getElementById("myChart").getContext("2d");
              labels: {{ labels | tojson }},
              datasets: [{
                  label: "MEDICAL",
-                 fillColor: "rgba(46, 204, 113,0.5)",
-                 strokeColor: "rgba(220,220,220,0.8)",
-                 highlightFill: "rgba(220,220,220,0.75)",
-                 highlightStroke: "rgba(220,220,220,1)",
+                 fill: false,
+                 fillColor: "rgba(46, 204, 113,0)",
+                 strokeColor: "rgba(75, 192, 192,0.8)",
+                 borderColor: 'rgb(75, 192, 192)',
                  data: {{ med | tojson}}
              }],
          }
@@ -52,12 +52,12 @@ var ctx = document.getElementById("myChart").getContext("2d");
          data: {
              labels: {{ labels | tojson }},
              datasets: [{
-                 label: "MEDICAL",
-                 fillColor: "rgba(46, 204, 113,0.5)",
-                 strokeColor: "rgba(220,220,220,0.8)",
-                 highlightFill: "rgba(220,220,220,0.75)",
-                 highlightStroke: "rgba(220,220,220,1)",
-                 data: {{ med | tojson}}
+                 label: "SERVICE",
+                 fill: false,
+                 fillColor: "rgba(46, 204, 113,0)",
+                 strokeColor: "rgba(75, 192, 192,0.8)",
+                 borderColor: 'rgb(75, 192, 192)',
+                 data: {{ ser | tojson}}
              }],
          }
      },
@@ -66,11 +66,10 @@ var ctx = document.getElementById("myChart").getContext("2d");
          data: {
              labels: {{ labels | tojson }},
              datasets: [{
-                 label: "MEDICAL",
-                 fillColor: "rgba(46, 204, 113,0.5)",
-                 strokeColor: "rgba(220,220,220,0.8)",
-                 highlightFill: "rgba(220,220,220,0.75)",
-                 highlightStroke: "rgba(220,220,220,1)",
+                 label: "IPPT",
+                 fillColor: "rgba(46, 204, 113,0)",
+                 strokeColor: "rgba(75, 192, 192,0.8)",
+                 borderColor: 'rgb(75, 192, 192)',
                  data: {{ ippt | tojson}}
              }],
          }
@@ -80,11 +79,10 @@ var ctx = document.getElementById("myChart").getContext("2d");
          data: {
              labels: {{ labels | tojson }},
              datasets: [{
-                 label: "MEDICAL",
-                 fillColor: "rgba(46, 204, 113,0.5)",
-                 strokeColor: "rgba(220,220,220,0.8)",
-                 highlightFill: "rgba(220,220,220,0.75)",
-                 highlightStroke: "rgba(220,220,220,1)",
+                 label: "LOCATION",
+                 fillColor: "rgba(46, 204, 113,0)",
+                 strokeColor: "rgba(75, 192, 192,0.8)",
+                 borderColor: 'rgb(75, 192, 192)',
                  data: {{ loc | tojson}}
              }],
          }
@@ -94,11 +92,10 @@ var ctx = document.getElementById("myChart").getContext("2d");
          data: {
              labels: {{ labels | tojson }},
              datasets: [{
-                 label: "MEDICAL",
-                 fillColor: "rgba(46, 204, 113,0.5)",
-                 strokeColor: "rgba(220,220,220,0.8)",
-                 highlightFill: "rgba(220,220,220,0.75)",
-                 highlightStroke: "rgba(220,220,220,1)",
+                 label: "CAMP",
+                 fillColor: "rgba(46, 204, 113,0)",
+                 strokeColor: "rgba(75, 192, 192,0.8)",
+                 borderColor: 'rgb(75, 192, 192)',
                  data: {{ camp | tojson}}
              }],
          }
@@ -108,11 +105,10 @@ var ctx = document.getElementById("myChart").getContext("2d");
          data: {
              labels: {{ labels | tojson }},
              datasets: [{
-                 label: "MEDICAL",
-                 fillColor: "rgba(46, 204, 113,0.5)",
-                 strokeColor: "rgba(220,220,220,0.8)",
-                 highlightFill: "rgba(220,220,220,0.75)",
-                 highlightStroke: "rgba(220,220,220,1)",
+                 label: "FCC",
+                 fillColor: "rgba(46, 204, 113,0)",
+                 strokeColor: "rgba(75, 192, 192,0.8)",
+                 borderColor: 'rgb(75, 192, 192)',
                  data: {{ fcc | tojson}}
              }],
          }
@@ -122,11 +118,10 @@ var ctx = document.getElementById("myChart").getContext("2d");
          data: {
              labels: {{ labels | tojson }},
              datasets: [{
-                 label: "MEDICAL",
-                 fillColor: "rgba(46, 204, 113,0.5)",
-                 strokeColor: "rgba(220,220,220,0.8)",
-                 highlightFill: "rgba(220,220,220,0.75)",
-                 highlightStroke: "rgba(220,220,220,1)",
+                 label: "ICT",
+                fillColor: "rgba(46, 204, 113,0)",
+                 strokeColor: "rgba(75, 192, 192,0.8)",
+                 borderColor: 'rgb(75, 192, 192)',
                  data: {{ ict | tojson}}
              }],
          }
@@ -136,11 +131,10 @@ var ctx = document.getElementById("myChart").getContext("2d");
          data: {
              labels: {{ labels | tojson }},
              datasets: [{
-                 label: "MEDICAL",
-                 fillColor: "rgba(46, 204, 113,0.5)",
-                 strokeColor: "rgba(220,220,220,0.8)",
-                 highlightFill: "rgba(220,220,220,0.75)",
-                 highlightStroke: "rgba(220,220,220,1)",
+                 label: "CMPB",
+                fillColor: "rgba(46, 204, 113,0)",
+                 strokeColor: "rgba(75, 192, 192,0.8)",
+                 borderColor: 'rgb(75, 192, 192)',
                  data: {{ cmpb | tojson}}
              }],
          }
@@ -150,11 +144,10 @@ var ctx = document.getElementById("myChart").getContext("2d");
          data: {
              labels: {{ labels | tojson }},
              datasets: [{
-                 label: "MEDICAL",
-                 fillColor: "rgba(46, 204, 113,0.5)",
-                 strokeColor: "rgba(220,220,220,0.8)",
-                 highlightFill: "rgba(220,220,220,0.75)",
-                 highlightStroke: "rgba(220,220,220,1)",
+                 label: "BMT",
+                 fillColor: "rgba(46, 204, 113,0)",
+                 strokeColor: "rgba(75, 192, 192,0.8)",
+                 borderColor: 'rgb(75, 192, 192)',
                  data: {{ bmt | tojson}}
              }],
          }
@@ -164,11 +157,10 @@ var ctx = document.getElementById("myChart").getContext("2d");
          data: {
              labels: {{ labels | tojson }},
              datasets: [{
-                 label: "MEDICAL",
-                 fillColor: "rgba(46, 204, 113,0.5)",
-                 strokeColor: "rgba(220,220,220,0.8)",
-                 highlightFill: "rgba(220,220,220,0.75)",
-                 highlightStroke: "rgba(220,220,220,1)",
+                 label: "RT",
+                 fillColor: "rgba(46, 204, 113,0)",
+                 strokeColor: "rgba(75, 192, 192,0.8)",
+                 borderColor: 'rgb(75, 192, 192)',
                  data: {{ rt | tojson}}
              }],
          }
@@ -178,11 +170,10 @@ var ctx = document.getElementById("myChart").getContext("2d");
          data: {
              labels: {{ labels | tojson }},
              datasets: [{
-                 label: "MEDICAL",
-                 fillColor: "rgba(46, 204, 113,0.5)",
-                 strokeColor: "rgba(220,220,220,0.8)",
-                 highlightFill: "rgba(220,220,220,0.75)",
-                 highlightStroke: "rgba(220,220,220,1)",
+                 label: "PORTAL",
+                 fillColor: "rgba(46, 204, 113,0)",
+                 strokeColor: "rgba(75, 192, 192,0.8)",
+                 borderColor: 'rgb(75, 192, 192)',
                  data: {{ portal | tojson}}
              }],
          }
@@ -192,15 +183,98 @@ var ctx = document.getElementById("myChart").getContext("2d");
          data: {
              labels: {{ labels | tojson }},
              datasets: [{
-                 label: "MEDICAL",
-                 fillColor: "rgba(46, 204, 113,0.5)",
-                 strokeColor: "rgba(220,220,220,0.8)",
-                 highlightFill: "rgba(220,220,220,0.75)",
-                 highlightStroke: "rgba(220,220,220,1)",
+                 label: "TRAINING",
+                 fillColor: "rgba(46, 204, 113,0)",
+                 strokeColor: "rgba(75, 192, 192,0.8)",
+                 borderColor: 'rgb(75, 192, 192)',
                  data: {{ training | tojson}}
              }],
          }
-     }
+     },
+     'ALL': {
+         method: 'Line',
+         data: {
+             labels: {{ labels | tojson }},
+             datasets: [{
+                 label: "TRAINING",
+                 fillColor: "rgba(46, 204, 113,0)",
+                 strokeColor: "rgba(245, 183, 177,0.8)",
+                 borderColor: 'rgb(75, 192, 192)',
+                 data: {{ training | tojson}}
+             },{
+                 label: "MEDICAL",
+                 fill: false,
+                 fillColor: "rgba(46, 204, 113,0)",
+                 strokeColor: "rgba(215, 189, 226,0.8)",
+                 borderColor: 'rgb(75, 192, 192)',
+                 data: {{ med | tojson}}
+             },{
+                 label: "IPPT",
+                 fillColor: "rgba(46, 204, 113,0)",
+                 strokeColor: "rgba(133, 193, 233,0.8)",
+                 borderColor: 'rgb(75, 192, 192)',
+                 data: {{ ippt | tojson}}
+             },{
+                 label: "LOCATION",
+                fillColor: "rgba(46, 204, 113,0)",
+                 strokeColor: "rgba(203, 67, 53,0.8)",
+                 borderColor: 'rgb(75, 192, 192)',
+                 data: {{ loc | tojson}}
+             },{
+                 label: "CAMP",
+                 fillColor: "rgba(46, 204, 113,0)",
+                 strokeColor: "rgba(125, 60, 152,0.8)",
+                 borderColor: 'rgb(75, 192, 192)',
+                 data: {{ camp | tojson}}
+             },{
+                 label: "BMT",
+                 fillColor: "rgba(46, 204, 113,0)",
+                 strokeColor: "rgba(241, 196, 15,0.8)",
+                 borderColor: 'rgb(75, 192, 192)',
+                 data: {{ bmt | tojson}}
+             },{
+                 label: "RT",
+                fillColor: "rgba(46, 204, 113,0)",
+                 strokeColor: "rgba(211, 84, 0,0.8)",
+                 borderColor: 'rgb(75, 192, 192)',
+                 data: {{ rt | tojson}}
+             },{
+                 label: "PORTAL",
+                 fillColor: "rgba(46, 204, 113,0)",
+                 strokeColor: "rgba(20, 90, 50,0.8)",
+                 borderColor: 'rgb(75, 192, 192)',
+                 data: {{ portal | tojson}}
+             },{
+                 label: "SERVICE",
+                 fillColor: "rgba(46, 204, 113,0)",
+                 strokeColor: "rgba(52, 73, 94 ,0.8)",
+                 borderColor: 'rgb(75, 192, 192)',
+                 data: {{ ser | tojson}}
+             },{
+                 label: "FCC",
+                 fillColor: "rgba(46, 204, 113,0)",
+                 strokeColor: "rgba(75, 192, 192,0.8)",
+                 borderColor: 'rgb(75, 192, 192)',
+                 data: {{ fcc | tojson}}
+             },
+             {
+                 label: "ICT",
+                fillColor: "rgba(46, 204, 113,0)",
+                 strokeColor: "rgba(221, 162, 222,0.8)",
+                 borderColor: 'rgb(75, 192, 192)',
+                 data: {{ ict | tojson}}
+             },
+             {
+                 label: "CMPB",
+                fillColor: "rgba(46, 204, 113,0)",
+                 strokeColor: "rgba(0, 214, 198 ,0.8)",
+                 borderColor: 'rgb(75, 192, 192)',
+                 data: {{ cmpb | tojson}}
+             }
+             ],
+         }
+     },
+
 
    }
 
@@ -232,8 +306,25 @@ var currentChart;
 <br><br>
 <h1 style="text-align: center;"> Sentence Level Sentiment by Post </h1><br>
 <br><br><hr>
-<iframe src="/display_sentence_level" id="viewent" class="iframe_posts2"></iframe>
 
+<iframe src="/display_sentence_level" id="viewent" class="iframe_posts2"></iframe>
+<div id="prompt">
+<b > How To Use This Tool: </b><br><br>
+
+<ul>
+<li style="background-color:#2ECC71;"> This text implies that the sentence has a positive score on average (A score > 0.2) </li>
+</ul>
+
+<ul>
+<li style="background-color:#F4D03F;"> This text implies that the sentence has a neutral score on average (where 0.2 > score > -0.2) </li>
+</ul>
+
+<ul>
+<li style="background-color:#CB4335;"> This text implies that the sentence has a negative score on average (A score < -0.2) </li>
+</ul>
+
+
+</div>
 </div>
 
 
@@ -319,6 +410,15 @@ box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
   margin-right: 60px;
 }
 
+#sentencelevel {
+  float: center;
+  text-align: center;
+}
+
+#prompt {
+  width: 300px;
+
+}
 
 
 </style>

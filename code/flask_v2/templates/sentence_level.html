@@ -15,7 +15,7 @@
 <div>
 {% for sent in finlist %}
 	{% if (sent[1] == "<hr>\n\n") %} 
-		{{sent[1] | safe }}
+		{{sent[0] | safe }}
 	{% elif (sent[1] > 1.2) %}
 		<p style="background-color: #2ECC71">
 			{{ sent[0] | safe }} 

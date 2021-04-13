@@ -1104,29 +1104,29 @@ class DSTA_Service_Delivery():
 				entry = entry.to_dict()
 
 				if entry["Entity"] == "MEDICAL":
-					med.append(round(entry["Avg_sent"], 2))
+					med.append(round(entry["Avg_sent"]-1, 2))
 				elif entry["Entity"] == "SERVICE":
-					ser.append(round(entry["Avg_sent"], 2))
+					ser.append(round(entry["Avg_sent"]-1, 2))
 				elif entry["Entity"] == "CMPB":
-					cmpb.append(round(entry["Avg_sent"], 2))
+					cmpb.append(round(entry["Avg_sent"]-1, 2))
 				elif entry["Entity"] == "BMT":
-					bmt.append(round(entry["Avg_sent"], 2))
+					bmt.append(round(entry["Avg_sent"]-1, 2))
 				elif entry["Entity"] == "ICT":
-					ict.append(round(entry["Avg_sent"], 2))
+					ict.append(round(entry["Avg_sent"]-1, 2))
 				elif entry["Entity"] == "IPPT":
-					ippt.append(round(entry["Avg_sent"], 2))
+					ippt.append(round(entry["Avg_sent"]-1, 2))
 				elif entry["Entity"] == "RT/IPT":
-					rt.append(round(entry["Avg_sent"], 2))
+					rt.append(round(entry["Avg_sent"]-1, 2))
 				elif entry["Entity"] == "FCC":
-					fcc.append(round(entry["Avg_sent"], 2))
+					fcc.append(round(entry["Avg_sent"]-1, 2))
 				elif entry["Entity"] == "PORTAL":
-					portal.append(round(entry["Avg_sent"], 2))
+					portal.append(round(entry["Avg_sent"]-1, 2))
 				elif entry["Entity"] == "CAMP":
-					camp.append(round(entry["Avg_sent"], 2))
+					camp.append(round(entry["Avg_sent"]-1, 2))
 				elif entry["Entity"] == "TRAINING":
-					training.append(round(entry["Avg_sent"], 2))
+					training.append(round(entry["Avg_sent"]-1, 2))
 				elif entry["Entity"] == "LOCATION":
-					loc.append(round(entry["Avg_sent"], 2))
+					loc.append(round(entry["Avg_sent"]-1, 2))
 		return labels, med, ser, cmpb, bmt, ict, ippt, rt, fcc, portal, camp, training, loc
 
 

@@ -138,8 +138,6 @@ def post_breakdown():
 		scraper.initialiseDB()
 		labels, med, ser, cmpb, bmt, ict, ippt, rt, fcc, portal, camp, training, loc = scraper.get_entity_sent_over_time()
 
-
-
 		entities = ["SERVICE", "MEDICAL", "IPPT", "LOCATION", "CAMP", "FCC", "ICT", "CMPB", "BMT", "RT", "PORTAL", "TRAINING", "ALL"]
 		return render_template("postsbreakdown.html", entities=entities, labels = labels,
 			med = med, ser = ser, cmpb = cmpb, bmt = bmt, ict = ict, ippt = ippt, rt = rt, 
@@ -559,7 +557,7 @@ def sentence_level():
 	for i in range(0, len(review)):
 		if i != 0:
 			if review[i] != review[i-1]:
-				finlist.append(["<br><hr><br>", "<hr>\n\n"])
+				finlist.append(["<br><br><hr><br><br>", "<hr>\n\n"])
 		finlist.append([content[i], sent[i]])
 	# print(finlist)
 
