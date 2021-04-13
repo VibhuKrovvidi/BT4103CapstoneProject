@@ -1,0 +1,155 @@
+{% extends "base2.html" %}
+
+{% block content %}
+{{ super() }}
+<title>
+DASHBOARD
+</title>
+<head>
+
+  <meta charset="utf-8" />
+
+<!-- Import all desired scripts -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.js'></script>
+</head>
+
+<div class="bar_freq">
+	<h1>Frequency of Entities</h1>
+	<canvas id="bar_chart" width="400" height="400"></canvas>
+	<script>
+	// bar chart data
+	var barData = {
+		labels : {{datatag | tojson }},
+
+		datasets : [{
+		fillColor: "rgba(151,187,205,1)",
+		strokeColor: "rgba(151,187,205,2)",
+		data : {{datafreq | tojson }}
+		}
+		]
+	}
+
+	// get bar chart canvas
+	var mybarchart = document.getElementById("bar_chart").getContext("2d");
+
+	// draw bar chart
+	new Chart(mybarchart).Bar(barData, {
+		// scaleOverride: true,
+		// scaleSteps: steps,
+		// scaleStepWidth: Math.ceil(max / steps),
+		scaleStartValue: 0,
+		scaleShowVerticalLines: true,
+		scaleShowGridLines : true,
+		barShowStroke : true,
+		scaleShowLabels: true
+		}
+	);
+
+	</script>
+
+</div>
+
+<div class="bar_sent">
+	<h1> Wordcloud of Top Features </h1><br>
+	<img src ="/static/wordcloud.png"> 
+	
+
+</div>
+
+<div class="negbar">
+<h1>Average Sentiment Score of Entities</h1>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
+<canvas id="negbar"></canvas>
+
+<script type="text/javascript">
+	var ctx = document.getElementById('negbar').getContext('2d');
+var data = {
+  labels: {{datatag | tojson }},
+  datasets: [{
+      label: "Negative",
+      backgroundColor: "rgba(231, 76, 60, 0.2)",
+      borderColor: "rgb(241, 148, 138, 1)",
+      borderWidth: 2,
+      data: {{neglist | tojson}},
+    }, {
+      label: "Positive",
+      backgroundColor: "rgba(39, 174, 96,0.2)",
+      borderColor: "rgba(125, 206, 160,1)",
+      borderWidth: 2,
+      data: {{poslist | tojson}},
+    },
+
+  ]
+};
+
+var myBarChart = new Chart(ctx, {
+  type: 'horizontalBar',
+  data: data,
+  options: {
+    scales: {
+      yAxes: [{
+        stacked: true
+      }],
+      xAxes: [{
+      	afterBuildTicks: function(mychart) {
+      		mychart.ticks = [];
+	        mychart.ticks.push(-1);
+	        mychart.ticks.push(-0.8);
+	        mychart.ticks.push(-0.6);
+	        mychart.ticks.push(-0.4);
+	        mychart.ticks.push(-0.2);
+	        mychart.ticks.push(0);
+	        mychart.ticks.push(0.2);
+	        mychart.ticks.push(0.4);
+	        mychart.ticks.push(0.6);
+	        mychart.ticks.push(0.8);
+	        mychart.ticks.push(1);
+      	}	
+      }]
+    },
+    tooltips: {
+      callbacks: {
+        label: function(tooltipItems, data) {
+        	return tooltipItems.xLabel;
+        }
+      }
+    }
+  }
+});
+
+
+</script>
+
+</div>
+
+
+
+<style>
+		.bar_freq {
+			height:500px;
+			width:500px;
+
+			float: left;
+			padding: 80px;
+		}
+
+		.bar_sent {
+			height:500px;
+			width:500px;
+
+			float:right;
+			padding: 80px;
+				}
+
+.negbar {
+	padding: 80px;
+}
+
+h1 {
+	font-size: 25px;
+}
+
+</style>
+
+{% endblock %}

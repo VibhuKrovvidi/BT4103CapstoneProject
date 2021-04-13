@@ -1,0 +1,574 @@
+{% extends "base2.html" %}
+
+{% block content %}
+{{ super() }}
+
+<title>
+POSTS BREAKDOWN
+</title>
+
+<button onclick="toggle()" id="switchview"> Switch View </button>
+
+<div class="postsbreakdown">
+
+
+<div id="taggedentity">
+<h1> Entity Tagged Posts </h1><br>
+
+<!-- Select Entity to inspect -->
+<span>
+<b> Select an Entity: </b>
+<select name="filter" method="GET" action="/postsbreakdown" id="choice" onchange="changeFrame()">
+	<option value="{{entities[0]}}" selected>{{entities[0]}}</option>
+	{% for entity in entities[1:] %}
+	<option value="{{entity}}">{{entity}}</option>
+	{% endfor %}
+</select><br>
+</span><br><br><br><hr>
+
+<div id="chart">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.js'></script>
+<h3> Average Sentiment over Time for Selected Entity </h3>
+<canvas id="myChart"></canvas>
+  <script>
+var ctx = document.getElementById("myChart").getContext("2d");
+ ctx.canvas.width = 400;
+ ctx.canvas.height = 400;
+
+ var dataMap = {
+     'MEDICAL': {
+         method: 'Line',
+         data: {
+             labels: {{ labels | tojson }},
+             datasets: [{
+                 label: "MEDICAL",
+                 fill: false,
+                 fillColor: "rgba(46, 204, 113,0)",
+                 strokeColor: "rgba(75, 192, 192,0.8)",
+                 borderColor: 'rgb(75, 192, 192)',
+                 data: {{ med | tojson}}
+             }],
+         }
+     },
+     'SERVICE': {
+         method: 'Line',
+         data: {
+             labels: {{ labels | tojson }},
+             datasets: [{
+                 label: "SERVICE",
+                 fill: false,
+                 fillColor: "rgba(46, 204, 113,0)",
+                 strokeColor: "rgba(75, 192, 192,0.8)",
+                 borderColor: 'rgb(75, 192, 192)',
+                 data: {{ ser | tojson}}
+             }],
+         }
+     },
+     'IPPT': {
+         method: 'Line',
+         data: {
+             labels: {{ labels | tojson }},
+             datasets: [{
+                 label: "IPPT",
+                 fillColor: "rgba(46, 204, 113,0)",
+                 strokeColor: "rgba(75, 192, 192,0.8)",
+                 borderColor: 'rgb(75, 192, 192)',
+                 data: {{ ippt | tojson}}
+             }],
+         }
+     },
+     'LOCATION': {
+         method: 'Line',
+         data: {
+             labels: {{ labels | tojson }},
+             datasets: [{
+                 label: "LOCATION",
+                 fillColor: "rgba(46, 204, 113,0)",
+                 strokeColor: "rgba(75, 192, 192,0.8)",
+                 borderColor: 'rgb(75, 192, 192)',
+                 data: {{ loc | tojson}}
+             }],
+         }
+     },
+     'CAMP': {
+         method: 'Line',
+         data: {
+             labels: {{ labels | tojson }},
+             datasets: [{
+                 label: "CAMP",
+                 fillColor: "rgba(46, 204, 113,0)",
+                 strokeColor: "rgba(75, 192, 192,0.8)",
+                 borderColor: 'rgb(75, 192, 192)',
+                 data: {{ camp | tojson}}
+             }],
+         }
+     },
+     'FCC': {
+         method: 'Line',
+         data: {
+             labels: {{ labels | tojson }},
+             datasets: [{
+                 label: "FCC",
+                 fillColor: "rgba(46, 204, 113,0)",
+                 strokeColor: "rgba(75, 192, 192,0.8)",
+                 borderColor: 'rgb(75, 192, 192)',
+                 data: {{ fcc | tojson}}
+             }],
+         }
+     },
+     'ICT': {
+         method: 'Line',
+         data: {
+             labels: {{ labels | tojson }},
+             datasets: [{
+                 label: "ICT",
+                fillColor: "rgba(46, 204, 113,0)",
+                 strokeColor: "rgba(75, 192, 192,0.8)",
+                 borderColor: 'rgb(75, 192, 192)',
+                 data: {{ ict | tojson}}
+             }],
+         }
+     },
+     'CMPB': {
+         method: 'Line',
+         data: {
+             labels: {{ labels | tojson }},
+             datasets: [{
+                 label: "CMPB",
+                fillColor: "rgba(46, 204, 113,0)",
+                 strokeColor: "rgba(75, 192, 192,0.8)",
+                 borderColor: 'rgb(75, 192, 192)',
+                 data: {{ cmpb | tojson}}
+             }],
+         }
+     },
+     'BMT': {
+         method: 'Line',
+         data: {
+             labels: {{ labels | tojson }},
+             datasets: [{
+                 label: "BMT",
+                 fillColor: "rgba(46, 204, 113,0)",
+                 strokeColor: "rgba(75, 192, 192,0.8)",
+                 borderColor: 'rgb(75, 192, 192)',
+                 data: {{ bmt | tojson}}
+             }],
+         }
+     },
+     'RT': {
+         method: 'Line',
+         data: {
+             labels: {{ labels | tojson }},
+             datasets: [{
+                 label: "RT",
+                 fillColor: "rgba(46, 204, 113,0)",
+                 strokeColor: "rgba(75, 192, 192,0.8)",
+                 borderColor: 'rgb(75, 192, 192)',
+                 data: {{ rt | tojson}}
+             }],
+         }
+     },
+     'PORTAL': {
+         method: 'Line',
+         data: {
+             labels: {{ labels | tojson }},
+             datasets: [{
+                 label: "PORTAL",
+                 fillColor: "rgba(46, 204, 113,0)",
+                 strokeColor: "rgba(75, 192, 192,0.8)",
+                 borderColor: 'rgb(75, 192, 192)',
+                 data: {{ portal | tojson}}
+             }],
+         }
+     },
+     'TRAINING': {
+         method: 'Line',
+         data: {
+             labels: {{ labels | tojson }},
+             datasets: [{
+                 label: "TRAINING",
+                 fillColor: "rgba(46, 204, 113,0)",
+                 strokeColor: "rgba(75, 192, 192,0.8)",
+                 borderColor: 'rgb(75, 192, 192)',
+                 data: {{ training | tojson}}
+             }],
+         }
+     },
+     'ALL': {
+         method: 'Line',
+         data: {
+             labels: {{ labels | tojson }},
+             datasets: [{
+                 label: "TRAINING",
+                 fillColor: "rgba(46, 204, 113,0)",
+                 strokeColor: "rgba(245, 183, 177,0.8)",
+                 borderColor: 'rgb(75, 192, 192)',
+                 data: {{ training | tojson}}
+             },{
+                 label: "MEDICAL",
+                 fill: false,
+                 fillColor: "rgba(46, 204, 113,0)",
+                 strokeColor: "rgba(215, 189, 226,0.8)",
+                 borderColor: 'rgb(75, 192, 192)',
+                 data: {{ med | tojson}}
+             },{
+                 label: "IPPT",
+                 fillColor: "rgba(46, 204, 113,0)",
+                 strokeColor: "rgba(133, 193, 233,0.8)",
+                 borderColor: 'rgb(75, 192, 192)',
+                 data: {{ ippt | tojson}}
+             },{
+                 label: "LOCATION",
+                fillColor: "rgba(46, 204, 113,0)",
+                 strokeColor: "rgba(203, 67, 53,0.8)",
+                 borderColor: 'rgb(75, 192, 192)',
+                 data: {{ loc | tojson}}
+             },{
+                 label: "CAMP",
+                 fillColor: "rgba(46, 204, 113,0)",
+                 strokeColor: "rgba(125, 60, 152,0.8)",
+                 borderColor: 'rgb(75, 192, 192)',
+                 data: {{ camp | tojson}}
+             },{
+                 label: "BMT",
+                 fillColor: "rgba(46, 204, 113,0)",
+                 strokeColor: "rgba(241, 196, 15,0.8)",
+                 borderColor: 'rgb(75, 192, 192)',
+                 data: {{ bmt | tojson}}
+             },{
+                 label: "RT",
+                fillColor: "rgba(46, 204, 113,0)",
+                 strokeColor: "rgba(211, 84, 0,0.8)",
+                 borderColor: 'rgb(75, 192, 192)',
+                 data: {{ rt | tojson}}
+             },{
+                 label: "PORTAL",
+                 fillColor: "rgba(46, 204, 113,0)",
+                 strokeColor: "rgba(20, 90, 50,0.8)",
+                 borderColor: 'rgb(75, 192, 192)',
+                 data: {{ portal | tojson}}
+             },{
+                 label: "SERVICE",
+                 fillColor: "rgba(46, 204, 113,0)",
+                 strokeColor: "rgba(52, 73, 94 ,0.8)",
+                 borderColor: 'rgb(75, 192, 192)',
+                 data: {{ ser | tojson}}
+             },{
+                 label: "FCC",
+                 fillColor: "rgba(46, 204, 113,0)",
+                 strokeColor: "rgba(75, 192, 192,0.8)",
+                 borderColor: 'rgb(75, 192, 192)',
+                 data: {{ fcc | tojson}}
+             },
+             {
+                 label: "ICT",
+                fillColor: "rgba(46, 204, 113,0)",
+                 strokeColor: "rgba(221, 162, 222,0.8)",
+                 borderColor: 'rgb(75, 192, 192)',
+                 data: {{ ict | tojson}}
+             },
+             {
+                 label: "CMPB",
+                fillColor: "rgba(46, 204, 113,0)",
+                 strokeColor: "rgba(0, 214, 198 ,0.8)",
+                 borderColor: 'rgb(75, 192, 192)',
+                 data: {{ cmpb | tojson}}
+             }
+             ],
+         }
+     },
+
+
+   }
+
+
+     
+
+var currentChart;
+
+ function updateChart() {
+     if(currentChart){currentChart.destroy();}
+   
+     var determineChart = $("#choice").val();
+
+     var params = dataMap[determineChart]
+     currentChart = new Chart(ctx)[params.method](params.data, {});
+ }
+
+ $('#choice').on('change', updateChart)
+ updateChart();
+</script>
+
+<div style="text-align: left; display: none;" id="leg">
+<br><br><br>
+<b> Legend </b><hr>
+<div id="SERVICE">
+</div> SERVICE  |  {{ser[-1]}}<br><br>
+
+<div id="MEDICAL">
+</div> MEDICAL  |  {{med[-1]}}<br><br>
+
+<div id="IPPT">
+</div> IPPT  |  {{ippt[-1]}}<br><br>
+
+<div id="LOCATION">
+</div> LOCATION  |  {{loc[-1]}}<br><br>
+
+<div id="CAMP">
+</div> CAMP  |  {{camp[-1]}}<br><br>
+
+<div id="FCC">
+</div> FCC  |  {{fcc[-1]}}<br><br>
+
+<div id="ICT">
+</div> ICT  |  {{ict[-1]}}<br><br>
+
+<div id="CMPB">
+</div> CMPB  |  {{cmpb[-1]}}<br><br>
+
+<div id="BMT">
+</div> BMT  |  {{bmt[-1]}}<br><br>
+
+<div id="RT">
+</div> RT  |  {{rt[-1]}}<br><br>
+
+<div id="PORTAL">
+</div> PORTAL  |  {{portal[-1]}}<br><br>
+
+<div id="TRAINING">
+</div> TRAINING  |  {{training[-1]}}<br><br>
+
+<style>
+#SERVICE{
+height: 30px;
+width: 30px;
+float:left;
+background-color:{{colors["SERVICE"]}};
+box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+
+#MEDICAL{
+height: 30px;
+width: 30px;
+float:left;
+background-color:{{colors["MEDICAL"]}};
+box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+
+#IPPT {
+height: 30px;
+width: 30px;
+float:left;
+background-color:{{colors["IPPT"]}};
+box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+
+#LOCATION {
+height: 30px;
+width: 30px;
+float:left;
+background-color:{{colors["LOCATION"]}};
+box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+
+#CAMP {
+height: 30px;
+width: 30px;
+float:left;
+background-color:{{colors["CAMP"]}};
+box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+
+#FCC {
+height: 30px;
+width: 30px;
+float:left;
+background-color:{{colors["FCC"]}};
+box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+
+#ICT {
+height: 30px;
+width: 30px;
+float:left;
+background-color:{{colors["ICT"]}};
+box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+
+#CMPB {
+height: 30px;
+width: 30px;
+float:left;
+background-color:{{colors["CMPB"]}};
+box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+
+#BMT {
+height: 30px;
+width: 30px;
+float:left;
+background-color:{{colors["BMT"]}};
+box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+
+#RT {
+height: 30px;
+width: 30px;
+float:left;
+background-color:{{colors["RT"]}};
+box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+
+#PORTAL {
+height: 30px;
+width: 30px;
+float:left;
+background-color:{{colors["PORTAL"]}};
+box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+
+#TRAINING {
+height: 30px;
+width: 30px;
+float:left;
+background-color:{{colors["TRAINING"]}};
+box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+</style>
+</div>
+
+</div>
+
+
+<iframe src="/display_spacy/SERVICE" id="viewent" class="iframe_posts"></iframe>
+</div>	
+
+<div id="sentencelevel" style="display:none">
+<br><br>
+<h1 style="text-align: center;"> Sentence Level Sentiment by Post </h1><br>
+<br><br><hr>
+
+<iframe src="/display_sentence_level" id="viewent" class="iframe_posts2"></iframe>
+<div id="prompt">
+<b > How To Use This Tool: </b><br><br>
+
+<ul>
+<li style="background-color:#2ECC71;"> This text implies that the sentence has a positive score on average (A score > 0.2) </li>
+</ul>
+
+<ul>
+<li style="background-color:#F4D03F;"> This text implies that the sentence has a neutral score on average (where 0.2 > score > -0.2) </li>
+</ul>
+
+<ul>
+<li style="background-color:#CB4335;"> This text implies that the sentence has a negative score on average (A score < -0.2) </li>
+</ul>
+
+
+</div>
+</div>
+
+
+</div>
+
+
+<script type="text/javascript">
+function toggle() {
+  var x = document.getElementById("taggedentity");
+  var y = document.getElementById("sentencelevel");
+
+  if (x.style.display === "none") {
+  	y.style.display = "none";
+    x.style.display = "block";
+  } else {
+  	y.style.display = "block";
+    x.style.display = "none";
+  }
+}	
+
+function changeFrame() {
+	var choose = document.getElementById("choice").value;
+	var base = "/display_spacy/"
+	var loc = base.concat(choose)
+	document.getElementById("viewent").src = loc
+  if(choose == "ALL") {
+    var legend = document.getElementById("leg");
+    legend.style.display = "block";
+  } else {
+    var legend = document.getElementById("leg");
+    legend.style.display = "none";
+  }
+}
+
+
+
+
+
+
+
+
+</script>
+
+
+
+
+
+
+
+
+<style type="text/css">
+.iframe_posts {
+width: 860px;
+height: 600px;
+text-align: center;
+margin: auto;
+box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+}
+
+.iframe_posts:hover {
+  box-shadow: 0 16px 32px 0 rgba(0,0,0,0.2);
+}
+
+.iframe_posts2 {
+width: 800px;
+height: 600px;
+text-align: center;
+margin: auto;
+float: right;
+box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+}
+
+.iframe_posts2:hover {
+  box-shadow: 0 16px 32px 0 rgba(0,0,0,0.2);
+}
+
+#taggedentity {
+	text-align: center;
+}
+
+#switchview {
+  float: right;
+}
+
+#chart {
+  float: left;
+  margin-right: 60px;
+}
+
+#sentencelevel {
+  float: center;
+  text-align: center;
+}
+
+#prompt {
+  width: 300px;
+
+}
+
+
+</style>
+
+{% endblock %}

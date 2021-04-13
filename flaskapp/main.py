@@ -142,11 +142,11 @@ def post_breakdown():
 		scraper = myqueue.get()
 		scraper.initialiseDB()
 		labels, med, ser, cmpb, bmt, ict, ippt, rt, fcc, portal, camp, training, loc = scraper.get_entity_sent_over_time()
-
+		colors = {"TRAINING": "#EEE2DF", "BMT": "#ADA8B6", "ICT": "#DCABDF", "IPPT": "#bfe1d9", "RT_IPT": "#D0C4DF", "MEDICAL": "#EE8434", "CAMP": "#CBEFB6", "FCC": "#DDDFDF", "CMPB": "#717ec3", "PORTAL": "#635d5c", "SERVICE": "#9b1d20", "LOCATION": "#fbba72"}
 		entities = ["SERVICE", "MEDICAL", "IPPT", "LOCATION", "CAMP", "FCC", "ICT", "CMPB", "BMT", "RT", "PORTAL", "TRAINING", "ALL"]
 		return render_template("postsbreakdown.html", entities=entities, labels = labels,
 			med = med, ser = ser, cmpb = cmpb, bmt = bmt, ict = ict, ippt = ippt, rt = rt, 
-			fcc = fcc, portal = portal, camp = camp, training = training, loc = loc)
+			fcc = fcc, portal = portal, camp = camp, training = training, loc = loc, colors=colors)
 	else:
 		return redirect('/')
 

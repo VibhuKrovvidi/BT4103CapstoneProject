@@ -3,6 +3,10 @@
 {% block content %}
 {{ super() }}
 
+<title>
+POSTS BREAKDOWN
+</title>
+
 <button onclick="toggle()" id="switchview"> Switch View </button>
 
 <div class="postsbreakdown">
@@ -296,6 +300,144 @@ var currentChart;
  updateChart();
 </script>
 
+<div style="text-align: left; display: none;" id="leg">
+<br><br><br>
+<b> Legend </b><hr>
+<div id="SERVICE">
+</div> SERVICE  |  {{ser[-1]}}<br><br>
+
+<div id="MEDICAL">
+</div> MEDICAL  |  {{med[-1]}}<br><br>
+
+<div id="IPPT">
+</div> IPPT  |  {{ippt[-1]}}<br><br>
+
+<div id="LOCATION">
+</div> LOCATION  |  {{loc[-1]}}<br><br>
+
+<div id="CAMP">
+</div> CAMP  |  {{camp[-1]}}<br><br>
+
+<div id="FCC">
+</div> FCC  |  {{fcc[-1]}}<br><br>
+
+<div id="ICT">
+</div> ICT  |  {{ict[-1]}}<br><br>
+
+<div id="CMPB">
+</div> CMPB  |  {{cmpb[-1]}}<br><br>
+
+<div id="BMT">
+</div> BMT  |  {{bmt[-1]}}<br><br>
+
+<div id="RT">
+</div> RT  |  {{rt[-1]}}<br><br>
+
+<div id="PORTAL">
+</div> PORTAL  |  {{portal[-1]}}<br><br>
+
+<div id="TRAINING">
+</div> TRAINING  |  {{training[-1]}}<br><br>
+
+<style>
+#SERVICE{
+height: 30px;
+width: 30px;
+float:left;
+background-color:{{colors["SERVICE"]}};
+box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+
+#MEDICAL{
+height: 30px;
+width: 30px;
+float:left;
+background-color:{{colors["MEDICAL"]}};
+box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+
+#IPPT {
+height: 30px;
+width: 30px;
+float:left;
+background-color:{{colors["IPPT"]}};
+box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+
+#LOCATION {
+height: 30px;
+width: 30px;
+float:left;
+background-color:{{colors["LOCATION"]}};
+box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+
+#CAMP {
+height: 30px;
+width: 30px;
+float:left;
+background-color:{{colors["CAMP"]}};
+box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+
+#FCC {
+height: 30px;
+width: 30px;
+float:left;
+background-color:{{colors["FCC"]}};
+box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+
+#ICT {
+height: 30px;
+width: 30px;
+float:left;
+background-color:{{colors["ICT"]}};
+box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+
+#CMPB {
+height: 30px;
+width: 30px;
+float:left;
+background-color:{{colors["CMPB"]}};
+box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+
+#BMT {
+height: 30px;
+width: 30px;
+float:left;
+background-color:{{colors["BMT"]}};
+box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+
+#RT {
+height: 30px;
+width: 30px;
+float:left;
+background-color:{{colors["RT"]}};
+box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+
+#PORTAL {
+height: 30px;
+width: 30px;
+float:left;
+background-color:{{colors["PORTAL"]}};
+box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+
+#TRAINING {
+height: 30px;
+width: 30px;
+float:left;
+background-color:{{colors["TRAINING"]}};
+box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+</style>
+</div>
+
 </div>
 
 
@@ -350,7 +492,13 @@ function changeFrame() {
 	var base = "/display_spacy/"
 	var loc = base.concat(choose)
 	document.getElementById("viewent").src = loc
-
+  if(choose == "ALL") {
+    var legend = document.getElementById("leg");
+    legend.style.display = "block";
+  } else {
+    var legend = document.getElementById("leg");
+    legend.style.display = "none";
+  }
 }
 
 

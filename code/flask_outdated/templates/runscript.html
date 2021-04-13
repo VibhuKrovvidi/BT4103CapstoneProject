@@ -1,0 +1,23 @@
+{% extends "base2.html" %}
+{% block content %}
+{{ super() }}
+<head>
+	<title>Run Script</title>
+</head>
+<div class="viewlogs">
+  <iframe src="/log_stream" width="500" height="400"></iframe>
+</div>
+
+<style>
+
+.viewlogs {
+	width: 550px;
+	height: 450px;
+	background-color: grey;
+	border: 1px;
+	align-content: center;
+	float: center;
+}
+
+</style>
+{% endblock %}
