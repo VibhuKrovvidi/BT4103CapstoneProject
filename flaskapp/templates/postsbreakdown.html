@@ -202,76 +202,76 @@ var ctx = document.getElementById("myChart").getContext("2d");
              datasets: [{
                  label: "TRAINING",
                  fillColor: "rgba(46, 204, 113,0)",
-                 strokeColor: "rgba(245, 183, 177,0.8)",
+                 strokeColor: "{{colors["TRAINING"]}}",
                  borderColor: 'rgb(75, 192, 192)',
                  data: {{ training | tojson}}
              },{
                  label: "MEDICAL",
                  fill: false,
                  fillColor: "rgba(46, 204, 113,0)",
-                 strokeColor: "rgba(215, 189, 226,0.8)",
+                 strokeColor: "{{colors["MEDICAL"]}}",
                  borderColor: 'rgb(75, 192, 192)',
                  data: {{ med | tojson}}
              },{
                  label: "IPPT",
                  fillColor: "rgba(46, 204, 113,0)",
-                 strokeColor: "rgba(133, 193, 233,0.8)",
+                 strokeColor: "{{colors["IPPT"]}}",
                  borderColor: 'rgb(75, 192, 192)',
                  data: {{ ippt | tojson}}
              },{
                  label: "LOCATION",
                 fillColor: "rgba(46, 204, 113,0)",
-                 strokeColor: "rgba(203, 67, 53,0.8)",
+                 strokeColor: "{{colors["LOCATION"]}}",
                  borderColor: 'rgb(75, 192, 192)',
                  data: {{ loc | tojson}}
              },{
                  label: "CAMP",
                  fillColor: "rgba(46, 204, 113,0)",
-                 strokeColor: "rgba(125, 60, 152,0.8)",
+                 strokeColor: "{{colors["CAMP"]}}",
                  borderColor: 'rgb(75, 192, 192)',
                  data: {{ camp | tojson}}
              },{
                  label: "BMT",
                  fillColor: "rgba(46, 204, 113,0)",
-                 strokeColor: "rgba(241, 196, 15,0.8)",
+                 strokeColor: "{{colors["BMT"]}}",
                  borderColor: 'rgb(75, 192, 192)',
                  data: {{ bmt | tojson}}
              },{
                  label: "RT",
                 fillColor: "rgba(46, 204, 113,0)",
-                 strokeColor: "rgba(211, 84, 0,0.8)",
+                 strokeColor: "{{colors["RT"]}}",
                  borderColor: 'rgb(75, 192, 192)',
                  data: {{ rt | tojson}}
              },{
                  label: "PORTAL",
                  fillColor: "rgba(46, 204, 113,0)",
-                 strokeColor: "rgba(20, 90, 50,0.8)",
+                 strokeColor: "{{colors["PORTAL"]}}",
                  borderColor: 'rgb(75, 192, 192)',
                  data: {{ portal | tojson}}
              },{
                  label: "SERVICE",
                  fillColor: "rgba(46, 204, 113,0)",
-                 strokeColor: "rgba(52, 73, 94 ,0.8)",
+                 strokeColor: "{{colors["SERVICE"]}}",
                  borderColor: 'rgb(75, 192, 192)',
                  data: {{ ser | tojson}}
              },{
                  label: "FCC",
                  fillColor: "rgba(46, 204, 113,0)",
-                 strokeColor: "rgba(75, 192, 192,0.8)",
+                 strokeColor: "{{colors["FCC"]}}",
                  borderColor: 'rgb(75, 192, 192)',
                  data: {{ fcc | tojson}}
              },
              {
                  label: "ICT",
                 fillColor: "rgba(46, 204, 113,0)",
-                 strokeColor: "rgba(221, 162, 222,0.8)",
+                 strokeColor: "{{colors["ICT"]}}",
                  borderColor: 'rgb(75, 192, 192)',
                  data: {{ ict | tojson}}
              },
              {
                  label: "CMPB",
                 fillColor: "rgba(46, 204, 113,0)",
-                 strokeColor: "rgba(0, 214, 198 ,0.8)",
+                 strokeColor: "{{colors["CMPB"]}}",
                  borderColor: 'rgb(75, 192, 192)',
                  data: {{ cmpb | tojson}}
              }
